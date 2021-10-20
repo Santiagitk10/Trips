@@ -41,7 +41,8 @@ create table luggage (
 
 
 create table trip (
-	trip_id int auto_increment,
+    trip_id int auto_increment,
+    trip_date date not null,
     price int not null,
     origin_city_fk varchar(20) not null,
     destiny_city_fk varchar(20) not null,
