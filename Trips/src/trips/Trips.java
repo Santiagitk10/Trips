@@ -5,6 +5,11 @@
  */
 package trips;
 
+import Access.EmployeeDAO;
+import Model.EmployeeModel;
+import controller.EmployeeController;
+import view.EmployeeView;
+
 /**
  *
  * @author SANTIAGO SIERRA
@@ -15,7 +20,14 @@ public class Trips {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        EmployeeView empView = new EmployeeView();
+        EmployeeModel empMod = new EmployeeModel();
+        EmployeeDAO empDAO = new EmployeeDAO();
+        
+        EmployeeController empCont = new EmployeeController(empView, empMod,empDAO);
+        empCont.initialize();
+        
+        
     }
     
 }

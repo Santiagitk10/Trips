@@ -20,9 +20,9 @@ import org.json.simple.parser.ParseException;
  *
  * @author SANTIAGO SIERRA
  */
-public class ConectionDB {
+public class ConnectionDB {
     
-    public static Connection getConnection() throws IOException, ParseException{
+    public static Connection getConnection(){
         JSONParser parser = new JSONParser();
         Connection conn = null;
         
@@ -52,8 +52,13 @@ public class ConectionDB {
         return conn;
     }
     
-    public static void main(String[] args) throws IOException, ParseException{
+    public static void main(String[] args) {
         getConnection();
     }
     
 }
+
+
+
+//throws IOException, ParseException
+//throws IOException, ParseException

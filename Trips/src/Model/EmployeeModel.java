@@ -11,26 +11,31 @@ package Model;
  */
 public class EmployeeModel {
     
-    private int passengerId;
-    private String passengerName;
+    private int employeeNum;
+    private String employeeName;
 
     
     
-    public int getPassengerId() {
-        return passengerId;
+    
+    public int getEmployeeNum() {
+        return employeeNum;
     }
 
-    public void setPassengerId(int passengerId) {
-        this.passengerId = passengerId;
+    public void setEmployeeNum(int employeeNum) {
+        this.employeeNum = employeeNum;
     }
 
-    public String getPassengerName() {
-        return passengerName;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
+
+    
+    
+    
     
     
     
