@@ -39,8 +39,8 @@ public class ConnectionDB {
             
             conn = DriverManager.getConnection(dbURL,username,password);
             
-            if( conn != null ) 
-                System.out.println ( "Conectado" );
+//            if( conn != null ) 
+//                System.out.println ( "Conectado" );
         }
         catch(SQLException | FileNotFoundException ex){
             ex.printStackTrace();

@@ -1,0 +1,6 @@
+1 - Para cada Entidad se desea que inicialmente apareza unicamente los botones de opciones y una vista de todo el contenido de la tabla, sin campos. 
+2 - Para Create se desea que aparezcan unicamente los campos que se pueden ingresar durante la creación de un registro. (Ejemplo: Para empleados ocultar el Employee Number)
+3- Para Search se desea que la tabla se actualice según se vayan ingresando datos en los campos de búsqueda
+4- Para Update se desea que la persona pueda buscar por el primary key o el nombre y que se llenen los demás campos de edición (Los que son foreign key que no se puedan modificar) cuando en la tabla solo haya un empleado, y que se permita hacer la modificación cuando el campo primary key esté lleno y se modificarían los demás datos de la tabla que no sean foreign key. Los FK permanece grayed out
+5- Para Delete que se pueda buscar por cualquiera de los campos y cuando haya solo un registro en la tabla que se llene el primary key y se permita hacer la eliminación de todo ese registro.
+6- Cuando se ejecute GO, que se oculten todos los elementos excepto la tabla, dicha tabla se debe actualizar con los nuevos resultados. 

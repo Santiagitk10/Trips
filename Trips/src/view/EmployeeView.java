@@ -28,41 +28,36 @@ public class EmployeeView extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGroupCrudEmployee = new javax.swing.ButtonGroup();
-        labelEmpNumber = new javax.swing.JLabel();
-        labelEmpName = new javax.swing.JLabel();
-        textFieldEmployeeNumber = new javax.swing.JTextField();
-        textFieldEmployeeName = new javax.swing.JTextField();
         btnClearFields = new javax.swing.JButton();
         btnGo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        rdioBtnCreate = new javax.swing.JRadioButton();
-        rdioBtnUpdate = new javax.swing.JRadioButton();
-        rdioBtnDelete = new javax.swing.JRadioButton();
-        rdioBtnSearch = new javax.swing.JRadioButton();
+        tableEmployees = new javax.swing.JTable();
+        btnCreate = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        labelEmpNumber = new javax.swing.JLabel();
+        textFieldEmployeeNumber = new javax.swing.JTextField();
+        textFieldEmployeeName = new javax.swing.JTextField();
+        labelEmpName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        labelEmpNumber.setText("Employee Number");
-
-        labelEmpName.setText("Employee Name");
-
-        textFieldEmployeeNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldEmployeeNumberActionPerformed(evt);
-            }
-        });
 
         btnClearFields.setText("Clear Fields");
 
         btnGo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        btnGo.setText("Go");
+        btnGo.setText("GO");
+        btnGo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel3.setText("Employees");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableEmployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -73,98 +68,91 @@ public class EmployeeView extends javax.swing.JFrame {
                 "Title 1", "Title 2"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableEmployees);
 
-        btnGroupCrudEmployee.add(rdioBtnCreate);
-        rdioBtnCreate.setText("Create");
-        rdioBtnCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Create");
+
+        btnSearch.setText("Search");
+
+        btnUpdate.setText("Update");
+
+        btnDelete.setText("Delete");
+
+        labelEmpNumber.setText("Employee Number");
+
+        textFieldEmployeeNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdioBtnCreateActionPerformed(evt);
+                textFieldEmployeeNumberActionPerformed(evt);
             }
         });
 
-        btnGroupCrudEmployee.add(rdioBtnUpdate);
-        rdioBtnUpdate.setText("Update");
-        rdioBtnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdioBtnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnGroupCrudEmployee.add(rdioBtnDelete);
-        rdioBtnDelete.setText("Delete");
-
-        btnGroupCrudEmployee.add(rdioBtnSearch);
-        rdioBtnSearch.setText("Search");
+        labelEmpName.setText("Employee Name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(50, 158, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rdioBtnDelete)
+                        .addComponent(btnCreate)
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSearch)
+                                .addGap(47, 47, 47)
+                                .addComponent(btnUpdate)
+                                .addGap(48, 48, 48)
+                                .addComponent(btnDelete))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelEmpName)
-                                    .addComponent(labelEmpNumber))
+                                    .addComponent(labelEmpNumber)
+                                    .addComponent(labelEmpName))
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(39, 39, 39)
-                        .addComponent(rdioBtnSearch)
-                        .addGap(92, 92, 92)
-                        .addComponent(btnClearFields)))
-                .addGap(134, 134, 134))
-            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(0, 92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(rdioBtnCreate)
-                        .addGap(46, 46, 46)
-                        .addComponent(rdioBtnUpdate))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(jLabel3)))
+                    .addComponent(btnClearFields)
+                    .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(71, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(287, 287, 287)
+                .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel3)
-                .addGap(37, 37, 37)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdioBtnDelete)
-                    .addComponent(rdioBtnCreate)
-                    .addComponent(rdioBtnUpdate)
-                    .addComponent(rdioBtnSearch)
+                    .addComponent(btnCreate)
+                    .addComponent(btnSearch)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
                     .addComponent(btnClearFields))
-                .addGap(86, 86, 86)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelEmpNumber)
-                    .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelEmpName)
-                    .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(85, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelEmpNumber)
+                            .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelEmpName)
+                            .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(99, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 258, Short.MAX_VALUE)
                         .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(176, 176, 176))))
+                        .addGap(159, 159, 159))))
         );
 
         pack();
@@ -174,13 +162,9 @@ public class EmployeeView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldEmployeeNumberActionPerformed
 
-    private void rdioBtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdioBtnCreateActionPerformed
+    private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdioBtnCreateActionPerformed
-
-    private void rdioBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdioBtnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdioBtnUpdateActionPerformed
+    }//GEN-LAST:event_btnGoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,17 +203,17 @@ public class EmployeeView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnClearFields;
+    public javax.swing.JButton btnCreate;
+    public javax.swing.JButton btnDelete;
     public javax.swing.JButton btnGo;
     public javax.swing.ButtonGroup btnGroupCrudEmployee;
+    public javax.swing.JButton btnSearch;
+    public javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     public javax.swing.JLabel labelEmpName;
     public javax.swing.JLabel labelEmpNumber;
-    public javax.swing.JRadioButton rdioBtnCreate;
-    public javax.swing.JRadioButton rdioBtnDelete;
-    public javax.swing.JRadioButton rdioBtnSearch;
-    public javax.swing.JRadioButton rdioBtnUpdate;
+    public javax.swing.JTable tableEmployees;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
     // End of variables declaration//GEN-END:variables

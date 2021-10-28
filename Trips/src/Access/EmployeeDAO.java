@@ -9,7 +9,10 @@ import Model.EmployeeModel;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import org.json.simple.parser.ParseException;
 import utils.ConnectionDB;
@@ -23,10 +26,11 @@ public class EmployeeDAO {
     
     
     public void insertEmployee(EmployeeModel employee) {
+        
         try{
-            if(conn == null){
-                conn = ConnectionDB.getConnection();
-            }
+
+            conn = ConnectionDB.getConnection();
+
             
             String sql = "insert into employee(employee_name) values (?);";
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -47,6 +51,82 @@ public class EmployeeDAO {
             }
         }
     }
+    
+    
+    public ArrayList<EmployeeModel> getAllEmployees(){
+        ArrayList<EmployeeModel> employees = new ArrayList();
+        
+        try{
+
+            conn = ConnectionDB.getConnection();
+           
+            String sql = "select * from employee;";
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            
+            while(result.next()){
+                EmployeeModel employee = new EmployeeModel(result.getInt(1), result.getString(2));
+                employees.add(employee);
+            }
+            
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+        } finally {
+            try{
+                conn.close();
+            } catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+            }
+        }
+        
+        return employees;
+    }
+//    int employeeNum, String employeeName
+    
+    public ArrayList<EmployeeModel> getEmployeesByFilter(int employeeNum, String employeeName){
+        ArrayList<EmployeeModel> employees = new ArrayList();
+        int case_ = -1;
+        
+        try{
+
+            conn = ConnectionDB.getConnection();
+           
+            String sql = "select * from employee where employee_name like ?";
+            if(employeeNum != -1){
+                sql += " and employee_num =?;";
+                case_ = 1;
+            }
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, "%"+employeeName+"%"); 
+            switch(case_){
+                case 1:
+                   statement.setInt(2, employeeNum);
+                   break;
+            }
+            
+            ResultSet result = statement.executeQuery();
+            
+            while(result.next()){
+                EmployeeModel employee = new EmployeeModel(result.getInt(1), result.getString(2));
+                employees.add(employee);
+            }
+            
+        }
+        
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+        } finally {
+            try{
+                conn.close();
+            } catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+            }
+        }
+        
+        return employees;
+    }
+    
+    
 }
 
 

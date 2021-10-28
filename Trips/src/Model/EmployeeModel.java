@@ -13,8 +13,16 @@ public class EmployeeModel {
     
     private int employeeNum;
     private String employeeName;
-
     
+    
+    public EmployeeModel(){
+        this.employeeName = "";
+    }
+
+    public EmployeeModel(int employeeNum, String employeeName){
+        this.employeeNum = employeeNum;
+        this.employeeName = employeeName;
+    }
     
     
     public int getEmployeeNum() {
@@ -24,6 +32,7 @@ public class EmployeeModel {
     public void setEmployeeNum(int employeeNum) {
         this.employeeNum = employeeNum;
     }
+    
 
     public String getEmployeeName() {
         return employeeName;
@@ -33,7 +42,10 @@ public class EmployeeModel {
         this.employeeName = employeeName;
     }
 
-    
+    public Object[] toArray(){
+        Object[] data = {employeeNum, employeeName};
+        return data;
+    }
     
     
     
