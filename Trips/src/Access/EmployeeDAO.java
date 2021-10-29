@@ -81,7 +81,6 @@ public class EmployeeDAO {
         
         return employees;
     }
-//    int employeeNum, String employeeName
     
     public ArrayList<EmployeeModel> getEmployeesByFilter(int employeeNum, String employeeName){
         ArrayList<EmployeeModel> employees = new ArrayList();
@@ -103,7 +102,7 @@ public class EmployeeDAO {
                    statement.setInt(2, employeeNum);
                    break;
             }
-            
+            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){
@@ -122,8 +121,37 @@ public class EmployeeDAO {
                 JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
             }
         }
-        
         return employees;
+    }
+    
+    public void update(int employeeNum, String employeeName){
+        
+        try{
+
+            conn = ConnectionDB.getConnection();
+           
+            String sql = "update employee set employee_name=? where employee_num=?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, employeeName);
+            statement.setInt(2, employeeNum);
+            
+            int rowsUpdated = statement.executeUpdate();
+            if(rowsUpdated > 0){
+                JOptionPane.showMessageDialog(null,"El registro fue modificado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null,"El registro no existe");
+            }
+            
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+        } finally {
+            try{
+                conn.close();
+            } catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+            }
+        }
+        
     }
     
     

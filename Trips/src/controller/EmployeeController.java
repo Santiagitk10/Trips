@@ -9,6 +9,7 @@ import Access.EmployeeDAO;
 import Model.EmployeeModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
@@ -40,9 +41,11 @@ public class EmployeeController implements ActionListener{
         empView.setVisible(true);
         empView.btnCreate.addActionListener(this);
         empView.btnSearch.addActionListener(this);
+        empView.btnUpdate.addActionListener(this);
+        empView.btnSearchUpdate.addActionListener(this);
         empView.btnGo.addActionListener(this);
         hideElements();
-        this.setTableResults(empDAO.getAllEmployees());
+        setTableResults(empDAO.getAllEmployees());
          
         
     
@@ -64,8 +67,38 @@ public class EmployeeController implements ActionListener{
             empView.labelEmpName.setVisible(true);
             empView.textFieldEmployeeName.setVisible(true);
             op = 2;
+        } else if(e.getSource() == empView.btnUpdate){
+            hideElements();
+            empView.labelEmpNumber.setVisible(true);
+            empView.textFieldEmployeeNumber.setVisible(true);
+            empView.labelEmpName.setVisible(true);
+            empView.textFieldEmployeeName.setVisible(true);
+            empView.btnSearchUpdate.setVisible(true);
+            op = 3;
         }
         
+        
+        
+        
+       if(e.getSource() == empView.btnSearchUpdate){
+           
+           if(!empView.tableEmployees.getSelectionModel().isSelectionEmpty()){
+                empView.textFieldEmployeeNumber.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 0).toString());
+                empView.textFieldEmployeeName.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 1).toString());
+           }
+           
+           empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
+           if(empView.textFieldEmployeeNumber.getText().equals("")){
+                empMod.setEmployeeNum(-1);
+           } else {
+                empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
+           }
+           setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));
+       }
+       
+       
+       
+       
        
         
         if(e.getSource() == empView.btnGo){
@@ -94,7 +127,6 @@ public class EmployeeController implements ActionListener{
                     empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
                     if(empView.textFieldEmployeeNumber.getText().equals("")){
                         empMod.setEmployeeNum(-1);
-                        
                     } else {
                         empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
                     }
@@ -104,10 +136,29 @@ public class EmployeeController implements ActionListener{
                     hideElements();
                     op = 0;
                     break;
+                case 3:
+                 
+                    if(empView.textFieldEmployeeNumber.getText().equals("")){
+                        JOptionPane.showMessageDialog(null,"Employee Number must be populated to perform the change");
+                    } else if(empView.textFieldEmployeeName.getText().equals("")){
+                        JOptionPane.showMessageDialog(null,"Employee Name must be populated to perform the change");
+                    } else {
+                        empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
+                        empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
+                        empDAO.update(empMod.getEmployeeNum(), empMod.getEmployeeName());
+                        empView.textFieldEmployeeNumber.setText("");
+                        empView.textFieldEmployeeName.setText("");
+                        hideElements();
+                        op = 0;
+                        setTableResults(empDAO.getAllEmployees());
+                    }
+                    break;
             }   
                 
                 
         }
+        
+        
         
     }
     
@@ -116,6 +167,7 @@ public class EmployeeController implements ActionListener{
         empView.textFieldEmployeeNumber.setVisible(false);
         empView.labelEmpName.setVisible(false);
         empView.textFieldEmployeeName.setVisible(false);
+        empView.btnSearchUpdate.setVisible(false);
     }
     
     
@@ -125,7 +177,6 @@ public class EmployeeController implements ActionListener{
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
         empView.tableEmployees.setModel(tableModel);
-        System.out.println(employees.size());
         for(int i=0; i<employees.size(); i++){
             tableModel.addRow(employees.get(i).toArray());
         }

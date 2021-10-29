@@ -41,6 +41,7 @@ public class EmployeeView extends javax.swing.JFrame {
         textFieldEmployeeNumber = new javax.swing.JTextField();
         textFieldEmployeeName = new javax.swing.JTextField();
         labelEmpName = new javax.swing.JLabel();
+        btnSearchUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +89,8 @@ public class EmployeeView extends javax.swing.JFrame {
 
         labelEmpName.setText("Employee Name");
 
+        btnSearchUpdate.setText("Search/Select");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,11 +117,17 @@ public class EmployeeView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClearFields)
-                    .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 92, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnClearFields)
+                            .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(71, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(btnSearchUpdate)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(287, 287, 287)
                 .addComponent(jLabel3)
@@ -150,7 +159,9 @@ public class EmployeeView extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(99, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 258, Short.MAX_VALUE)
+                        .addGap(52, 52, 52)
+                        .addComponent(btnSearchUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(159, 159, 159))))
         );
@@ -208,6 +219,7 @@ public class EmployeeView extends javax.swing.JFrame {
     public javax.swing.JButton btnGo;
     public javax.swing.ButtonGroup btnGroupCrudEmployee;
     public javax.swing.JButton btnSearch;
+    public javax.swing.JButton btnSearchUpdate;
     public javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
