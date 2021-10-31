@@ -43,12 +43,11 @@ public class EmployeeController implements ActionListener{
         empView.btnSearch.addActionListener(this);
         empView.btnUpdate.addActionListener(this);
         empView.btnSearchUpdate.addActionListener(this);
+        empView.btnDelete.addActionListener(this);
         empView.btnGo.addActionListener(this);
+        empView.btnClearFields.addActionListener(this);
         hideElements();
         setTableResults(empDAO.getAllEmployees());
-         
-        
-    
     }
     
     @Override
@@ -75,6 +74,18 @@ public class EmployeeController implements ActionListener{
             empView.textFieldEmployeeName.setVisible(true);
             empView.btnSearchUpdate.setVisible(true);
             op = 3;
+        } else if(e.getSource() == empView.btnDelete){
+            hideElements();
+            empView.labelEmpNumber.setVisible(true);
+            empView.textFieldEmployeeNumber.setVisible(true);
+            empView.labelEmpName.setVisible(true);
+            empView.textFieldEmployeeName.setVisible(true);
+            empView.btnSearchUpdate.setVisible(true);
+            op = 4;
+            
+        } else if (e.getSource() == empView.btnClearFields){
+            empView.textFieldEmployeeNumber.setText("");
+            empView.textFieldEmployeeName.setText("");
         }
         
         
@@ -82,26 +93,24 @@ public class EmployeeController implements ActionListener{
         
        if(e.getSource() == empView.btnSearchUpdate){
            
-           if(!empView.tableEmployees.getSelectionModel().isSelectionEmpty()){
-                empView.textFieldEmployeeNumber.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 0).toString());
-                empView.textFieldEmployeeName.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 1).toString());
-           }
-           
-           empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
-           if(empView.textFieldEmployeeNumber.getText().equals("")){
-                empMod.setEmployeeNum(-1);
-           } else {
-                empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
-           }
-           setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));
-       }
+           if(op == 3){
+               if(!empView.tableEmployees.getSelectionModel().isSelectionEmpty()){
+                    empView.textFieldEmployeeNumber.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 0).toString());
+                    empView.textFieldEmployeeName.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 1).toString());
+                }
+           }   
+            empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
+            if(empView.textFieldEmployeeNumber.getText().equals("")){
+                 empMod.setEmployeeNum(-1);
+            } else {
+                 empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
+            }
+            
+            setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));
+               
+        }
        
-       
-       
-       
-       
-        
-        if(e.getSource() == empView.btnGo){
+       if(e.getSource() == empView.btnGo){
             
             switch(op){
                 case 0: 
@@ -153,16 +162,34 @@ public class EmployeeController implements ActionListener{
                         setTableResults(empDAO.getAllEmployees());
                     }
                     break;
+                case 4: 
+                    if(!empView.tableEmployees.getSelectionModel().isSelectionEmpty()){
+                        
+                        int response = JOptionPane.showConfirmDialog(empView.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION ){
+                             empMod.setEmployeeNum(Integer.parseInt(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 0).toString()));
+                             empDAO.delete(empMod.getEmployeeNum());
+                             empView.textFieldEmployeeNumber.setText("");
+                             empView.textFieldEmployeeName.setText("");
+                             hideElements();
+                             op = 0;
+                             setTableResults(empDAO.getAllEmployees());
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
+                    }
+                    break;  
             }   
                 
                 
         }
-        
-        
-        
+       
+       
     }
-    
-    public void hideElements(){
+      
+       
+       
+       public void hideElements(){
         empView.labelEmpNumber.setVisible(false);
         empView.textFieldEmployeeNumber.setVisible(false);
         empView.labelEmpName.setVisible(false);
@@ -181,7 +208,13 @@ public class EmployeeController implements ActionListener{
             tableModel.addRow(employees.get(i).toArray());
         }
         
+        
+        
+        
+        
     }
     
     
+        
 }
+    

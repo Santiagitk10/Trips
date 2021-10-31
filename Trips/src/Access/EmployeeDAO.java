@@ -137,7 +137,7 @@ public class EmployeeDAO {
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){
-                JOptionPane.showMessageDialog(null,"El registro fue modificado exitosamente");
+                JOptionPane.showMessageDialog(null,"El registro " + employeeNum + " fue modificado exitosamente");
             } else {
                 JOptionPane.showMessageDialog(null,"El registro no existe");
             }
@@ -152,6 +152,33 @@ public class EmployeeDAO {
             }
         }
         
+    }
+    
+    public void delete(int employeeNum){
+        try{
+
+            conn = ConnectionDB.getConnection();
+           
+            String sql = "delete from employee where employee_num=?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, employeeNum);
+            
+            int rowsUpdated = statement.executeUpdate();
+            if(rowsUpdated > 0){
+                JOptionPane.showMessageDialog(null,"El registro fue eliminado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null,"El registro no existe");
+            }
+            
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+        } finally {
+            try{
+                conn.close();
+            } catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
+            }
+        }
     }
     
     
