@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.EmployeeView;
+import view.MainFrame;
 
 /**
  *
@@ -22,30 +22,37 @@ import view.EmployeeView;
  */
 public class EmployeeController implements ActionListener{
     
-    private EmployeeView empView;
+    private MainFrame mainframe;
     private EmployeeModel empMod;
     private EmployeeDAO empDAO;
     private int op;
+    private int currEntity;
     
     
-    public EmployeeController(EmployeeView empView, EmployeeModel empMod, EmployeeDAO empDAO){
-        this.empView = empView;
+    public EmployeeController(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO){
+        this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
         this.op = 0;
+        this.currEntity = 0;
+        
     }
     
     public void initialize(){
-        empView.setTitle("Employees");
-        empView.setLocationRelativeTo(null); //ver cómo funciona si se quita este método
-        empView.setVisible(true);
-        empView.btnCreate.addActionListener(this);
-        empView.btnSearch.addActionListener(this);
-        empView.btnUpdate.addActionListener(this);
-        empView.btnSearchUpdate.addActionListener(this);
-        empView.btnDelete.addActionListener(this);
-        empView.btnGo.addActionListener(this);
-        empView.btnClearFields.addActionListener(this);
+        mainframe.setTitle("Trips");
+        mainframe.setLocationRelativeTo(null); //ver cómo funciona si se quita este método
+        mainframe.setVisible(true);
+        mainframe.dataDisplayPane.removeAll();
+        mainframe.dataDisplayPane.revalidate();
+        mainframe.dataDisplayPane.repaint();
+        mainframe.btnEmpPanel.addActionListener(this);
+        mainframe.btnCreate.addActionListener(this);
+        mainframe.btnSearch.addActionListener(this);
+        mainframe.btnUpdate.addActionListener(this);
+        mainframe.btnSearchSelectEmp.addActionListener(this);
+        mainframe.btnDelete.addActionListener(this);
+        mainframe.btnGo.addActionListener(this);
+        mainframe.btnClearFields.addActionListener(this);
         hideElements();
         setTableResults(empDAO.getAllEmployees());
     }
@@ -53,75 +60,94 @@ public class EmployeeController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
         
+        if(e.getSource() == mainframe.btnEmpPanel){
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            mainframe.dataDisplayPane.add(mainframe.EmpPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 1;   
+            System.out.println(currEntity);
+        }
         
-        if(e.getSource() == empView.btnCreate){
-            hideElements();
-            empView.labelEmpName.setVisible(true);
-            empView.textFieldEmployeeName.setVisible(true);
-            op = 1;
-        } else if(e.getSource() == empView.btnSearch){
-            hideElements();
-            empView.labelEmpNumber.setVisible(true);
-            empView.textFieldEmployeeNumber.setVisible(true);
-            empView.labelEmpName.setVisible(true);
-            empView.textFieldEmployeeName.setVisible(true);
-            op = 2;
-        } else if(e.getSource() == empView.btnUpdate){
-            hideElements();
-            empView.labelEmpNumber.setVisible(true);
-            empView.textFieldEmployeeNumber.setVisible(true);
-            empView.labelEmpName.setVisible(true);
-            empView.textFieldEmployeeName.setVisible(true);
-            empView.btnSearchUpdate.setVisible(true);
-            op = 3;
-        } else if(e.getSource() == empView.btnDelete){
-            hideElements();
-            empView.labelEmpNumber.setVisible(true);
-            empView.textFieldEmployeeNumber.setVisible(true);
-            empView.labelEmpName.setVisible(true);
-            empView.textFieldEmployeeName.setVisible(true);
-            empView.btnSearchUpdate.setVisible(true);
-            op = 4;
-            
-        } else if (e.getSource() == empView.btnClearFields){
-            empView.textFieldEmployeeNumber.setText("");
-            empView.textFieldEmployeeName.setText("");
+
+        
+        switch(currEntity){
+            case 1:
+                if(e.getSource() == mainframe.btnCreate){
+                    hideElements();
+                    mainframe.labelEmpName.setVisible(true);
+                    mainframe.textFieldEmployeeName.setVisible(true);
+                    op = 1;
+                } else if(e.getSource() == mainframe.btnSearch){
+                    hideElements();
+                    mainframe.labelEmpNumber.setVisible(true);
+                    mainframe.textFieldEmployeeNumber.setVisible(true);
+                    mainframe.labelEmpName.setVisible(true);
+                    mainframe.textFieldEmployeeName.setVisible(true);
+                    op = 2;
+                } else if(e.getSource() == mainframe.btnUpdate){
+                    hideElements();
+                    mainframe.labelEmpNumber.setVisible(true);
+                    mainframe.textFieldEmployeeNumber.setVisible(true);
+                    mainframe.labelEmpName.setVisible(true);
+                    mainframe.textFieldEmployeeName.setVisible(true);
+                    mainframe.btnSearchSelectEmp.setVisible(true);
+                    op = 3;
+                } else if(e.getSource() == mainframe.btnDelete){
+                    hideElements();
+                    mainframe.labelEmpNumber.setVisible(true);
+                    mainframe.textFieldEmployeeNumber.setVisible(true);
+                    mainframe.labelEmpName.setVisible(true);
+                    mainframe.textFieldEmployeeName.setVisible(true);
+                    mainframe.btnSearchSelectEmp.setVisible(true);
+                    op = 4;
+
+                } else if (e.getSource() == mainframe.btnClearFields){
+                    mainframe.textFieldEmployeeNumber.setText("");
+                    mainframe.textFieldEmployeeName.setText("");
+                }
+
+            break;
         }
         
         
         
         
-       if(e.getSource() == empView.btnSearchUpdate){
+        
+        
+       if(e.getSource() == mainframe.btnSearchSelectEmp){
            
            if(op == 3){
-               if(!empView.tableEmployees.getSelectionModel().isSelectionEmpty()){
-                    empView.textFieldEmployeeNumber.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 0).toString());
-                    empView.textFieldEmployeeName.setText(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 1).toString());
+               if(!mainframe.tableEmployees.getSelectionModel().isSelectionEmpty()){
+                    mainframe.textFieldEmployeeNumber.setText(mainframe.tableEmployees.getModel().getValueAt(mainframe.tableEmployees.getSelectedRow(), 0).toString());
+                    mainframe.textFieldEmployeeName.setText(mainframe.tableEmployees.getModel().getValueAt(mainframe.tableEmployees.getSelectedRow(), 1).toString());
                 }
            }   
-            empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
-            if(empView.textFieldEmployeeNumber.getText().equals("")){
+            empMod.setEmployeeName(mainframe.textFieldEmployeeName.getText());
+            if(mainframe.textFieldEmployeeNumber.getText().equals("")){
                  empMod.setEmployeeNum(-1);
             } else {
-                 empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
+                 empMod.setEmployeeNum(Integer.parseInt(mainframe.textFieldEmployeeNumber.getText()));
             }
             
             setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));
                
         }
        
-       if(e.getSource() == empView.btnGo){
+       if(e.getSource() == mainframe.btnGo){
             
             switch(op){
                 case 0: 
-                    JOptionPane.showMessageDialog(null, "Select an option from the top pannel to proceed");
+                    JOptionPane.showMessageDialog(null, "Select an option from the left pannel to proceed");
                     break;
                     
                 case 1:
-                    if(!empView.textFieldEmployeeName.getText().equals("")){
-                        empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
+                    if(!mainframe.textFieldEmployeeName.getText().equals("")){
+                        empMod.setEmployeeName(mainframe.textFieldEmployeeName.getText());
                         empDAO.insertEmployee(empMod);
-                        empView.textFieldEmployeeName.setText("");
+                        mainframe.textFieldEmployeeName.setText("");
                         hideElements();
                         op = 0;
                         setTableResults(empDAO.getAllEmployees());
@@ -133,44 +159,44 @@ public class EmployeeController implements ActionListener{
                     break;
                 
                 case 2:
-                    empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
-                    if(empView.textFieldEmployeeNumber.getText().equals("")){
+                    empMod.setEmployeeName(mainframe.textFieldEmployeeName.getText());
+                    if(mainframe.textFieldEmployeeNumber.getText().equals("")){
                         empMod.setEmployeeNum(-1);
                     } else {
-                        empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
+                        empMod.setEmployeeNum(Integer.parseInt(mainframe.textFieldEmployeeNumber.getText()));
                     }
                     setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));
-                    empView.textFieldEmployeeName.setText("");
-                    empView.textFieldEmployeeNumber.setText("");
+                    mainframe.textFieldEmployeeName.setText("");
+                    mainframe.textFieldEmployeeNumber.setText("");
                     hideElements();
                     op = 0;
                     break;
                 case 3:
                  
-                    if(empView.textFieldEmployeeNumber.getText().equals("")){
+                    if(mainframe.textFieldEmployeeNumber.getText().equals("")){
                         JOptionPane.showMessageDialog(null,"Employee Number must be populated to perform the change");
-                    } else if(empView.textFieldEmployeeName.getText().equals("")){
+                    } else if(mainframe.textFieldEmployeeName.getText().equals("")){
                         JOptionPane.showMessageDialog(null,"Employee Name must be populated to perform the change");
                     } else {
-                        empMod.setEmployeeNum(Integer.parseInt(empView.textFieldEmployeeNumber.getText()));
-                        empMod.setEmployeeName(empView.textFieldEmployeeName.getText());
+                        empMod.setEmployeeNum(Integer.parseInt(mainframe.textFieldEmployeeNumber.getText()));
+                        empMod.setEmployeeName(mainframe.textFieldEmployeeName.getText());
                         empDAO.update(empMod.getEmployeeNum(), empMod.getEmployeeName());
-                        empView.textFieldEmployeeNumber.setText("");
-                        empView.textFieldEmployeeName.setText("");
+                        mainframe.textFieldEmployeeNumber.setText("");
+                        mainframe.textFieldEmployeeName.setText("");
                         hideElements();
                         op = 0;
                         setTableResults(empDAO.getAllEmployees());
                     }
                     break;
                 case 4: 
-                    if(!empView.tableEmployees.getSelectionModel().isSelectionEmpty()){
+                    if(!mainframe.tableEmployees.getSelectionModel().isSelectionEmpty()){
                         
-                        int response = JOptionPane.showConfirmDialog(empView.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if(response == JOptionPane.YES_OPTION ){
-                             empMod.setEmployeeNum(Integer.parseInt(empView.tableEmployees.getModel().getValueAt(empView.tableEmployees.getSelectedRow(), 0).toString()));
+                             empMod.setEmployeeNum(Integer.parseInt(mainframe.tableEmployees.getModel().getValueAt(mainframe.tableEmployees.getSelectedRow(), 0).toString()));
                              empDAO.delete(empMod.getEmployeeNum());
-                             empView.textFieldEmployeeNumber.setText("");
-                             empView.textFieldEmployeeName.setText("");
+                             mainframe.textFieldEmployeeNumber.setText("");
+                             mainframe.textFieldEmployeeName.setText("");
                              hideElements();
                              op = 0;
                              setTableResults(empDAO.getAllEmployees());
@@ -182,28 +208,25 @@ public class EmployeeController implements ActionListener{
             }   
                 
                 
-        }
-       
-       
-    }
-      
-       
-       
-       public void hideElements(){
-        empView.labelEmpNumber.setVisible(false);
-        empView.textFieldEmployeeNumber.setVisible(false);
-        empView.labelEmpName.setVisible(false);
-        empView.textFieldEmployeeName.setVisible(false);
-        empView.btnSearchUpdate.setVisible(false);
-    }
+        }    
     
-    
+        
+    }
+    public void hideElements(){
+        mainframe.labelEmpNumber.setVisible(false);
+        mainframe.textFieldEmployeeNumber.setVisible(false);
+        mainframe.labelEmpName.setVisible(false);
+        mainframe.textFieldEmployeeName.setVisible(false);
+        mainframe.btnSearchSelectEmp.setVisible(false);
+       }   
+//    
+//    
     public void setTableResults(ArrayList<EmployeeModel> employees){
         String[] headers = {"Employee Number", "Employee Name"};
-        empView.tableEmployees.removeAll();
+        mainframe.tableEmployees.removeAll();
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
-        empView.tableEmployees.setModel(tableModel);
+        mainframe.tableEmployees.setModel(tableModel);
         for(int i=0; i<employees.size(); i++){
             tableModel.addRow(employees.get(i).toArray());
         }
@@ -213,8 +236,5 @@ public class EmployeeController implements ActionListener{
         
         
     }
-    
-    
-        
 }
     

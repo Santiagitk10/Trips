@@ -8,7 +8,7 @@ package trips;
 import Access.EmployeeDAO;
 import Model.EmployeeModel;
 import controller.EmployeeController;
-import view.EmployeeView;
+import view.MainFrame;
 
 /**
  *
@@ -20,11 +20,11 @@ public class Trips {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        EmployeeView empView = new EmployeeView();
+        MainFrame mainframe = new MainFrame();
         EmployeeModel empMod = new EmployeeModel();
         EmployeeDAO empDAO = new EmployeeDAO();
         
-        EmployeeController empCont = new EmployeeController(empView, empMod,empDAO);
+        EmployeeController empCont = new EmployeeController(mainframe, empMod,empDAO);
         empCont.initialize();
         
         
