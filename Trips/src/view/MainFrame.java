@@ -51,12 +51,13 @@ public class MainFrame extends javax.swing.JFrame {
         btnSearchSelectEmp = new javax.swing.JButton();
         PasPane = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelPasID = new javax.swing.JLabel();
         txtFieldPassID = new javax.swing.JTextField();
         txtFieldPassName = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        labelPasName = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablePassengers = new javax.swing.JTable();
+        btnSearchSelectPas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -258,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel6.setText("Passengers");
 
-        jLabel3.setText("Passenger ID");
+        labelPasID.setText("Passenger ID");
 
         txtFieldPassID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,9 +273,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Passenger Name");
+        labelPasName.setText("Passenger Name");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablePassengers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -293,7 +294,9 @@ public class MainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(tablePassengers);
+
+        btnSearchSelectPas.setText("Search/Select");
 
         javax.swing.GroupLayout PasPaneLayout = new javax.swing.GroupLayout(PasPane);
         PasPane.setLayout(PasPaneLayout);
@@ -305,12 +308,14 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(216, 216, 216)
                         .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PasPaneLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(labelPasName)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearchSelectPas))
                             .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(PasPaneLayout.createSequentialGroup()
-                                    .addComponent(jLabel3)
+                                    .addComponent(labelPasID)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtFieldPassID, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -326,15 +331,16 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(40, 40, 40)
                 .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(labelPasID)
                     .addComponent(txtFieldPassID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(labelPasName, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchSelectPas))
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         dataDisplayPane.add(PasPane, "card2");
@@ -472,24 +478,25 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnPasPanel;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnSearchSelectEmp;
+    public javax.swing.JButton btnSearchSelectPas;
     public javax.swing.JButton btnUpdate;
     private javax.swing.JPanel crudPane;
     public javax.swing.JPanel dataDisplayPane;
     private javax.swing.JPanel entitySelectionPane;
-    private javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     public javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
     public javax.swing.JLabel labelEmpName;
     public javax.swing.JLabel labelEmpNumber;
+    public javax.swing.JLabel labelPasID;
+    public javax.swing.JLabel labelPasName;
     public javax.swing.JPanel mainPane;
     public javax.swing.JTable tableEmployees;
+    public javax.swing.JTable tablePassengers;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
-    private javax.swing.JTextField txtFieldPassID;
-    private javax.swing.JTextField txtFieldPassName;
+    public javax.swing.JTextField txtFieldPassID;
+    public javax.swing.JTextField txtFieldPassName;
     // End of variables declaration//GEN-END:variables
 }

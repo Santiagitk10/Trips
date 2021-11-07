@@ -6,8 +6,10 @@
 package trips;
 
 import Access.EmployeeDAO;
+import Access.PassengerDAO;
 import Model.EmployeeModel;
-import controller.EmployeeController;
+import Model.PassengerModel;
+import controller.Controller;
 import view.MainFrame;
 
 /**
@@ -23,9 +25,11 @@ public class Trips {
         MainFrame mainframe = new MainFrame();
         EmployeeModel empMod = new EmployeeModel();
         EmployeeDAO empDAO = new EmployeeDAO();
+        PassengerModel pasMod = new PassengerModel();
+        PassengerDAO pasDAO = new PassengerDAO();
         
-        EmployeeController empCont = new EmployeeController(mainframe, empMod,empDAO);
-        empCont.initialize();
+        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO );
+        cont.initialize();
         
         
     }

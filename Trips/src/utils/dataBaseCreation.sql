@@ -15,7 +15,7 @@ CREATE TABLE Employee  (
 );
 
 create  table Passenger (
-	passenger_id int NOT NULL,
+	passenger_id bigint unsigned NOT NULL,
     passenger_name varchar(30) NOT NULL,
     primary key (passenger_id)
 );
@@ -34,7 +34,7 @@ create table city (
 create table luggage (
 	luggage_id int auto_increment,
     luggage_status varchar(10) default 'OK',
-    passenger_id_fk int not null,
+    passenger_id_fk bigint unsigned not null,
     primary key (luggage_id),
     foreign key(passenger_id_fk) references passenger(passenger_id)
 );
@@ -58,7 +58,7 @@ create table trip (
 
 create table reservation (
 	reservation_num int auto_increment,
-    passenger_id_fk int not null,
+    passenger_id_fk bigint unsigned not null,
     trip_id_fk int not null,
     primary key (reservation_num),
     foreign key(passenger_id_fk) references passenger(passenger_id),
