@@ -9,12 +9,14 @@ import Access.EmployeeDAO;
 import Access.PassengerDAO;
 import Model.EmployeeModel;
 import Model.PassengerModel;
+import Model.SuperModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import view.MainFrame;
 
@@ -67,11 +69,14 @@ public class Controller implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
         
+        String[] Employeeheaders = {"Passenger ID", "Passenger Name"};
+        String[] Passengerheaders = {"Passenger ID", "Passenger Name"};
+        
         if(e.getSource() == mainframe.btnEmpPanel){
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-            setTableResultsEmp(empDAO.getAllEmployees());
+            setTableResults(empDAO.getAllEmployees(), Employeeheaders,mainframe.tableEmployees);
             mainframe.dataDisplayPane.add(mainframe.EmpPane);
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -80,7 +85,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-            setTableResultsPas(pasDAO.getAllPassengers());
+            setTableResults(pasDAO.getAllPassengers(),Passengerheaders, mainframe.tablePassengers );
             mainframe.dataDisplayPane.add(mainframe.PasPane);
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -186,12 +191,11 @@ public class Controller implements ActionListener{
                  empMod.setEmployeeNum(Integer.parseInt(mainframe.textFieldEmployeeNumber.getText()));
             }
             
-            setTableResultsEmp(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));  
+            setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()), Employeeheaders, mainframe.tableEmployees);  
        }
        
        if(e.getSource() == mainframe.btnSearchSelectPas){
            if(op == 7 || op == 8){
-               System.out.println("sieeeetttt");
                if(!mainframe.tablePassengers.getSelectionModel().isSelectionEmpty()){
                     mainframe.txtFieldPassID.setText(mainframe.tablePassengers.getModel().getValueAt(mainframe.tablePassengers.getSelectedRow(), 0).toString());
                     mainframe.txtFieldPassName.setText(mainframe.tablePassengers.getModel().getValueAt(mainframe.tablePassengers.getSelectedRow(), 1).toString());
@@ -205,7 +209,7 @@ public class Controller implements ActionListener{
                      pasMod.setPassengerId(Long.parseLong(mainframe.txtFieldPassID.getText()));
                 }
                 
-            setTableResultsPas(pasDAO.getPassengersByFilter(pasMod.getPassengerId(), pasMod.getPassengerName()));  
+            setTableResults(pasDAO.getPassengersByFilter(pasMod.getPassengerId(), pasMod.getPassengerName()), Passengerheaders, mainframe.tablePassengers);
        }
        
        
@@ -226,7 +230,7 @@ public class Controller implements ActionListener{
                         mainframe.textFieldEmployeeName.setText("");
                         hideElements();
                         op = 0;
-                        setTableResultsEmp(empDAO.getAllEmployees());
+                        setTableResults(empDAO.getAllEmployees(), Employeeheaders,mainframe.tableEmployees);
                         
                     } else {
                         JOptionPane.showMessageDialog(null,"To create an employee the name cannot be empty");
@@ -241,7 +245,7 @@ public class Controller implements ActionListener{
                     } else {
                         empMod.setEmployeeNum(Integer.parseInt(mainframe.textFieldEmployeeNumber.getText()));
                     }
-                    setTableResultsEmp(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()));
+                    setTableResults(empDAO.getEmployeesByFilter(empMod.getEmployeeNum(), empMod.getEmployeeName()), Employeeheaders, mainframe.tableEmployees); 
                     mainframe.textFieldEmployeeName.setText("");
                     mainframe.textFieldEmployeeNumber.setText("");
                     hideElements();
@@ -261,7 +265,7 @@ public class Controller implements ActionListener{
                         mainframe.textFieldEmployeeName.setText("");
                         hideElements();
                         op = 0;
-                        setTableResultsEmp(empDAO.getAllEmployees());
+                        setTableResults(empDAO.getAllEmployees(), Employeeheaders,mainframe.tableEmployees);
                     }
                     break;
                 case 4: 
@@ -275,7 +279,7 @@ public class Controller implements ActionListener{
                              mainframe.textFieldEmployeeName.setText("");
                              hideElements();
                              op = 0;
-                             setTableResultsEmp(empDAO.getAllEmployees());
+                             setTableResults(empDAO.getAllEmployees(), Employeeheaders,mainframe.tableEmployees);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
@@ -290,7 +294,7 @@ public class Controller implements ActionListener{
                         mainframe.txtFieldPassName.setText("");
                         hideElements();
                         op = 0;
-                        setTableResultsPas(pasDAO.getAllPassengers());
+                        setTableResults(pasDAO.getAllPassengers(),Passengerheaders, mainframe.tablePassengers );
                         
                     } else {
                         JOptionPane.showMessageDialog(null,"To create a passanger both the name and the ID must be populated");
@@ -303,9 +307,9 @@ public class Controller implements ActionListener{
                     if(mainframe.txtFieldPassID.getText().equals("")){
                         pasMod.setPassengerId(-1);
                     } else {
-                        pasMod.setPassengerId(Long.parseLong(mainframe.textFieldEmployeeNumber.getText()));
+                        pasMod.setPassengerId(Long.parseLong(mainframe.txtFieldPassID.getText()));
                     }
-                    setTableResultsPas(pasDAO.getPassengersByFilter(pasMod.getPassengerId(), pasMod.getPassengerName()));
+                    setTableResults(pasDAO.getPassengersByFilter(pasMod.getPassengerId(), pasMod.getPassengerName()), Passengerheaders, mainframe.tablePassengers);
                     mainframe.txtFieldPassName.setText("");
                     mainframe.txtFieldPassID.setText("");
                     hideElements();
@@ -325,7 +329,7 @@ public class Controller implements ActionListener{
                         mainframe.txtFieldPassName.setText("");
                         hideElements();
                         op = 0;
-                        setTableResultsPas(pasDAO.getAllPassengers());
+                        setTableResults(pasDAO.getAllPassengers(),Passengerheaders, mainframe.tablePassengers );
                     }
                     break;
                 case 8: 
@@ -339,7 +343,7 @@ public class Controller implements ActionListener{
                              mainframe.txtFieldPassName.setText("");
                              hideElements();
                              op = 0;
-                             setTableResultsPas(pasDAO.getAllPassengers());
+                             setTableResults(pasDAO.getAllPassengers(),Passengerheaders, mainframe.tablePassengers );
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
@@ -365,26 +369,15 @@ public class Controller implements ActionListener{
         mainframe.btnSearchSelectPas.setVisible(false);
     }   
   
-    public void setTableResultsEmp(ArrayList<EmployeeModel> employees){
-        String[] headers = {"Employee Number", "Employee Name"};
-        mainframe.tableEmployees.removeAll();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(headers);
-        mainframe.tableEmployees.setModel(tableModel);
-        for(int i=0; i<employees.size(); i++){
-            tableModel.addRow(employees.get(i).toArray());
-        }   
-    }
     
-    public void setTableResultsPas(ArrayList<PassengerModel> passengers){
-        String[] headers = {"Passenger ID", "Passenger Name"};
-        mainframe.tablePassengers.removeAll();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(headers);
-        mainframe.tablePassengers.setModel(tableModel);
-        for(int i=0; i<passengers.size(); i++){
-            tableModel.addRow(passengers.get(i).toArray());
-        }   
+    public void setTableResults(ArrayList<SuperModel> models, String[] headers, JTable table){
+            table.removeAll();
+            DefaultTableModel tableModel = new DefaultTableModel();
+            tableModel.setColumnIdentifiers(headers);
+            table.setModel(tableModel);
+            for(int i=0; i<models.size(); i++){
+                tableModel.addRow(models.get(i).toArray());
+            }
     }
         
     }

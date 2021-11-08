@@ -6,6 +6,7 @@
 package Access;
 
 import Model.EmployeeModel;
+import Model.SuperModel;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,8 +54,8 @@ public class EmployeeDAO {
     }
     
     
-    public ArrayList<EmployeeModel> getAllEmployees(){
-        ArrayList<EmployeeModel> employees = new ArrayList();
+     public ArrayList<SuperModel> getAllEmployees(){
+        ArrayList<SuperModel> employees = new ArrayList();
         
         try{
 
@@ -65,7 +66,7 @@ public class EmployeeDAO {
             ResultSet result = statement.executeQuery(sql);
             
             while(result.next()){
-                EmployeeModel employee = new EmployeeModel(result.getInt(1), result.getString(2));
+                SuperModel employee = new EmployeeModel(result.getInt(1), result.getString(2));
                 employees.add(employee);
             }
             
@@ -82,8 +83,9 @@ public class EmployeeDAO {
         return employees;
     }
     
-    public ArrayList<EmployeeModel> getEmployeesByFilter(int employeeNum, String employeeName){
-        ArrayList<EmployeeModel> employees = new ArrayList();
+    
+     public ArrayList<SuperModel> getEmployeesByFilter(int employeeNum, String employeeName){
+        ArrayList<SuperModel> employees = new ArrayList();
         int case_ = -1;
         
         try{
@@ -106,7 +108,7 @@ public class EmployeeDAO {
             ResultSet result = statement.executeQuery();
             
             while(result.next()){
-                EmployeeModel employee = new EmployeeModel(result.getInt(1), result.getString(2));
+                SuperModel employee = new EmployeeModel(result.getInt(1), result.getString(2));
                 employees.add(employee);
             }
             
@@ -123,7 +125,9 @@ public class EmployeeDAO {
         }
         return employees;
     }
-    
+     
+     
+     
     public void update(int employeeNum, String employeeName){
         
         try{
@@ -183,6 +187,3 @@ public class EmployeeDAO {
     
     
 }
-
-
-//throws IOException, ParseException

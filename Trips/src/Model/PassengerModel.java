@@ -9,7 +9,7 @@ package Model;
  *
  * @author SANTIAGO SIERRA
  */
-public class PassengerModel {
+public class PassengerModel extends SuperModel {
     private long passengerId;
     private String passengerName;
     
@@ -41,6 +41,7 @@ public class PassengerModel {
         this.passengerName = passengerName;
     }
 
+    @Override
     public Object[] toArray(){
         Object[] data = {passengerId, passengerName};
         return data;

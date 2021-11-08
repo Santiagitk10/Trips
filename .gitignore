@@ -1,6 +1,7 @@
 /Trips/nbproject/private/
 *.xml
 *.mf
+*.json
 /Trips/nbproject
 /Trips/build/
 /Trips/dist/

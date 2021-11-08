@@ -9,7 +9,7 @@ package Model;
  *
  * @author SANTIAGO SIERRA
  */
-public class EmployeeModel {
+public class EmployeeModel extends SuperModel {
     
     private int employeeNum;
     private String employeeName;
@@ -42,6 +42,7 @@ public class EmployeeModel {
         this.employeeName = employeeName;
     }
 
+    @Override
     public Object[] toArray(){
         Object[] data = {employeeNum, employeeName};
         return data;

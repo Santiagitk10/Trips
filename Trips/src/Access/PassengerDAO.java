@@ -7,6 +7,7 @@ package Access;
 
 
 import Model.PassengerModel;
+import Model.SuperModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,9 +55,10 @@ public class PassengerDAO {
         }
     }
     
+   
     
-    public ArrayList<PassengerModel> getAllPassengers(){
-        ArrayList<PassengerModel> passengers = new ArrayList();
+    public ArrayList<SuperModel> getAllPassengers(){
+        ArrayList<SuperModel> passengers = new ArrayList();
         
         try{
 
@@ -67,7 +69,7 @@ public class PassengerDAO {
             ResultSet result = statement.executeQuery(sql);
             
             while(result.next()){
-                PassengerModel passenger = new PassengerModel(result.getLong(1), result.getString(2));
+                SuperModel passenger = new PassengerModel(result.getLong(1), result.getString(2));
                 passengers.add(passenger);
             }
             
@@ -84,8 +86,9 @@ public class PassengerDAO {
         return passengers;
     }
     
-    public ArrayList<PassengerModel> getPassengersByFilter(long passengerId, String passengerName){
-        ArrayList<PassengerModel> passengers = new ArrayList();
+    
+    public ArrayList<SuperModel> getPassengersByFilter(long passengerId, String passengerName){
+        ArrayList<SuperModel> passengers = new ArrayList();
         int case_ = -1;
         
         try{
@@ -108,7 +111,7 @@ public class PassengerDAO {
             ResultSet result = statement.executeQuery();
             
             while(result.next()){
-                PassengerModel passenger = new PassengerModel(result.getLong(1), result.getString(2));
+                SuperModel passenger = new PassengerModel(result.getLong(1), result.getString(2));
                 passengers.add(passenger);
             }
             
