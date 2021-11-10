@@ -14,12 +14,18 @@ public class LuggageModel extends SuperModel{
     private int luggageID;
     private String luggageStatus;
     private long passengerIDFk;
+    
+    
+    public LuggageModel(){
+        
+    }
 
     public LuggageModel(int luggageID, String luggageStatus, long passengerIDFk) {
         this.luggageID = luggageID;
         this.luggageStatus = luggageStatus;
         this.passengerIDFk = passengerIDFk;
     }
+   
 
     public int getLuggageID() {
         return luggageID;
@@ -45,6 +51,11 @@ public class LuggageModel extends SuperModel{
         this.passengerIDFk = passengerIDFk;
     }
     
-    
+
+    @Override
+    public Object[] toArray(){
+        Object[] data = {luggageID, luggageStatus, passengerIDFk};
+        return data;
+    }
     
 }

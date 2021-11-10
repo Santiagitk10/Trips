@@ -6,8 +6,10 @@
 package controller;
 
 import Access.EmployeeDAO;
+import Access.LuggageDAO;
 import Access.PassengerDAO;
 import Model.EmployeeModel;
+import Model.LuggageModel;
 import Model.PassengerModel;
 import Model.SuperModel;
 import java.awt.event.ActionEvent;
@@ -31,16 +33,20 @@ public class Controller implements ActionListener{
     private EmployeeDAO empDAO;
     private PassengerModel pasMod;
     private PassengerDAO pasDAO;
+    private LuggageModel lugMod;
+    private LuggageDAO lugDAO;
     private int op;
     private int currEntity;
     
     
-    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO){
+    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO){
         this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
         this.pasMod = pasMod;
         this.pasDAO = pasDAO;
+        this.lugMod = lugMod;
+        this.lugDAO = lugDAO;
         this.op = 0;
         this.currEntity = 0;
         
@@ -55,6 +61,7 @@ public class Controller implements ActionListener{
         mainframe.dataDisplayPane.repaint();
         mainframe.btnEmpPanel.addActionListener(this);
         mainframe.btnPasPanel.addActionListener(this);
+        mainframe.btnLugPanel.addActionListener(this);
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
         mainframe.btnUpdate.addActionListener(this);
@@ -71,6 +78,7 @@ public class Controller implements ActionListener{
         
         String[] Employeeheaders = {"Passenger ID", "Passenger Name"};
         String[] Passengerheaders = {"Passenger ID", "Passenger Name"};
+        String[] Luggageheaders = {"Luggage ID", "Luggage Status", "Passenger ID"};
         
         if(e.getSource() == mainframe.btnEmpPanel){
             mainframe.dataDisplayPane.removeAll();
@@ -90,14 +98,22 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             currEntity = 2;
-        }
+        } else if(e.getSource() == mainframe.btnLugPanel){
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+            mainframe.dataDisplayPane.add(mainframe.LugPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 3;
+        } 
         
         
         
         switch(currEntity){
             case 1:
                 if(e.getSource() == mainframe.btnCreate){
-                    System.out.println("printed");
                     hideElements();
                     mainframe.labelEmpName.setVisible(true);
                     mainframe.textFieldEmployeeName.setVisible(true);
@@ -167,11 +183,51 @@ public class Controller implements ActionListener{
                     mainframe.txtFieldPassID.setText("");
                     mainframe.txtFieldPassName.setText("");
                 }
-        
+            break;   
+            case 3:
+                if(e.getSource() == mainframe.btnCreate){
+                    hideElements();
+                    mainframe.labelLugStatus.setVisible(true);
+                    mainframe.txtFieldLugStatus.setVisible(true);
+                    mainframe.labelPasIDFkLug.setVisible(true);
+                    mainframe.comBoxPassIDFkLug.setVisible(true);
+                    op = 9;
+                } else if(e.getSource() == mainframe.btnSearch){
+                    hideElements();
+                    mainframe.labelLugID.setVisible(true);
+                    mainframe.txtFieldLugID.setVisible(true);
+                    mainframe.labelLugStatus.setVisible(true);
+                    mainframe.txtFieldLugStatus.setVisible(true);
+                    mainframe.labelPasIDFkLug.setVisible(true);
+                    mainframe.comBoxPassIDFkLug.setVisible(true);
+                    op = 10;
+                } else if(e.getSource() == mainframe.btnUpdate){
+                    hideElements();
+                    mainframe.labelLugID.setVisible(true);
+                    mainframe.txtFieldLugID.setVisible(true);
+                    mainframe.labelLugStatus.setVisible(true);
+                    mainframe.txtFieldLugStatus.setVisible(true);
+                    mainframe.labelPasIDFkLug.setVisible(true);
+                    mainframe.comBoxPassIDFkLug.setVisible(true);
+                    mainframe.btnSearchSelectLug.setVisible(true);
+                    op = 11;
+                } else if(e.getSource() == mainframe.btnDelete){
+                    hideElements();
+                    mainframe.labelLugID.setVisible(true);
+                    mainframe.txtFieldLugID.setVisible(true);
+                    mainframe.labelLugStatus.setVisible(true);
+                    mainframe.txtFieldLugStatus.setVisible(true);
+                    mainframe.labelPasIDFkLug.setVisible(true);
+                    mainframe.comBoxPassIDFkLug.setVisible(true);
+                    mainframe.btnSearchSelectLug.setVisible(true);
+                    op = 12;
+
+                } else if (e.getSource() == mainframe.btnClearFields){
+                    mainframe.txtFieldLugID.setText("");
+                    mainframe.txtFieldLugStatus.setText("");
+                }
+            break;   
         }
-        
-        
-        
         
         
        if(e.getSource() == mainframe.btnSearchSelectEmp){
@@ -367,6 +423,14 @@ public class Controller implements ActionListener{
         mainframe.labelPasName.setVisible(false);
         mainframe.txtFieldPassName.setVisible(false);
         mainframe.btnSearchSelectPas.setVisible(false);
+        
+        mainframe.labelLugID.setVisible(false);
+        mainframe.txtFieldLugID.setVisible(false);
+        mainframe.labelLugStatus.setVisible(false);
+        mainframe.txtFieldLugStatus.setVisible(false);
+        mainframe.labelPasIDFkLug.setVisible(false);
+        mainframe.comBoxPassIDFkLug.setVisible(false);
+        mainframe.btnSearchSelectLug.setVisible(false);
     }   
   
     
@@ -380,5 +444,5 @@ public class Controller implements ActionListener{
             }
     }
         
-    }
+}
    

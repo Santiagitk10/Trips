@@ -32,6 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
         entitySelectionPane = new javax.swing.JPanel();
         btnEmpPanel = new javax.swing.JButton();
         btnPasPanel = new javax.swing.JButton();
+        btnLugPanel = new javax.swing.JButton();
         crudPane = new javax.swing.JPanel();
         btnCreate = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -58,6 +59,17 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablePassengers = new javax.swing.JTable();
         btnSearchSelectPas = new javax.swing.JButton();
+        LugPane = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        labelLugID = new javax.swing.JLabel();
+        txtFieldLugID = new javax.swing.JTextField();
+        txtFieldLugStatus = new javax.swing.JTextField();
+        labelLugStatus = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableLuggage = new javax.swing.JTable();
+        btnSearchSelectLug = new javax.swing.JButton();
+        labelPasIDFkLug = new javax.swing.JLabel();
+        comBoxPassIDFkLug = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +91,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnLugPanel.setText("Luggage");
+        btnLugPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLugPanelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout entitySelectionPaneLayout = new javax.swing.GroupLayout(entitySelectionPane);
         entitySelectionPane.setLayout(entitySelectionPaneLayout);
         entitySelectionPaneLayout.setHorizontalGroup(
@@ -86,8 +105,10 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(entitySelectionPaneLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(btnEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(btnPasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         entitySelectionPaneLayout.setVerticalGroup(
@@ -96,7 +117,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(entitySelectionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -345,6 +367,107 @@ public class MainFrame extends javax.swing.JFrame {
 
         dataDisplayPane.add(PasPane, "card2");
 
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel7.setText("Luggage");
+
+        labelLugID.setText("Luggage ID");
+
+        txtFieldLugID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldLugIDActionPerformed(evt);
+            }
+        });
+
+        txtFieldLugStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldLugStatusActionPerformed(evt);
+            }
+        });
+
+        labelLugStatus.setText("Luggage Status");
+
+        tableLuggage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Luggage ID", "Luggage Status", "Passenger ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tableLuggage);
+
+        btnSearchSelectLug.setText("Search/Select");
+
+        labelPasIDFkLug.setText("Passenger ID");
+
+        comBoxPassIDFkLug.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout LugPaneLayout = new javax.swing.GroupLayout(LugPane);
+        LugPane.setLayout(LugPaneLayout);
+        LugPaneLayout.setHorizontalGroup(
+            LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LugPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelLugStatus)
+                    .addComponent(labelPasIDFkLug)
+                    .addComponent(labelLugID))
+                .addGap(42, 42, 42)
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(LugPaneLayout.createSequentialGroup()
+                        .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtFieldLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comBoxPassIDFkLug, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addComponent(btnSearchSelectLug)))
+                .addGap(116, 116, 116))
+            .addGroup(LugPaneLayout.createSequentialGroup()
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LugPaneLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(LugPaneLayout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jLabel7)))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        LugPaneLayout.setVerticalGroup(
+            LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LugPaneLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jLabel7)
+                .addGap(31, 31, 31)
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelLugID)
+                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFieldLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPasIDFkLug)
+                    .addComponent(comBoxPassIDFkLug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchSelectLug))
+                .addGap(41, 41, 41)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        dataDisplayPane.add(LugPane, "card2");
+
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
         mainPaneLayout.setHorizontalGroup(
@@ -430,6 +553,18 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldPassNameActionPerformed
 
+    private void txtFieldLugIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldLugIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldLugIDActionPerformed
+
+    private void txtFieldLugStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldLugStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldLugStatusActionPerformed
+
+    private void btnLugPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLugPanelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLugPanelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -468,6 +603,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel EmpPane;
+    public javax.swing.JPanel LugPane;
     public javax.swing.JPanel PasPane;
     public javax.swing.JButton btnClearFields;
     public javax.swing.JButton btnCreate;
@@ -475,27 +611,38 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnEmpPanel;
     public javax.swing.JButton btnGo;
     public javax.swing.ButtonGroup btnGroupCrudEmployee;
+    public javax.swing.JButton btnLugPanel;
     public javax.swing.JButton btnPasPanel;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnSearchSelectEmp;
+    public javax.swing.JButton btnSearchSelectLug;
     public javax.swing.JButton btnSearchSelectPas;
     public javax.swing.JButton btnUpdate;
+    public javax.swing.JComboBox comBoxPassIDFkLug;
     private javax.swing.JPanel crudPane;
     public javax.swing.JPanel dataDisplayPane;
     private javax.swing.JPanel entitySelectionPane;
     public javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     public javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     public javax.swing.JLabel labelEmpName;
     public javax.swing.JLabel labelEmpNumber;
+    public javax.swing.JLabel labelLugID;
+    public javax.swing.JLabel labelLugStatus;
     public javax.swing.JLabel labelPasID;
+    public javax.swing.JLabel labelPasIDFkLug;
     public javax.swing.JLabel labelPasName;
     public javax.swing.JPanel mainPane;
     public javax.swing.JTable tableEmployees;
+    public javax.swing.JTable tableLuggage;
     public javax.swing.JTable tablePassengers;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
+    public javax.swing.JTextField txtFieldLugID;
+    public javax.swing.JTextField txtFieldLugStatus;
     public javax.swing.JTextField txtFieldPassID;
     public javax.swing.JTextField txtFieldPassName;
     // End of variables declaration//GEN-END:variables
