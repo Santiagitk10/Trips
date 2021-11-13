@@ -17,8 +17,11 @@ import java.awt.event.ActionListener;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.HashSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import view.MainFrame;
 
@@ -37,6 +40,8 @@ public class Controller implements ActionListener{
     private LuggageDAO lugDAO;
     private int op;
     private int currEntity;
+    private JComboBox comboxLugStatus;
+    private JComboBox comboxPassIdFk;
     
     
     public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO){
@@ -67,9 +72,31 @@ public class Controller implements ActionListener{
         mainframe.btnUpdate.addActionListener(this);
         mainframe.btnSearchSelectEmp.addActionListener(this);
         mainframe.btnSearchSelectPas.addActionListener(this);
+        mainframe.btnSearchSelectLug.addActionListener(this);
         mainframe.btnDelete.addActionListener(this);
         mainframe.btnGo.addActionListener(this);
         mainframe.btnClearFields.addActionListener(this);
+        
+        
+        InitialDataComboBoxes initialData = new InitialDataComboBoxes();
+        
+        //Creación combobox Luggage para seleción de Status
+        String[] lugStatusOptions = {"ALL", "OK", "LOST"};
+        this.comboxLugStatus = new JComboBox(lugStatusOptions);
+        this.comboxLugStatus.setBounds(340, 143, 100, 30);
+        mainframe.LugPane.add(this.comboxLugStatus);
+        
+        
+        //Creación combobox Luggage para selección de PassenderIdFk
+        this.comboxPassIdFk = new JComboBox();        
+        this.comboxPassIdFk.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
+        this.comboxPassIdFk.setSelectedIndex(0);
+        this.comboxPassIdFk.setBounds(340, 200, 200, 30);
+        mainframe.LugPane.add(this.comboxPassIdFk);     
+        
+        
+        
+        
         hideElements();
     }
     
@@ -107,6 +134,8 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             currEntity = 3;
+            
+            
         } 
         
         
@@ -188,46 +217,61 @@ public class Controller implements ActionListener{
                 if(e.getSource() == mainframe.btnCreate){
                     hideElements();
                     mainframe.labelLugStatus.setVisible(true);
-                    mainframe.txtFieldLugStatus.setVisible(true);
                     mainframe.labelPasIDFkLug.setVisible(true);
-                    mainframe.comBoxPassIDFkLug.setVisible(true);
+                    comboxLugStatus.setVisible(true);
+                    comboxPassIdFk.setVisible(true);
                     op = 9;
                 } else if(e.getSource() == mainframe.btnSearch){
                     hideElements();
                     mainframe.labelLugID.setVisible(true);
                     mainframe.txtFieldLugID.setVisible(true);
                     mainframe.labelLugStatus.setVisible(true);
-                    mainframe.txtFieldLugStatus.setVisible(true);
                     mainframe.labelPasIDFkLug.setVisible(true);
-                    mainframe.comBoxPassIDFkLug.setVisible(true);
+                    comboxLugStatus.setVisible(true);
+                    comboxPassIdFk.setVisible(true);
                     op = 10;
                 } else if(e.getSource() == mainframe.btnUpdate){
                     hideElements();
                     mainframe.labelLugID.setVisible(true);
                     mainframe.txtFieldLugID.setVisible(true);
                     mainframe.labelLugStatus.setVisible(true);
-                    mainframe.txtFieldLugStatus.setVisible(true);
                     mainframe.labelPasIDFkLug.setVisible(true);
-                    mainframe.comBoxPassIDFkLug.setVisible(true);
                     mainframe.btnSearchSelectLug.setVisible(true);
+                    comboxLugStatus.setVisible(true);
+                    comboxPassIdFk.setVisible(true);
                     op = 11;
                 } else if(e.getSource() == mainframe.btnDelete){
                     hideElements();
                     mainframe.labelLugID.setVisible(true);
                     mainframe.txtFieldLugID.setVisible(true);
                     mainframe.labelLugStatus.setVisible(true);
-                    mainframe.txtFieldLugStatus.setVisible(true);
                     mainframe.labelPasIDFkLug.setVisible(true);
-                    mainframe.comBoxPassIDFkLug.setVisible(true);
                     mainframe.btnSearchSelectLug.setVisible(true);
+                    comboxLugStatus.setVisible(true);
+                    comboxPassIdFk.setVisible(true);
                     op = 12;
 
                 } else if (e.getSource() == mainframe.btnClearFields){
                     mainframe.txtFieldLugID.setText("");
-                    mainframe.txtFieldLugStatus.setText("");
+                    comboxLugStatus.setSelectedIndex(0);
+                    comboxPassIdFk.setSelectedIndex(0);
                 }
             break;   
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
        if(e.getSource() == mainframe.btnSearchSelectEmp){
@@ -259,14 +303,52 @@ public class Controller implements ActionListener{
            }
            
            pasMod.setPassengerName(mainframe.txtFieldPassName.getText());
-                if(mainframe.txtFieldPassID.getText().equals("")){
-                    pasMod.setPassengerId(-1);
-                } else {
-                     pasMod.setPassengerId(Long.parseLong(mainframe.txtFieldPassID.getText()));
-                }
+            if(mainframe.txtFieldPassID.getText().equals("")){
+                pasMod.setPassengerId(-1);
+            } else {
+                 pasMod.setPassengerId(Long.parseLong(mainframe.txtFieldPassID.getText()));
+            }
                 
             setTableResults(pasDAO.getPassengersByFilter(pasMod.getPassengerId(), pasMod.getPassengerName()), Passengerheaders, mainframe.tablePassengers);
        }
+       
+       
+       if(e.getSource() == mainframe.btnSearchSelectLug){
+           if(op == 11 || op == 12){
+               if(!mainframe.tableLuggage.getSelectionModel().isSelectionEmpty()){
+                    mainframe.txtFieldLugID.setText(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 0).toString());
+                    comboxLugStatus.setSelectedItem(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 1).toString());
+                       //TODAVIA NO ME MODIFICA EL COMBOBOX CON LO QUE HAY SELECCIONADO DE LA TABLA
+                    comboxPassIdFk.setSelectedItem(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 2).toString());
+
+                }
+           }
+           
+           lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+            if(mainframe.txtFieldLugID.getText().equals("")){
+                lugMod.setLuggageID(-1);
+            } else {
+                 lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
+            }
+                
+                
+            if(comboxPassIdFk.getSelectedItem().toString().equals("0")) {
+               lugMod.setPassengerIDFk(-1);
+            } else {
+                lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+            }
+    
+                
+                
+            setTableResults(lugDAO.getLuggageByFilter(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk()), Luggageheaders, mainframe.tableLuggage);
+       }
+       
+       
+       
+       
+       
+       
+       
        
        
        
@@ -405,6 +487,87 @@ public class Controller implements ActionListener{
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
                     }
                     break; 
+                    
+                    
+
+                case 9:
+                    if(!comboxPassIdFk.getSelectedItem().toString().equals("0")){
+                        lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+                        lugDAO.insertLuggage(lugMod);
+                        mainframe.txtFieldLugID.setText("");
+                        comboxLugStatus.setSelectedIndex(0);
+                        comboxPassIdFk.setSelectedIndex(0);
+                        hideElements();
+                        op = 0;
+                        setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null,"To create a passanger both the name and the ID must be populated");
+                    }
+                   
+                    break;
+                
+                case 10:
+                    lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+                    if(mainframe.txtFieldLugID.getText().equals("")){
+                        lugMod.setLuggageID(-1);
+                    } else {
+                         lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
+                    }
+                
+                
+                    if(comboxPassIdFk.getSelectedItem().toString().equals("0")) {
+                       lugMod.setPassengerIDFk(-1);
+                    } else {
+                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+                    }
+                    setTableResults(lugDAO.getLuggageByFilter(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk()), Luggageheaders, mainframe.tableLuggage);
+                    mainframe.txtFieldLugID.setText("");
+                    comboxLugStatus.setSelectedIndex(0);
+                    comboxPassIdFk.setSelectedIndex(0);
+                    hideElements();
+                    op = 0;
+                    break;
+                case 11:
+                    
+                    if (mainframe.txtFieldLugID.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null,"Indicate a Luggage ID to modify");
+                    }
+                    
+                    if(!comboxLugStatus.getSelectedItem().toString().equals("ALL") && !comboxPassIdFk.getSelectedItem().toString().equals("0")){
+                        lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
+                        lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+                        lugDAO.update(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk());
+                        mainframe.txtFieldLugID.setText("");
+                        comboxLugStatus.setSelectedIndex(0);
+                        comboxPassIdFk.setSelectedIndex(0);
+                        hideElements();
+                        setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                    op = 0;
+                    } else {
+                        JOptionPane.showMessageDialog(null,"Luggage Status cannot be 'ALL' and Passenger ID cannot be 0");
+                    }
+                    
+                    break;
+                case 12: 
+                    if(!mainframe.tableLuggage.getSelectionModel().isSelectionEmpty()){
+                        
+                        int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION ){
+                             lugMod.setLuggageID(Integer.parseInt(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 0).toString()));
+                             lugDAO.delete(lugMod.getLuggageID());
+                              mainframe.txtFieldLugID.setText("");
+                              comboxLugStatus.setSelectedIndex(0);
+                              comboxPassIdFk.setSelectedIndex(0);
+                              hideElements();
+                              setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
+                    }
+                    break;   
             }   
                 
                 
@@ -427,10 +590,10 @@ public class Controller implements ActionListener{
         mainframe.labelLugID.setVisible(false);
         mainframe.txtFieldLugID.setVisible(false);
         mainframe.labelLugStatus.setVisible(false);
-        mainframe.txtFieldLugStatus.setVisible(false);
         mainframe.labelPasIDFkLug.setVisible(false);
-        mainframe.comBoxPassIDFkLug.setVisible(false);
+        comboxPassIdFk.setVisible(false);
         mainframe.btnSearchSelectLug.setVisible(false);
+        comboxLugStatus.setVisible(false);
     }   
   
     

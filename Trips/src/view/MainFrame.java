@@ -63,13 +63,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         labelLugID = new javax.swing.JLabel();
         txtFieldLugID = new javax.swing.JTextField();
-        txtFieldLugStatus = new javax.swing.JTextField();
         labelLugStatus = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tableLuggage = new javax.swing.JTable();
         btnSearchSelectLug = new javax.swing.JButton();
         labelPasIDFkLug = new javax.swing.JLabel();
-        comBoxPassIDFkLug = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -273,7 +271,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnSearchSelectEmp))
                 .addGap(51, 51, 51)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         dataDisplayPane.add(EmpPane, "card2");
@@ -362,7 +360,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnSearchSelectPas))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         dataDisplayPane.add(PasPane, "card2");
@@ -375,12 +373,6 @@ public class MainFrame extends javax.swing.JFrame {
         txtFieldLugID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFieldLugIDActionPerformed(evt);
-            }
-        });
-
-        txtFieldLugStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldLugStatusActionPerformed(evt);
             }
         });
 
@@ -411,59 +403,48 @@ public class MainFrame extends javax.swing.JFrame {
 
         labelPasIDFkLug.setText("Passenger ID");
 
-        comBoxPassIDFkLug.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout LugPaneLayout = new javax.swing.GroupLayout(LugPane);
         LugPane.setLayout(LugPaneLayout);
         LugPaneLayout.setHorizontalGroup(
             LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LugPaneLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelLugStatus)
-                    .addComponent(labelPasIDFkLug)
-                    .addComponent(labelLugID))
-                .addGap(42, 42, 42)
-                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(LugPaneLayout.createSequentialGroup()
-                        .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFieldLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comBoxPassIDFkLug, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(btnSearchSelectLug)))
-                .addGap(116, 116, 116))
             .addGroup(LugPaneLayout.createSequentialGroup()
                 .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LugPaneLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(155, 155, 155)
+                        .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPasIDFkLug)
+                            .addComponent(labelLugStatus)
+                            .addGroup(LugPaneLayout.createSequentialGroup()
+                                .addComponent(labelLugID)
+                                .addGap(122, 122, 122)
+                                .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearchSelectLug))))
                     .addGroup(LugPaneLayout.createSequentialGroup()
                         .addGap(246, 246, 246)
-                        .addComponent(jLabel7)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(jLabel7))
+                    .addGroup(LugPaneLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         LugPaneLayout.setVerticalGroup(
             LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LugPaneLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(jLabel7)
-                .addGap(31, 31, 31)
+                .addGap(45, 45, 45)
+                .addComponent(labelLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(labelPasIDFkLug)
+                .addGap(43, 43, 43)
                 .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelLugID)
-                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPasIDFkLug)
-                    .addComponent(comBoxPassIDFkLug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchSelectLug))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         dataDisplayPane.add(LugPane, "card2");
@@ -557,10 +538,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldLugIDActionPerformed
 
-    private void txtFieldLugStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldLugStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldLugStatusActionPerformed
-
     private void btnLugPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLugPanelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLugPanelActionPerformed
@@ -618,7 +595,6 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnSearchSelectLug;
     public javax.swing.JButton btnSearchSelectPas;
     public javax.swing.JButton btnUpdate;
-    public javax.swing.JComboBox comBoxPassIDFkLug;
     private javax.swing.JPanel crudPane;
     public javax.swing.JPanel dataDisplayPane;
     private javax.swing.JPanel entitySelectionPane;
@@ -642,7 +618,6 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
     public javax.swing.JTextField txtFieldLugID;
-    public javax.swing.JTextField txtFieldLugStatus;
     public javax.swing.JTextField txtFieldPassID;
     public javax.swing.JTextField txtFieldPassName;
     // End of variables declaration//GEN-END:variables

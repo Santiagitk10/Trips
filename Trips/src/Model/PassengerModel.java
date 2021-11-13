@@ -46,4 +46,10 @@ public class PassengerModel extends SuperModel {
         Object[] data = {passengerId, passengerName};
         return data;
     }
+    
+//    Cuando un elemento por ejemplo un combobox espera un string y se le pasa un objeto, este método entra en juego y le retorna la representación en string de ese objeto
+    @Override
+    public String toString(){
+        return Long.toString(this.passengerId);
+    }
 }

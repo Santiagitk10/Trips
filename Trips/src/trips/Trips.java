@@ -12,6 +12,7 @@ import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
 import controller.Controller;
+import javax.swing.JComboBox;
 import view.MainFrame;
 
 /**
@@ -31,6 +32,7 @@ public class Trips {
         PassengerDAO pasDAO = new PassengerDAO();
         LuggageModel lugMod = new LuggageModel();
         LuggageDAO lugDAO = new LuggageDAO();
+       
         
         Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO);
         cont.initialize();

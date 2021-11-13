@@ -92,19 +92,24 @@ public class LuggageDAO {
             conn = ConnectionDB.getConnection();
            
             String sql = "select * from luggage where luggage_status like ?";
-            if(luggageID != -1 && passengerIDFk != -1){
-                sql += " and luggage_id =? and passengerIDFk=?;";
+            if(luggageID != -1 && passengerIDFk != -1 && passengerIDFk != 0){
+                sql += " and luggage_id =? and passenger_id_fk=?;";
                 case_ = 1;
             } else if(luggageID != -1){
                 sql += " and luggage_id =?;";
                 case_ = 2;
-            } else if(passengerIDFk != -1){
-                sql += " and passengerIDFk=?;";
+            } else if(passengerIDFk != -1 && passengerIDFk != 0){
+                sql += " and passenger_id_fk=?;";
                 case_ = 3;
             }
            
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, "%"+luggageStatus+"%"); 
+            if(luggageStatus.equals("ALL")){
+                statement.setString(1, "%%");
+            } else {
+                statement.setString(1, "%"+luggageStatus+"%"); 
+            }
+            
             switch(case_){
                 case 1:
                    statement.setInt(2, luggageID);
