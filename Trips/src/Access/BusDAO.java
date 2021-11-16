@@ -5,7 +5,7 @@
  */
 package Access;
 
-import Model.LuggageModel;
+import Model.BusModel;
 import Model.SuperModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,35 +20,20 @@ import utils.ConnectionDB;
  *
  * @author SANTIAGO SIERRA
  */
-public class LuggageDAO {
+public class BusDAO {
     private Connection conn = null;
     
     
-    public void insertLuggage(LuggageModel luggage) {
+    public void insertBus(BusModel bus) {
         
         try{
 
             conn = ConnectionDB.getConnection();
+
             
-            String sqlStatus1 = "";
-            String sqlStatus2 = "";
-            
-            if(luggage.getLuggageStatus().equals("LOST")){
-                sqlStatus1 = "luggage_status,";
-                sqlStatus2 = "?,";
-            }
-            
-            String sql = "insert into luggage(" + sqlStatus1 + " passenger_id_fk) values (" + sqlStatus2 + "?);";
-            
+            String sql = "insert into bus(seat_capacity) values (?);";
             PreparedStatement statement = conn.prepareStatement(sql);
-            
-            if(luggage.getLuggageStatus().equals("LOST")){
-                statement.setString(1,luggage.getLuggageStatus());
-                statement.setLong(2, luggage.getPassengerIDFk());
-            } else {
-                statement.setLong(1, luggage.getPassengerIDFk());
-            }
-            
+            statement.setInt(1,bus.getSeatCapacity());
             
             int rowsInserted = statement.executeUpdate();
             if(rowsInserted > 0){
@@ -67,20 +52,20 @@ public class LuggageDAO {
     }
     
     
-     public ArrayList<SuperModel> getAllLuggage(){
-        ArrayList<SuperModel> luggageList = new ArrayList();
+     public ArrayList<SuperModel> getAllBuses(){
+        ArrayList<SuperModel> buses = new ArrayList();
         
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "select * from luggage;";
+            String sql = "select * from bus;";
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
             
             while(result.next()){
-                SuperModel luggage = new LuggageModel(result.getInt(1), result.getString(2), result.getLong(3));
-                luggageList.add(luggage);
+                SuperModel bus = new BusModel(result.getInt(1), result.getInt(2));
+                buses.add(bus);
             }
             
         } catch(SQLException ex){
@@ -93,55 +78,36 @@ public class LuggageDAO {
             }
         }
         
-        return luggageList;
+        return buses;
     }
     
     
-     public ArrayList<SuperModel> getLuggageByFilter(int luggageID, String luggageStatus, long passengerIDFk){
-        ArrayList<SuperModel> luggageList = new ArrayList();
+     public ArrayList<SuperModel> getBusesByFilter(int busID, int SeatCapacity){
+        ArrayList<SuperModel> buses = new ArrayList();
         int case_ = -1;
         
         try{
-            
+
             conn = ConnectionDB.getConnection();
            
-            String sql = "select * from luggage where luggage_status like ?";
-            if(luggageID != -1 && passengerIDFk != -1 && passengerIDFk != 0){
-                sql += " and luggage_id =? and passenger_id_fk=?;";
+            String sql = "select * from bus where bus_id = ?";
+            if(SeatCapacity != -1){
+                sql += " and seat_capacity =?;";
                 case_ = 1;
-            } else if(luggageID != -1){
-                sql += " and luggage_id =?;";
-                case_ = 2;
-            } else if(passengerIDFk != -1 && passengerIDFk != 0){
-                sql += " and passenger_id_fk=?;";
-                case_ = 3;
             }
-           
             PreparedStatement statement = conn.prepareStatement(sql);
-            if(luggageStatus.equals("ALL")){
-                statement.setString(1, "%%");
-            } else {
-                statement.setString(1, "%"+luggageStatus+"%"); 
-            }
-            
+            statement.setInt(1, busID); 
             switch(case_){
                 case 1:
-                   statement.setInt(2, luggageID);
-                   statement.setLong(3, passengerIDFk);
-                   break;
-                case 2:
-                   statement.setInt(2, luggageID);
-                   break;
-                case 3:
-                   statement.setLong(2, passengerIDFk);
+                   statement.setInt(2, SeatCapacity);
                    break;
             }
             System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){
-                SuperModel luggage = new LuggageModel(result.getInt(1), result.getString(2), result.getLong(3));
-                luggageList.add(luggage);
+                SuperModel bus = new BusModel(result.getInt(1), result.getInt(2));
+                buses.add(bus);
             }
             
         }
@@ -155,25 +121,25 @@ public class LuggageDAO {
                 JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
             }
         }
-        return luggageList;
+        return buses;
     }
      
      
-    public void update(int luggageID, String luggageStatus, long passengerIDFk){
+     
+    public void update(int busID, int SeatCapacity){
         
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "update luggage set luggage_status=?, passenger_id_fk=? where luggage_id=?;";
+            String sql = "update bus set seat_capacity=? where bus_id=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, luggageStatus);
-            statement.setLong(2, passengerIDFk);
-            statement.setInt(3, luggageID);
+            statement.setInt(1, SeatCapacity);
+            statement.setInt(2, busID);
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){
-                JOptionPane.showMessageDialog(null,"El registro " + luggageID + " fue modificado exitosamente");
+                JOptionPane.showMessageDialog(null,"El registro " + busID + " fue modificado exitosamente");
             } else {
                 JOptionPane.showMessageDialog(null,"El registro no existe");
             }
@@ -190,14 +156,14 @@ public class LuggageDAO {
         
     }
     
-    public void delete(int luggageID){
+    public void delete(int busID){
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "delete from luggage where luggage_id=?;";
+            String sql = "delete from bus where bus_id=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, luggageID);
+            statement.setInt(1, busID);
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){

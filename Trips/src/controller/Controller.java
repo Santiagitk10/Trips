@@ -5,9 +5,11 @@
  */
 package controller;
 
+import Access.BusDAO;
 import Access.EmployeeDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
+import Model.BusModel;
 import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
@@ -38,13 +40,16 @@ public class Controller implements ActionListener{
     private PassengerDAO pasDAO;
     private LuggageModel lugMod;
     private LuggageDAO lugDAO;
+    private BusModel busMod;
+    private BusDAO busDAO;
     private int op;
     private int currEntity;
     private JComboBox comboxLugStatus;
     private JComboBox comboxPassIdFk;
+    private JComboBox comboxBusSeatCap;
     
     
-    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO){
+    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO){
         this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
@@ -52,6 +57,8 @@ public class Controller implements ActionListener{
         this.pasDAO = pasDAO;
         this.lugMod = lugMod;
         this.lugDAO = lugDAO;
+        this.busMod = busMod;
+        this.busDAO = busDAO;
         this.op = 0;
         this.currEntity = 0;
         
@@ -67,6 +74,7 @@ public class Controller implements ActionListener{
         mainframe.btnEmpPanel.addActionListener(this);
         mainframe.btnPasPanel.addActionListener(this);
         mainframe.btnLugPanel.addActionListener(this);
+        mainframe.btnBusPanel.addActionListener(this);
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
         mainframe.btnUpdate.addActionListener(this);
@@ -94,7 +102,11 @@ public class Controller implements ActionListener{
         this.comboxPassIdFk.setBounds(340, 200, 200, 30);
         mainframe.LugPane.add(this.comboxPassIdFk);     
         
-        
+        //Creación combobox Buses para selección capacidad
+        Object[] busSeatCapOptions = {"ALL",30,40,45,90};
+        this.comboxBusSeatCap = new JComboBox(busSeatCapOptions);
+        this.comboxBusSeatCap.setBounds(375, 140, 100, 30);
+        mainframe.BusPane.add(this.comboxBusSeatCap);
         
         
         hideElements();
@@ -106,6 +118,7 @@ public class Controller implements ActionListener{
         String[] Employeeheaders = {"Passenger ID", "Passenger Name"};
         String[] Passengerheaders = {"Passenger ID", "Passenger Name"};
         String[] Luggageheaders = {"Luggage ID", "Luggage Status", "Passenger ID"};
+        String[] busheaders = {"Bus ID", "Seat Capacity"};
         
         if(e.getSource() == mainframe.btnEmpPanel){
             mainframe.dataDisplayPane.removeAll();
@@ -136,7 +149,17 @@ public class Controller implements ActionListener{
             currEntity = 3;
             
             
-        } 
+        } else if(e.getSource() == mainframe.btnBusPanel){
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+            mainframe.dataDisplayPane.add(mainframe.BusPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 4;   
+            
+        }
         
         
         
@@ -257,13 +280,47 @@ public class Controller implements ActionListener{
                     comboxPassIdFk.setSelectedIndex(0);
                 }
             break;   
+            case 4: 
+                if(e.getSource() == mainframe.btnCreate){
+                    hideElements();
+                    mainframe.labelBusSeatCap.setVisible(true);
+                    comboxBusSeatCap.setVisible(true);
+                    op = 13;
+                } else if(e.getSource() == mainframe.btnSearch){
+                    hideElements();
+                    mainframe.labelBusID.setVisible(true);
+                    mainframe.textFieldBusID.setVisible(true);
+                    mainframe.labelBusSeatCap.setVisible(true);
+                    comboxBusSeatCap.setVisible(true);
+                    op = 14;
+                } else if(e.getSource() == mainframe.btnUpdate){
+                    hideElements();
+                    mainframe.labelBusID.setVisible(true);
+                    mainframe.textFieldBusID.setVisible(true);
+                    mainframe.labelBusSeatCap.setVisible(true);
+                    comboxBusSeatCap.setVisible(true);
+                    mainframe.btnSearchSelectBus.setVisible(true);
+                    op = 15;
+                } else if(e.getSource() == mainframe.btnDelete){
+                    hideElements();
+                    mainframe.labelBusID.setVisible(true);
+                    mainframe.textFieldBusID.setVisible(true);
+                    mainframe.labelBusSeatCap.setVisible(true);
+                    comboxBusSeatCap.setVisible(true);
+                    mainframe.btnSearchSelectBus.setVisible(true);
+                    op = 16;
+
+                } else if (e.getSource() == mainframe.btnClearFields){
+                    mainframe.textFieldBusID.setText("");
+                    comboxBusSeatCap.setSelectedIndex(0);
+                }
+            break;
         }
         
         
         
         
-        
-        
+ 
         
         
         
@@ -318,9 +375,16 @@ public class Controller implements ActionListener{
                if(!mainframe.tableLuggage.getSelectionModel().isSelectionEmpty()){
                     mainframe.txtFieldLugID.setText(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 0).toString());
                     comboxLugStatus.setSelectedItem(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 1).toString());
-                       //TODAVIA NO ME MODIFICA EL COMBOBOX CON LO QUE HAY SELECCIONADO DE LA TABLA
-                    comboxPassIdFk.setSelectedItem(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 2).toString());
-
+                    
+                    String selectedData =  mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 2).toString(); 
+       
+                    for(int i = 0; i < comboxPassIdFk.getItemCount(); i++ ){
+                        if(comboxPassIdFk.getItemAt(i).toString().equals(selectedData)){
+                            comboxPassIdFk.setSelectedIndex(i);
+                        }
+                    }
+                   
+                    
                 }
            }
            
@@ -503,7 +567,7 @@ public class Controller implements ActionListener{
                         setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
                         
                     } else {
-                        JOptionPane.showMessageDialog(null,"To create a passanger both the name and the ID must be populated");
+                        JOptionPane.showMessageDialog(null,"To create luggage a Passenger ID must be selected");
                     }
                    
                     break;
@@ -594,6 +658,14 @@ public class Controller implements ActionListener{
         comboxPassIdFk.setVisible(false);
         mainframe.btnSearchSelectLug.setVisible(false);
         comboxLugStatus.setVisible(false);
+        
+        mainframe.labelBusID.setVisible(false);
+        mainframe.textFieldBusID.setVisible(false);
+        mainframe.labelBusSeatCap.setVisible(false);
+        comboxBusSeatCap.setVisible(false);
+        mainframe.btnSearchSelectBus.setVisible(false);
+        
+        
     }   
   
     
