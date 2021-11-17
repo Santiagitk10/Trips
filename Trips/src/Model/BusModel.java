@@ -41,5 +41,11 @@ public class BusModel extends SuperModel {
     }
     
     
+    @Override
+    public Object[] toArray(){
+        Object[] data = {busID,seatCapacity};
+        return data;
+    }
+    
     
 }

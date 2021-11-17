@@ -81,6 +81,7 @@ public class Controller implements ActionListener{
         mainframe.btnSearchSelectEmp.addActionListener(this);
         mainframe.btnSearchSelectPas.addActionListener(this);
         mainframe.btnSearchSelectLug.addActionListener(this);
+        mainframe.btnSearchSelectBus.addActionListener(this);
         mainframe.btnDelete.addActionListener(this);
         mainframe.btnGo.addActionListener(this);
         mainframe.btnClearFields.addActionListener(this);
@@ -115,6 +116,8 @@ public class Controller implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
         
+        
+        //Initial selection depending on the entity the user wants to work with
         String[] Employeeheaders = {"Passenger ID", "Passenger Name"};
         String[] Passengerheaders = {"Passenger ID", "Passenger Name"};
         String[] Luggageheaders = {"Luggage ID", "Luggage Status", "Passenger ID"};
@@ -162,7 +165,7 @@ public class Controller implements ActionListener{
         }
         
         
-        
+        //Selection of which elements to show depending on which crud option is selected
         switch(currEntity){
             case 1:
                 if(e.getSource() == mainframe.btnCreate){
@@ -330,7 +333,7 @@ public class Controller implements ActionListener{
         
         
         
-        
+       //Search/Select Buttons functionality
        if(e.getSource() == mainframe.btnSearchSelectEmp){
            
            if(op == 3 || op == 4){
@@ -408,6 +411,37 @@ public class Controller implements ActionListener{
        }
        
        
+       if(e.getSource() == mainframe.btnSearchSelectBus){
+           
+           if(op == 15 || op == 16){
+               System.out.println("dentro");
+               if(!mainframe.tableBuses.getSelectionModel().isSelectionEmpty()){
+                    mainframe.textFieldBusID.setText(mainframe.tableBuses.getModel().getValueAt(mainframe.tableBuses.getSelectedRow(), 0).toString());
+                    comboxBusSeatCap.setSelectedItem(mainframe.tableBuses.getModel().getValueAt(mainframe.tableBuses.getSelectedRow(), 1));
+                }
+             
+            }
+           
+           
+            if(mainframe.textFieldBusID.getText().equals("") && comboxBusSeatCap.getSelectedItem().equals("ALL")){
+                setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+
+            } else if(mainframe.textFieldBusID.getText().equals("")){
+                busMod.setBusID(-1);
+                busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                setTableResults(busDAO.getBusesByFilter(busMod.getBusID(), busMod.getSeatCapacity()),busheaders, mainframe.tableBuses);
+            } else if(comboxBusSeatCap.getSelectedItem().equals("ALL")){
+                busMod.setSeatCapacity(-1);
+                busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
+                setTableResults(busDAO.getBusesByFilter(busMod.getBusID(), busMod.getSeatCapacity()),busheaders, mainframe.tableBuses);
+            } else {
+                busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
+                busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                setTableResults(busDAO.getBusesByFilter(busMod.getBusID(), busMod.getSeatCapacity()),busheaders, mainframe.tableBuses);
+            }
+            
+            
+       }
        
        
        
@@ -416,15 +450,14 @@ public class Controller implements ActionListener{
        
        
        
-       
-       
+       //Crud action to perform once Go! is clicked
        if(e.getSource() == mainframe.btnGo){
             
             switch(op){
                 case 0: 
                     JOptionPane.showMessageDialog(null, "Select an option from the left pannel to proceed");
                     break;
-                    
+                //Crud actions for the employee 
                 case 1:
                     if(!mainframe.textFieldEmployeeName.getText().equals("")){
                         empMod.setEmployeeName(mainframe.textFieldEmployeeName.getText());
@@ -487,6 +520,7 @@ public class Controller implements ActionListener{
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
                     }
                     break;  
+                //Crud actions for the passenger  
                 case 5:
                     if(!mainframe.txtFieldPassName.getText().equals("") && !mainframe.txtFieldPassID.getText().equals("") ){
                         pasMod.setPassengerId(Long.parseLong(mainframe.txtFieldPassID.getText()));
@@ -553,7 +587,7 @@ public class Controller implements ActionListener{
                     break; 
                     
                     
-
+                //Crud actions for luggage   
                 case 9:
                     if(!comboxPassIdFk.getSelectedItem().toString().equals("0")){
                         lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
@@ -631,7 +665,82 @@ public class Controller implements ActionListener{
                     } else {
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
                     }
-                    break;   
+                    break;  
+                //Crud Actions for the Buses
+                case 13:
+                    if(!comboxBusSeatCap.getSelectedItem().equals("ALL")){
+                        busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                        busDAO.insertBus(busMod);
+                        comboxBusSeatCap.setSelectedIndex(0);
+                        hideElements();
+                        op = 0;
+                        setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null,"To create a bus select seat capacity");
+                    }
+                    break;
+                case 14:
+                    if(mainframe.textFieldBusID.getText().equals("") && comboxBusSeatCap.getSelectedItem().equals("ALL")){
+                        setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+                        hideElements();
+                    
+                    } else if(mainframe.textFieldBusID.getText().equals("")){
+                        busMod.setBusID(-1);
+                        busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                        setTableResults(busDAO.getBusesByFilter(busMod.getBusID(), busMod.getSeatCapacity()),busheaders, mainframe.tableBuses);
+                    } else if(comboxBusSeatCap.getSelectedItem().equals("ALL")){
+                        busMod.setSeatCapacity(-1);
+                        busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
+                        setTableResults(busDAO.getBusesByFilter(busMod.getBusID(), busMod.getSeatCapacity()),busheaders, mainframe.tableBuses);
+                    } else {
+                        busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
+                        busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                        setTableResults(busDAO.getBusesByFilter(busMod.getBusID(), busMod.getSeatCapacity()),busheaders, mainframe.tableBuses);
+                    }
+                    mainframe.textFieldBusID.setText("");
+                    comboxBusSeatCap.setSelectedIndex(0);
+                    hideElements();
+                    op = 0;
+                    break;
+                case 15:
+                    
+                    if (mainframe.textFieldBusID.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null,"Indicate a Bus ID to modify");
+                    }
+                    
+                    if(!comboxBusSeatCap.getSelectedItem().toString().equals("ALL")){
+                        busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
+                        busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                        busDAO.update(busMod.getBusID(),busMod.getSeatCapacity());
+ 
+                        mainframe.textFieldBusID.setText("");
+                        comboxBusSeatCap.setSelectedIndex(0);
+                        hideElements();
+                        op = 0;
+                        setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+                    } else {
+                        JOptionPane.showMessageDialog(null,"Seat Capacity cannot be 'ALL'");
+                    }
+                    
+                    break;
+                case 16: 
+                    if(!mainframe.tableBuses.getSelectionModel().isSelectionEmpty()){
+                        
+                        int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION ){
+                             busMod.setBusID(Integer.parseInt(mainframe.tableBuses.getModel().getValueAt(mainframe.tableBuses.getSelectedRow(), 0).toString()));
+                             busDAO.delete(busMod.getBusID());
+                             mainframe.textFieldBusID.setText("");
+                             comboxBusSeatCap.setSelectedIndex(0);
+                             hideElements();
+                             op = 0;
+                             setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
+                    }
+                    break;
             }   
                 
                 

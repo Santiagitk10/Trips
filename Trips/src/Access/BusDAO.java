@@ -89,17 +89,33 @@ public class BusDAO {
         try{
 
             conn = ConnectionDB.getConnection();
-           
-            String sql = "select * from bus where bus_id = ?";
-            if(SeatCapacity != -1){
-                sql += " and seat_capacity =?;";
-                case_ = 1;
+            
+            String sql = "";
+            
+            if(busID != -1 && SeatCapacity != -1){
+               sql =  "select * from bus where bus_id = ? and seat_capacity =?;";
+               case_ = 1;
+            } else if(SeatCapacity == -1){
+               sql = "select * from bus where bus_id = ?;";
+               case_ = 2;
+            } else if(busID == -1){
+               sql = "select * from bus where seat_capacity =?;";
+               case_ = 3;
             }
+            
+      
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, busID); 
+             
             switch(case_){
                 case 1:
+                   statement.setInt(1, busID);
                    statement.setInt(2, SeatCapacity);
+                   break;
+                case 2:
+                   statement.setInt(1, busID);
+                   break;
+                case 3:
+                   statement.setInt(1, SeatCapacity);
                    break;
             }
             System.out.println(statement.toString());
