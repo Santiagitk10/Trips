@@ -6,10 +6,12 @@
 package trips;
 
 import Access.BusDAO;
+import Access.CityDAO;
 import Access.EmployeeDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
 import Model.BusModel;
+import Model.CityModel;
 import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
@@ -36,10 +38,12 @@ public class Trips {
         LuggageDAO lugDAO = new LuggageDAO();
         BusModel busMod = new BusModel();
         BusDAO busDAO = new BusDAO();
+        CityModel cityMod = new CityModel();
+        CityDAO cityDAO = new CityDAO();
         
        
         
-        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO, busMod, busDAO);
+        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO, busMod, busDAO, cityMod, cityDAO);
         cont.initialize();
         
         

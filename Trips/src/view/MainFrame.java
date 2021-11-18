@@ -34,6 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnPasPanel = new javax.swing.JButton();
         btnLugPanel = new javax.swing.JButton();
         btnBusPanel = new javax.swing.JButton();
+        btnCitPanel = new javax.swing.JButton();
         crudPane = new javax.swing.JPanel();
         btnCreate = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -77,6 +78,13 @@ public class MainFrame extends javax.swing.JFrame {
         labelBusSeatCap = new javax.swing.JLabel();
         labelBusID = new javax.swing.JLabel();
         btnSearchSelectBus = new javax.swing.JButton();
+        CitPane = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tableCities = new javax.swing.JTable();
+        textFieldCityName = new javax.swing.JTextField();
+        labelCitName = new javax.swing.JLabel();
+        btnSearchSelectCit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +120,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnCitPanel.setText("Cities");
+        btnCitPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCitPanelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout entitySelectionPaneLayout = new javax.swing.GroupLayout(entitySelectionPane);
         entitySelectionPane.setLayout(entitySelectionPaneLayout);
         entitySelectionPaneLayout.setHorizontalGroup(
@@ -125,6 +140,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         entitySelectionPaneLayout.setVerticalGroup(
@@ -135,7 +152,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnPasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -552,6 +570,85 @@ public class MainFrame extends javax.swing.JFrame {
 
         dataDisplayPane.add(BusPane, "card2");
 
+        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel9.setText("Cities");
+
+        tableCities.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "City Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(tableCities);
+
+        textFieldCityName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldCityNameActionPerformed(evt);
+            }
+        });
+
+        labelCitName.setText("City Name");
+
+        btnSearchSelectCit.setText("Search/Select");
+        btnSearchSelectCit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchSelectCitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout CitPaneLayout = new javax.swing.GroupLayout(CitPane);
+        CitPane.setLayout(CitPaneLayout);
+        CitPaneLayout.setHorizontalGroup(
+            CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CitPaneLayout.createSequentialGroup()
+                .addContainerGap(202, Short.MAX_VALUE)
+                .addGroup(CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(CitPaneLayout.createSequentialGroup()
+                        .addComponent(labelCitName)
+                        .addGap(18, 18, 18)
+                        .addComponent(textFieldCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(243, 243, 243))
+            .addGroup(CitPaneLayout.createSequentialGroup()
+                .addGap(252, 252, 252)
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(CitPaneLayout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addComponent(btnSearchSelectCit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        CitPaneLayout.setVerticalGroup(
+            CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CitPaneLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel9)
+                .addGap(35, 35, 35)
+                .addGroup(CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCitName)
+                    .addComponent(textFieldCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(btnSearchSelectCit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
+
+        dataDisplayPane.add(CitPane, "card2");
+
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
         mainPaneLayout.setHorizontalGroup(
@@ -657,6 +754,18 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBusPanelActionPerformed
 
+    private void textFieldCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCityNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldCityNameActionPerformed
+
+    private void btnSearchSelectCitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchSelectCitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchSelectCitActionPerformed
+
+    private void btnCitPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitPanelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCitPanelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -695,10 +804,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel BusPane;
+    public javax.swing.JPanel CitPane;
     public javax.swing.JPanel EmpPane;
     public javax.swing.JPanel LugPane;
     public javax.swing.JPanel PasPane;
     public javax.swing.JButton btnBusPanel;
+    public javax.swing.JButton btnCitPanel;
     public javax.swing.JButton btnClearFields;
     public javax.swing.JButton btnCreate;
     public javax.swing.JButton btnDelete;
@@ -709,6 +820,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnPasPanel;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnSearchSelectBus;
+    public javax.swing.JButton btnSearchSelectCit;
     public javax.swing.JButton btnSearchSelectEmp;
     public javax.swing.JButton btnSearchSelectLug;
     public javax.swing.JButton btnSearchSelectPas;
@@ -720,12 +832,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     public javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel9;
     public javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     public javax.swing.JScrollPane jScrollPane6;
+    public javax.swing.JScrollPane jScrollPane7;
     public javax.swing.JLabel labelBusID;
     public javax.swing.JLabel labelBusSeatCap;
+    public javax.swing.JLabel labelCitName;
     public javax.swing.JLabel labelEmpName;
     public javax.swing.JLabel labelEmpNumber;
     public javax.swing.JLabel labelLugID;
@@ -735,10 +850,12 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JLabel labelPasName;
     public javax.swing.JPanel mainPane;
     public javax.swing.JTable tableBuses;
+    public javax.swing.JTable tableCities;
     public javax.swing.JTable tableEmployees;
     public javax.swing.JTable tableLuggage;
     public javax.swing.JTable tablePassengers;
     public javax.swing.JTextField textFieldBusID;
+    public javax.swing.JTextField textFieldCityName;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
     public javax.swing.JTextField txtFieldLugID;

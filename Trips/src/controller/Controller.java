@@ -6,10 +6,12 @@
 package controller;
 
 import Access.BusDAO;
+import Access.CityDAO;
 import Access.EmployeeDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
 import Model.BusModel;
+import Model.CityModel;
 import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
@@ -42,6 +44,8 @@ public class Controller implements ActionListener{
     private LuggageDAO lugDAO;
     private BusModel busMod;
     private BusDAO busDAO;
+    private CityModel cityMod;
+    private CityDAO cityDAO;
     private int op;
     private int currEntity;
     private JComboBox comboxLugStatus;
@@ -49,7 +53,7 @@ public class Controller implements ActionListener{
     private JComboBox comboxBusSeatCap;
     
     
-    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO){
+    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO  ){
         this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
@@ -59,6 +63,8 @@ public class Controller implements ActionListener{
         this.lugDAO = lugDAO;
         this.busMod = busMod;
         this.busDAO = busDAO;
+        this.cityMod = cityMod;
+        this.cityDAO = cityDAO;
         this.op = 0;
         this.currEntity = 0;
         
@@ -75,6 +81,7 @@ public class Controller implements ActionListener{
         mainframe.btnPasPanel.addActionListener(this);
         mainframe.btnLugPanel.addActionListener(this);
         mainframe.btnBusPanel.addActionListener(this);
+        mainframe.btnCitPanel.addActionListener(this);
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
         mainframe.btnUpdate.addActionListener(this);
@@ -82,6 +89,7 @@ public class Controller implements ActionListener{
         mainframe.btnSearchSelectPas.addActionListener(this);
         mainframe.btnSearchSelectLug.addActionListener(this);
         mainframe.btnSearchSelectBus.addActionListener(this);
+        mainframe.btnSearchSelectCit.addActionListener(this);
         mainframe.btnDelete.addActionListener(this);
         mainframe.btnGo.addActionListener(this);
         mainframe.btnClearFields.addActionListener(this);
@@ -122,6 +130,7 @@ public class Controller implements ActionListener{
         String[] Passengerheaders = {"Passenger ID", "Passenger Name"};
         String[] Luggageheaders = {"Luggage ID", "Luggage Status", "Passenger ID"};
         String[] busheaders = {"Bus ID", "Seat Capacity"};
+        String[] cityheaders = {"City Name"};
         
         if(e.getSource() == mainframe.btnEmpPanel){
             mainframe.dataDisplayPane.removeAll();
@@ -162,7 +171,27 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 4;   
             
+        } else if(e.getSource() == mainframe.btnCitPanel){
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            setTableResults(cityDAO.getAllCities(),cityheaders, mainframe.tableCities);
+            mainframe.dataDisplayPane.add(mainframe.CitPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 5;
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         //Selection of which elements to show depending on which crud option is selected
@@ -318,14 +347,35 @@ public class Controller implements ActionListener{
                     comboxBusSeatCap.setSelectedIndex(0);
                 }
             break;
+            case 5: 
+                if(e.getSource() == mainframe.btnCreate){
+                    hideElements();
+                    mainframe.labelCitName.setVisible(true);
+                    mainframe.textFieldCityName.setVisible(true);
+                    op = 17;
+                } else if(e.getSource() == mainframe.btnSearch){
+                    hideElements();
+                    mainframe.labelCitName.setVisible(true);
+                    mainframe.textFieldCityName.setVisible(true);
+                    op = 18;
+                } else if(e.getSource() == mainframe.btnUpdate){
+                    hideElements();
+                    mainframe.labelCitName.setVisible(true);
+                    mainframe.textFieldCityName.setVisible(true);
+                    mainframe.btnSearchSelectCit.setVisible(true);
+                    op = 19;
+                } else if(e.getSource() == mainframe.btnDelete){
+                    hideElements();
+                    mainframe.labelCitName.setVisible(true);
+                    mainframe.textFieldCityName.setVisible(true);
+                    mainframe.btnSearchSelectCit.setVisible(true);
+                    op = 20;
+
+                } else if (e.getSource() == mainframe.btnClearFields){
+                    mainframe.textFieldCityName.setText("");
+                }
+            break;
         }
-        
-        
-        
-        
- 
-        
-        
         
         
         
@@ -442,6 +492,26 @@ public class Controller implements ActionListener{
             
             
        }
+       
+       
+       
+       if(e.getSource() == mainframe.btnSearchSelectCit){
+           
+           if(op == 19 || op == 20){
+               if(!mainframe.tableCities.getSelectionModel().isSelectionEmpty()){
+                    mainframe.textFieldCityName.setText(mainframe.tableCities.getModel().getValueAt(mainframe.tableCities.getSelectedRow(), 0).toString());
+               }
+           }
+           
+           
+            cityMod.setCityName(mainframe.textFieldCityName.getText());
+            setTableResults(cityDAO.getCitiesByFilter(cityMod.getCityName()), cityheaders, mainframe.tableCities); 
+       }
+       
+       
+       
+       
+       
        
        
        
@@ -741,6 +811,67 @@ public class Controller implements ActionListener{
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
                     }
                     break;
+                //Crud actions for the City
+                case 17:
+                    if(!mainframe.textFieldCityName.getText().equals("")){
+                        cityMod.setCityName(mainframe.textFieldCityName.getText());
+                        cityDAO.insertCity(cityMod);
+                        mainframe.textFieldCityName.setText("");
+                        hideElements();
+                        op = 0;
+                        setTableResults(cityDAO.getAllCities(),cityheaders, mainframe.tableCities);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null,"To create a City the City Name cannot be empty");
+                    }
+                   
+                    break;
+                
+                case 18:
+                    cityMod.setCityName(mainframe.textFieldCityName.getText());
+                    setTableResults(cityDAO.getCitiesByFilter(cityMod.getCityName()), cityheaders, mainframe.tableCities); 
+                    mainframe.textFieldCityName.setText("");
+                    hideElements();
+                    op = 0;
+                    break;
+                case 19:
+                    if(mainframe.textFieldCityName.getText().equals("")){
+                        JOptionPane.showMessageDialog(null,"City Name must be populated to perform the change");
+                    }  else {
+                        
+                        if(!mainframe.tableCities.getSelectionModel().isSelectionEmpty()){
+                            
+                            String currentCity = mainframe.tableCities.getModel().getValueAt(mainframe.tableCities.getSelectedRow(), 0).toString(); 
+                            
+                            cityMod.setCityName(mainframe.textFieldCityName.getText());
+                            cityDAO.update(cityMod.getCityName(), currentCity);
+                            mainframe.textFieldCityName.setText("");
+                            hideElements();
+                            op = 0;
+                            setTableResults(cityDAO.getAllCities(),cityheaders, mainframe.tableCities);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Select one register from the table to modify it");
+                        }
+                        
+                        
+                    }
+                    break;
+                case 20: 
+                    if(!mainframe.tableCities.getSelectionModel().isSelectionEmpty()){
+                        
+                        int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION ){
+                             cityMod.setCityName(mainframe.tableCities.getModel().getValueAt(mainframe.tableCities.getSelectedRow(), 0).toString());
+                             cityDAO.delete(cityMod.getCityName());
+                             mainframe.textFieldCityName.setText("");
+                             hideElements();
+                             op = 0;
+                             setTableResults(cityDAO.getAllCities(),cityheaders, mainframe.tableCities);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
+                    }
+                    break;
             }   
                 
                 
@@ -774,7 +905,9 @@ public class Controller implements ActionListener{
         comboxBusSeatCap.setVisible(false);
         mainframe.btnSearchSelectBus.setVisible(false);
         
-        
+        mainframe.labelCitName.setVisible(false);
+        mainframe.textFieldCityName.setVisible(false);
+        mainframe.btnSearchSelectCit.setVisible(false);
     }   
   
     
