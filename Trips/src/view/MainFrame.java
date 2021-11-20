@@ -28,6 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGroupCrudEmployee = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
         mainPane = new javax.swing.JPanel();
         entitySelectionPane = new javax.swing.JPanel();
         btnEmpPanel = new javax.swing.JButton();
@@ -35,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnLugPanel = new javax.swing.JButton();
         btnBusPanel = new javax.swing.JButton();
         btnCitPanel = new javax.swing.JButton();
+        btnTripPanel = new javax.swing.JButton();
         crudPane = new javax.swing.JPanel();
         btnCreate = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -85,6 +87,23 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldCityName = new javax.swing.JTextField();
         labelCitName = new javax.swing.JLabel();
         btnSearchSelectCit = new javax.swing.JButton();
+        TripPane = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tableEmployees1 = new javax.swing.JTable();
+        textFieldTripID = new javax.swing.JTextField();
+        labelTripPrice = new javax.swing.JLabel();
+        labelTripID = new javax.swing.JLabel();
+        btnSearchSelectTrip = new javax.swing.JButton();
+        formatTextFieldTripPrice = new javax.swing.JFormattedTextField();
+        labelTripDate = new javax.swing.JLabel();
+        labelEmpNumFkTrip = new javax.swing.JLabel();
+        labelBusIDFkTrip = new javax.swing.JLabel();
+        labelOriCityFkTrip = new javax.swing.JLabel();
+        labelDesCityFkTrip = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPasPanel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnPasPanel.setText("Passengers");
         btnPasPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,21 +147,30 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnTripPanel.setText("Trips");
+        btnTripPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTripPanelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout entitySelectionPaneLayout = new javax.swing.GroupLayout(entitySelectionPane);
         entitySelectionPane.setLayout(entitySelectionPaneLayout);
         entitySelectionPaneLayout.setHorizontalGroup(
             entitySelectionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(entitySelectionPaneLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(btnEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnPasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEmpPanel)
                 .addGap(18, 18, 18)
-                .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPasPanel)
+                .addGap(18, 18, 18)
+                .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         entitySelectionPaneLayout.setVerticalGroup(
@@ -153,7 +182,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnEmpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -649,6 +679,136 @@ public class MainFrame extends javax.swing.JFrame {
 
         dataDisplayPane.add(CitPane, "card2");
 
+        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel10.setText("Trips");
+
+        tableEmployees1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Trip ID", "Trip Date", "Price", "Origin City", "Destiny City", "Emp Number", "Bus ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane8.setViewportView(tableEmployees1);
+
+        textFieldTripID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldTripIDActionPerformed(evt);
+            }
+        });
+
+        labelTripPrice.setText("Price");
+
+        labelTripID.setText("Trip ID");
+
+        btnSearchSelectTrip.setText("Search/Select");
+        btnSearchSelectTrip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchSelectTripActionPerformed(evt);
+            }
+        });
+
+        labelTripDate.setText("Trip Date");
+
+        labelEmpNumFkTrip.setText("Employee Number");
+
+        labelBusIDFkTrip.setText("Bus ID");
+
+        labelOriCityFkTrip.setText("Origin City");
+
+        labelDesCityFkTrip.setText("Destiny City");
+
+        javax.swing.GroupLayout TripPaneLayout = new javax.swing.GroupLayout(TripPane);
+        TripPane.setLayout(TripPaneLayout);
+        TripPaneLayout.setHorizontalGroup(
+            TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TripPaneLayout.createSequentialGroup()
+                .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(274, 274, 274)
+                        .addComponent(jLabel10))
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTripID)
+                            .addComponent(labelTripPrice)
+                            .addComponent(labelTripDate))
+                        .addGap(41, 41, 41)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldTripID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(formatTextFieldTripPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelOriCityFkTrip)
+                            .addComponent(labelDesCityFkTrip)
+                            .addComponent(labelBusIDFkTrip)
+                            .addComponent(labelEmpNumFkTrip))))
+                .addContainerGap(239, Short.MAX_VALUE))
+            .addGroup(TripPaneLayout.createSequentialGroup()
+                .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(btnSearchSelectTrip)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        TripPaneLayout.setVerticalGroup(
+            TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TripPaneLayout.createSequentialGroup()
+                .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel10)
+                        .addGap(11, 11, 11)
+                        .addComponent(labelOriCityFkTrip))
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTripID)
+                            .addComponent(textFieldTripID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTripDate)
+                            .addComponent(labelDesCityFkTrip)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(labelEmpNumFkTrip)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelBusIDFkTrip))
+                    .addGroup(TripPaneLayout.createSequentialGroup()
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TripPaneLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(labelTripPrice))
+                            .addGroup(TripPaneLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(formatTextFieldTripPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnSearchSelectTrip)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        dataDisplayPane.add(TripPane, "card2");
+
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
         mainPaneLayout.setHorizontalGroup(
@@ -766,6 +926,18 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCitPanelActionPerformed
 
+    private void textFieldTripIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTripIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldTripIDActionPerformed
+
+    private void btnSearchSelectTripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchSelectTripActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchSelectTripActionPerformed
+
+    private void btnTripPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTripPanelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTripPanelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -808,6 +980,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JPanel EmpPane;
     public javax.swing.JPanel LugPane;
     public javax.swing.JPanel PasPane;
+    public javax.swing.JPanel TripPane;
     public javax.swing.JButton btnBusPanel;
     public javax.swing.JButton btnCitPanel;
     public javax.swing.JButton btnClearFields;
@@ -824,10 +997,16 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnSearchSelectEmp;
     public javax.swing.JButton btnSearchSelectLug;
     public javax.swing.JButton btnSearchSelectPas;
+    public javax.swing.JButton btnSearchSelectTrip;
+    public javax.swing.JButton btnTripPanel;
     public javax.swing.JButton btnUpdate;
     private javax.swing.JPanel crudPane;
     public javax.swing.JPanel dataDisplayPane;
     private javax.swing.JPanel entitySelectionPane;
+    private javax.swing.JFormattedTextField formatTextFieldTripPrice;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -838,26 +1017,36 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     public javax.swing.JScrollPane jScrollPane6;
     public javax.swing.JScrollPane jScrollPane7;
+    public javax.swing.JScrollPane jScrollPane8;
     public javax.swing.JLabel labelBusID;
+    private javax.swing.JLabel labelBusIDFkTrip;
     public javax.swing.JLabel labelBusSeatCap;
     public javax.swing.JLabel labelCitName;
+    private javax.swing.JLabel labelDesCityFkTrip;
     public javax.swing.JLabel labelEmpName;
+    private javax.swing.JLabel labelEmpNumFkTrip;
     public javax.swing.JLabel labelEmpNumber;
     public javax.swing.JLabel labelLugID;
     public javax.swing.JLabel labelLugStatus;
+    private javax.swing.JLabel labelOriCityFkTrip;
     public javax.swing.JLabel labelPasID;
     public javax.swing.JLabel labelPasIDFkLug;
     public javax.swing.JLabel labelPasName;
+    public javax.swing.JLabel labelTripDate;
+    public javax.swing.JLabel labelTripID;
+    public javax.swing.JLabel labelTripPrice;
     public javax.swing.JPanel mainPane;
     public javax.swing.JTable tableBuses;
     public javax.swing.JTable tableCities;
     public javax.swing.JTable tableEmployees;
+    public javax.swing.JTable tableEmployees1;
     public javax.swing.JTable tableLuggage;
     public javax.swing.JTable tablePassengers;
     public javax.swing.JTextField textFieldBusID;
     public javax.swing.JTextField textFieldCityName;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
+    public javax.swing.JTextField textFieldTripID;
     public javax.swing.JTextField txtFieldLugID;
     public javax.swing.JTextField txtFieldPassID;
     public javax.swing.JTextField txtFieldPassName;

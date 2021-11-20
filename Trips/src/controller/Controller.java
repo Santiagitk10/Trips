@@ -82,6 +82,7 @@ public class Controller implements ActionListener{
         mainframe.btnLugPanel.addActionListener(this);
         mainframe.btnBusPanel.addActionListener(this);
         mainframe.btnCitPanel.addActionListener(this);
+        mainframe.btnTripPanel.addActionListener(this);
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
         mainframe.btnUpdate.addActionListener(this);
@@ -177,6 +178,16 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             setTableResults(cityDAO.getAllCities(),cityheaders, mainframe.tableCities);
             mainframe.dataDisplayPane.add(mainframe.CitPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 5;
+            
+        } else if(e.getSource() == mainframe.btnTripPanel){
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+//            setTableResults(cityDAO.getAties(),cityheaders, mainframe.tableCities);
+            mainframe.dataDisplayPane.add(mainframe.TripPane);
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             currEntity = 5;
