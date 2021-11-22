@@ -95,7 +95,7 @@ public class TripDAO {
         ArrayList<SuperModel> tripsList = new ArrayList();
         
         //        ArrayList<String> selectedFilters = new ArrayList();
-        //Una posibilidad es recorrer el objeto y si el valor es diferente a -1 u "ALL" utilizo un ArrayList para guardar las contanaciones de la 
+        //Una posibilidad es recorrer el objeto y si el valor es diferente a -1 u "ALL" utilizo un ArrayList para guardar las concatenaciones de la 
         //sentecia sql combinado con if statements y luego recorrer ese array y con if statements para el tipo de dato de la injección ir
         //ingresandolos con un for que i sea 1,2,3, y los datos que hayan
         
@@ -164,21 +164,25 @@ public class TripDAO {
     }
      
      
-    public void update(int luggageID, String luggageStatus, long passengerIDFk){
+    public void update(TripModel trip){
         
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "update luggage set luggage_status=?, passenger_id_fk=? where luggage_id=?;";
+            String sql = "update trip set trip_date=?, price=?, origin_city_fk=?, destiny_city_fk=?, employee_num_fk=?, bus_id_fk=? where trip_id=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, luggageStatus);
-            statement.setLong(2, passengerIDFk);
-            statement.setInt(3, luggageID);
+            statement.setDate(1, trip.getTripDate());
+            statement.setInt(2, trip.getPrice());
+            statement.setString(3, trip.getOriginCityFk());
+            statement.setString(4, trip.getDestinyCityFk());
+            statement.setInt(5, trip.getEmployeeNumFk());
+            statement.setInt(6, trip.getBusIDFk());
+            
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){
-                JOptionPane.showMessageDialog(null,"El registro " + luggageID + " fue modificado exitosamente");
+                JOptionPane.showMessageDialog(null,"El registro " + trip.getTripID() + " fue modificado exitosamente");
             } else {
                 JOptionPane.showMessageDialog(null,"El registro no existe");
             }
@@ -195,14 +199,14 @@ public class TripDAO {
         
     }
     
-    public void delete(int luggageID){
+    public void delete(int tripId){
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "delete from luggage where luggage_id=?;";
+            String sql = "delete from trip where trip_id=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, luggageID);
+            statement.setInt(1, tripId);
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){

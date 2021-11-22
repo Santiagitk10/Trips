@@ -49,7 +49,11 @@ public class EmployeeModel extends SuperModel {
     }
     
     
-    
+    @Override
+    public String toString(){
+
+        return Integer.toString(this.employeeNum);
+    };
     
     
 }

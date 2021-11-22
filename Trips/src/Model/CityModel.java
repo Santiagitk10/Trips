@@ -36,5 +36,10 @@ public class CityModel extends SuperModel {
         return data;
     }
     
+    @Override
+    public String toString(){
+        return this.cityName;
+    }
+    
     
 }

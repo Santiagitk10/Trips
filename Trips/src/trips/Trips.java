@@ -10,11 +10,13 @@ import Access.CityDAO;
 import Access.EmployeeDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
+import Access.TripDAO;
 import Model.BusModel;
 import Model.CityModel;
 import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
+import Model.TripModel;
 import controller.Controller;
 import javax.swing.JComboBox;
 import view.MainFrame;
@@ -40,10 +42,12 @@ public class Trips {
         BusDAO busDAO = new BusDAO();
         CityModel cityMod = new CityModel();
         CityDAO cityDAO = new CityDAO();
+        TripModel tripMod = new TripModel();
+        TripDAO tripDAO = new TripDAO();
         
        
         
-        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO, busMod, busDAO, cityMod, cityDAO);
+        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO, busMod, busDAO, cityMod, cityDAO, tripMod, tripDAO);
         cont.initialize();
         
         

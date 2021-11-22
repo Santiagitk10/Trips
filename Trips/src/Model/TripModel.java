@@ -23,6 +23,11 @@ public class TripModel extends SuperModel{
     private int employeeNumFk;
     private int busIDFk;
 
+    public TripModel() {
+    }
+    
+    
+
     public TripModel(int tripID, Date tripDate, int price, String originCityFk, String destinyCityFk, int employeeNumFk, int busIDFk) {
         this.tripID = tripID;
         this.tripDate = tripDate;
@@ -90,6 +95,11 @@ public class TripModel extends SuperModel{
     }
     
     
+    @Override
+    public Object[] toArray(){
+        Object[] data = {tripID, tripDate, price, originCityFk, destinyCityFk, employeeNumFk, busIDFk};
+        return data;
+    }
             
             
     

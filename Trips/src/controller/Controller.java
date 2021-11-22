@@ -10,12 +10,14 @@ import Access.CityDAO;
 import Access.EmployeeDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
+import Access.TripDAO;
 import Model.BusModel;
 import Model.CityModel;
 import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
 import Model.SuperModel;
+import Model.TripModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.lang.Integer.parseInt;
@@ -46,14 +48,25 @@ public class Controller implements ActionListener{
     private BusDAO busDAO;
     private CityModel cityMod;
     private CityDAO cityDAO;
+    private TripModel tripMod;
+    private TripDAO tripDAO;
     private int op;
     private int currEntity;
+    //Comboboxes en Luggage
     private JComboBox comboxLugStatus;
     private JComboBox comboxPassIdFk;
+    //Comboboxes en Buses
     private JComboBox comboxBusSeatCap;
+    //Comboboxes en Trips
+    private JComboBox comboxEmpNumFk;
+    private JComboBox comboxOriginCityFk;
+    private JComboBox comboxDestinyCityFk;
+    private JComboBox comboxBusIDFk;
     
     
-    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO  ){
+    
+    
+    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO, TripModel tripMod, TripDAO tripDAO ){
         this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
@@ -65,6 +78,8 @@ public class Controller implements ActionListener{
         this.busDAO = busDAO;
         this.cityMod = cityMod;
         this.cityDAO = cityDAO;
+        this.tripMod = tripMod;
+        this.tripDAO = tripDAO;
         this.op = 0;
         this.currEntity = 0;
         
@@ -77,12 +92,14 @@ public class Controller implements ActionListener{
         mainframe.dataDisplayPane.removeAll();
         mainframe.dataDisplayPane.revalidate();
         mainframe.dataDisplayPane.repaint();
+        
         mainframe.btnEmpPanel.addActionListener(this);
         mainframe.btnPasPanel.addActionListener(this);
         mainframe.btnLugPanel.addActionListener(this);
         mainframe.btnBusPanel.addActionListener(this);
         mainframe.btnCitPanel.addActionListener(this);
         mainframe.btnTripPanel.addActionListener(this);
+        
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
         mainframe.btnUpdate.addActionListener(this);
@@ -98,25 +115,55 @@ public class Controller implements ActionListener{
         
         InitialDataComboBoxes initialData = new InitialDataComboBoxes();
         
-        //Creación combobox Luggage para seleción de Status
+        //Creación combobox en Luggage para seleción de Status
         String[] lugStatusOptions = {"ALL", "OK", "LOST"};
         this.comboxLugStatus = new JComboBox(lugStatusOptions);
         this.comboxLugStatus.setBounds(340, 143, 100, 30);
         mainframe.LugPane.add(this.comboxLugStatus);
         
         
-        //Creación combobox Luggage para selección de PassenderIdFk
+        //Creación combobox en Luggage para selección de PassenderIdFk
         this.comboxPassIdFk = new JComboBox();        
         this.comboxPassIdFk.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
         this.comboxPassIdFk.setSelectedIndex(0);
         this.comboxPassIdFk.setBounds(340, 200, 200, 30);
         mainframe.LugPane.add(this.comboxPassIdFk);     
         
-        //Creación combobox Buses para selección capacidad
+        //Creación combobox en Buses para selección capacidad
         Object[] busSeatCapOptions = {"ALL",30,40,45,90};
         this.comboxBusSeatCap = new JComboBox(busSeatCapOptions);
         this.comboxBusSeatCap.setBounds(375, 140, 100, 30);
         mainframe.BusPane.add(this.comboxBusSeatCap);
+        
+        
+        //Creación combobox en Trips para selección de employeeNumFk
+        this.comboxEmpNumFk = new JComboBox();
+        this.comboxEmpNumFk.setModel(new DefaultComboBoxModel<>(initialData.getEmployees().toArray(new SuperModel[initialData.getEmployees().size()])));
+        this.comboxEmpNumFk.setSelectedIndex(0);
+        this.comboxEmpNumFk.setBounds(450, 140, 60, 30);
+        mainframe.TripPane.add(this.comboxEmpNumFk);
+        
+        //Creación combobox en Trips para selección de originCityFk
+        this.comboxOriginCityFk = new JComboBox();
+        this.comboxOriginCityFk.setModel(new DefaultComboBoxModel<>(initialData.getCities().toArray(new SuperModel[initialData.getCities().size()])));
+        this.comboxOriginCityFk.setSelectedIndex(0);
+        this.comboxOriginCityFk.setBounds(450, 65, 140, 30);
+        mainframe.TripPane.add(this.comboxOriginCityFk);
+        
+        //Creación combobox en Trips para selección de destinyCityFk
+        this.comboxDestinyCityFk = new JComboBox();
+        this.comboxDestinyCityFk.setModel(new DefaultComboBoxModel<>(initialData.getCities().toArray(new SuperModel[initialData.getCities().size()])));
+        this.comboxDestinyCityFk.setSelectedIndex(0);
+        this.comboxDestinyCityFk.setBounds(450, 102, 140, 30);
+        mainframe.TripPane.add(this.comboxDestinyCityFk);
+        
+        
+        //Creación combobox en Trips para selección de busIDFK;
+        this.comboxBusIDFk = new JComboBox();
+        this.comboxBusIDFk.setModel(new DefaultComboBoxModel<>(initialData.getBuses().toArray(new SuperModel[initialData.getBuses().size()])));
+        this.comboxBusIDFk.setSelectedIndex(0);
+        this.comboxBusIDFk.setBounds(450, 174, 60, 30);
+        mainframe.TripPane.add(this.comboxBusIDFk);
         
         
         hideElements();
@@ -132,6 +179,8 @@ public class Controller implements ActionListener{
         String[] Luggageheaders = {"Luggage ID", "Luggage Status", "Passenger ID"};
         String[] busheaders = {"Bus ID", "Seat Capacity"};
         String[] cityheaders = {"City Name"};
+        String[] tripheaders = {"Trip ID", "Trip Date", "Price", "Origin City", "Destiny City", "Emp Number", "Bus ID"};
+        
         
         if(e.getSource() == mainframe.btnEmpPanel){
             mainframe.dataDisplayPane.removeAll();
@@ -186,11 +235,11 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-//            setTableResults(cityDAO.getAties(),cityheaders, mainframe.tableCities);
+            setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
             mainframe.dataDisplayPane.add(mainframe.TripPane);
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-            currEntity = 5;
+            currEntity = 6;
         }
         
         
@@ -386,10 +435,92 @@ public class Controller implements ActionListener{
                     mainframe.textFieldCityName.setText("");
                 }
             break;
+            case 6: 
+                if(e.getSource() == mainframe.btnCreate){
+                    hideElements();
+                    mainframe.labelTripPrice.setVisible(true);
+                    mainframe.textFieldTripsPrice.setVisible(true);
+                    mainframe.labelTripDate.setVisible(true);
+                    mainframe.DateChooserTripDate.setVisible(true);
+                    mainframe.labelEmpNumFkTrip.setVisible(true);
+                    comboxEmpNumFk.setVisible(true);
+                    mainframe.labelBusIDFkTrip.setVisible(true);
+                    comboxBusIDFk.setVisible(true);
+                    mainframe.labelOriCityFkTrip.setVisible(true);
+                    comboxOriginCityFk.setVisible(true);
+                    mainframe.labelDesCityFkTrip.setVisible(true);
+                    comboxDestinyCityFk.setVisible(true);
+                    op = 21;
+                } else if(e.getSource() == mainframe.btnSearch){
+                    hideElements();
+                    mainframe.labelTripID.setVisible(true);
+                    mainframe.textFieldTripID.setVisible(true);
+                    mainframe.labelTripPrice.setVisible(true);
+                    mainframe.textFieldTripsPrice.setVisible(true);
+                    mainframe.labelTripDate.setVisible(true);
+                    mainframe.DateChooserTripDate.setVisible(true);
+                    mainframe.labelEmpNumFkTrip.setVisible(true);
+                    comboxEmpNumFk.setVisible(true);
+                    mainframe.labelBusIDFkTrip.setVisible(true);
+                    comboxBusIDFk.setVisible(true);
+                    mainframe.labelOriCityFkTrip.setVisible(true);
+                    comboxOriginCityFk.setVisible(true);
+                    mainframe.labelDesCityFkTrip.setVisible(true);
+                    comboxDestinyCityFk.setVisible(true);
+                    op = 22;
+                } else if(e.getSource() == mainframe.btnUpdate){
+                    hideElements();
+                    mainframe.labelTripID.setVisible(true);
+                    mainframe.textFieldTripID.setVisible(true);
+                    mainframe.labelTripPrice.setVisible(true);
+                    mainframe.textFieldTripsPrice.setVisible(true);
+                    mainframe.labelTripDate.setVisible(true);
+                    mainframe.DateChooserTripDate.setVisible(true);
+                    mainframe.labelEmpNumFkTrip.setVisible(true);
+                    comboxEmpNumFk.setVisible(true);
+                    mainframe.labelBusIDFkTrip.setVisible(true);
+                    comboxBusIDFk.setVisible(true);
+                    mainframe.labelOriCityFkTrip.setVisible(true);
+                    comboxOriginCityFk.setVisible(true);
+                    mainframe.labelDesCityFkTrip.setVisible(true);
+                    comboxDestinyCityFk.setVisible(true);
+                    mainframe.btnSearchSelectTrip.setVisible(true);
+                    op = 23;
+                } else if(e.getSource() == mainframe.btnDelete){
+                    hideElements();
+                    mainframe.labelTripID.setVisible(true);
+                    mainframe.textFieldTripID.setVisible(true);
+                    mainframe.labelTripPrice.setVisible(true);
+                    mainframe.textFieldTripsPrice.setVisible(true);
+                    mainframe.labelTripDate.setVisible(true);
+                    mainframe.DateChooserTripDate.setVisible(true);
+                    mainframe.labelEmpNumFkTrip.setVisible(true);
+                    comboxEmpNumFk.setVisible(true);
+                    mainframe.labelBusIDFkTrip.setVisible(true);
+                    comboxBusIDFk.setVisible(true);
+                    mainframe.labelOriCityFkTrip.setVisible(true);
+                    comboxOriginCityFk.setVisible(true);
+                    mainframe.labelDesCityFkTrip.setVisible(true);
+                    comboxDestinyCityFk.setVisible(true);
+                    mainframe.btnSearchSelectTrip.setVisible(true);
+                    op = 24;
+
+                } else if (e.getSource() == mainframe.btnClearFields){
+                    mainframe.textFieldTripID.setText("");
+                    mainframe.textFieldTripsPrice.setText("");
+//                    mainframe.DateChooserTripDate.setDate(date); Pendiente de ver cómo pongo la fecha en cero una vez sepa
+                       //Manejar el formato de fecha
+                    comboxEmpNumFk.setSelectedIndex(0);
+                    comboxOriginCityFk.setSelectedIndex(0);
+                    comboxDestinyCityFk.setSelectedIndex(0);
+                    comboxBusIDFk.setSelectedIndex(0);
+                }
+            break;
         }
         
         
-        
+                    
+                    
         
         
         
@@ -919,6 +1050,26 @@ public class Controller implements ActionListener{
         mainframe.labelCitName.setVisible(false);
         mainframe.textFieldCityName.setVisible(false);
         mainframe.btnSearchSelectCit.setVisible(false);
+        
+        mainframe.labelTripID.setVisible(false);
+        mainframe.textFieldTripID.setVisible(false);
+        mainframe.labelTripPrice.setVisible(false);
+        mainframe.textFieldTripsPrice.setVisible(false);
+        mainframe.labelTripDate.setVisible(false);
+        mainframe.DateChooserTripDate.setVisible(false);
+        mainframe.labelEmpNumFkTrip.setVisible(false);
+        comboxEmpNumFk.setVisible(false);
+        mainframe.labelBusIDFkTrip.setVisible(false);
+        comboxBusIDFk.setVisible(false);
+        mainframe.labelOriCityFkTrip.setVisible(false);
+        comboxOriginCityFk.setVisible(false);
+        mainframe.labelDesCityFkTrip.setVisible(false);
+        comboxDestinyCityFk.setVisible(false);
+        mainframe.btnSearchSelectTrip.setVisible(false);
+        
+        
+        
+        
     }   
   
     

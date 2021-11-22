@@ -47,5 +47,9 @@ public class BusModel extends SuperModel {
         return data;
     }
     
+    @Override
+    public String toString(){
+        return Integer.toString(this.busID);
+    }
     
 }
