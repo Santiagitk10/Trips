@@ -38,7 +38,7 @@ public class TripDAO {
                 statement.setDate(1, trip.getTripDate());
                 statement.setInt(2, trip.getPrice());
                 statement.setString(3, trip.getOriginCityFk());
-                statement.setString(4, trip.getOriginCityFk());
+                statement.setString(4, trip.getDestinyCityFk());
                 statement.setInt(5, trip.getEmployeeNumFk());
                 statement.setInt(6, trip.getBusIDFk());
             

@@ -1095,8 +1095,8 @@
                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="textFieldTripID" min="-2" pref="73" max="-2" attributes="0"/>
-                                      <Component id="textFieldTripsPrice" min="-2" pref="73" max="-2" attributes="0"/>
                                       <Component id="DateChooserTripDate" min="-2" pref="93" max="-2" attributes="0"/>
+                                      <Component id="textFieldTripsPrice" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1131,15 +1131,10 @@
                                       <Component id="DateChooserTripDate" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="labelTripDate" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                          <Component id="labelTripPrice" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="textFieldTripsPrice" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="labelTripPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textFieldTripsPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="btnSearchSelectTrip" min="-2" max="-2" attributes="0"/>
@@ -1282,11 +1277,6 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="textFieldTripsPrice">
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JLabel" name="labelTripDate">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Trip Date"/>
@@ -1328,6 +1318,16 @@
                   </AuxValues>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="DateChooserTripDate">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="textFieldTripsPrice">
+                  <Properties>
+                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                      <Format format="###0" subtype="-1" type="0"/>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>

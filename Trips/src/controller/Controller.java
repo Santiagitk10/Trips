@@ -22,7 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
+//import java.util.HashSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -508,8 +509,7 @@ public class Controller implements ActionListener{
                 } else if (e.getSource() == mainframe.btnClearFields){
                     mainframe.textFieldTripID.setText("");
                     mainframe.textFieldTripsPrice.setText("");
-//                    mainframe.DateChooserTripDate.setDate(date); Pendiente de ver cómo pongo la fecha en cero una vez sepa
-                       //Manejar el formato de fecha
+                    mainframe.DateChooserTripDate.setDate(null); 
                     comboxEmpNumFk.setSelectedIndex(0);
                     comboxOriginCityFk.setSelectedIndex(0);
                     comboxDestinyCityFk.setSelectedIndex(0);
@@ -1009,6 +1009,106 @@ public class Controller implements ActionListener{
                              hideElements();
                              op = 0;
                              setTableResults(cityDAO.getAllCities(),cityheaders, mainframe.tableCities);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
+                    }
+                    break;
+                //CRUD actions for Trips
+                case 21:
+        
+                    if(!mainframe.textFieldTripsPrice.getText().equals("") && mainframe.DateChooserTripDate.getDate() != null && !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxEmpNumFk.getSelectedItem().toString().equals("0") && !comboxBusIDFk.getSelectedItem().toString().equals("0")){
+                        if(comboxOriginCityFk.getSelectedItem().toString() != comboxDestinyCityFk.getSelectedItem().toString()){
+                            Date current = new Date();
+                            if(mainframe.DateChooserTripDate.getDate().getTime()+60000 > current.getTime()){
+                                tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
+                                System.out.println(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
+                                tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
+                                tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
+                                tripMod.setDestinyCityFk(comboxDestinyCityFk.getSelectedItem().toString());
+                                tripMod.setEmployeeNumFk(Integer.parseInt(comboxEmpNumFk.getSelectedItem().toString()));
+                                tripMod.setBusIDFk(Integer.parseInt(comboxBusIDFk.getSelectedItem().toString()));
+                                tripDAO.insertTrip(tripMod);
+                                mainframe.DateChooserTripDate.setDate(null);
+                                mainframe.textFieldTripsPrice.setText("");
+                                comboxOriginCityFk.setSelectedIndex(0);
+                                comboxDestinyCityFk.setSelectedIndex(0);
+                                comboxEmpNumFk.setSelectedIndex(0);
+                                comboxBusIDFk.setSelectedIndex(0);
+                                hideElements();  
+                                op = 0;
+                                setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
+                              
+                            } else {
+                              JOptionPane.showMessageDialog(null,"A trip cannot be created with a date in the past");
+                            }  
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Origin City and Destiny City cannot be the same");
+                        }
+                          
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null,"To create a Trip all fields must be populated\n"
+                                + "Make sure the date is entered with the correct format. Better use the date chooser");
+                    }
+                   
+                    break;
+                
+                case 22:
+                    lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+                    if(mainframe.txtFieldLugID.getText().equals("")){
+                        lugMod.setLuggageID(-1);
+                    } else {
+                         lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
+                    }
+                
+                
+                    if(comboxPassIdFk.getSelectedItem().toString().equals("0")) {
+                       lugMod.setPassengerIDFk(-1);
+                    } else {
+                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+                    }
+                    setTableResults(lugDAO.getLuggageByFilter(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk()), Luggageheaders, mainframe.tableLuggage);
+                    mainframe.txtFieldLugID.setText("");
+                    comboxLugStatus.setSelectedIndex(0);
+                    comboxPassIdFk.setSelectedIndex(0);
+                    hideElements();
+                    op = 0;
+                    break;
+                case 23:
+                    
+                    if (mainframe.txtFieldLugID.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null,"Indicate a Luggage ID to modify");
+                    }
+                    
+                    if(!comboxLugStatus.getSelectedItem().toString().equals("ALL") && !comboxPassIdFk.getSelectedItem().toString().equals("0")){
+                        lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
+                        lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+                        lugDAO.update(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk());
+                        mainframe.txtFieldLugID.setText("");
+                        comboxLugStatus.setSelectedIndex(0);
+                        comboxPassIdFk.setSelectedIndex(0);
+                        hideElements();
+                        setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                    op = 0;
+                    } else {
+                        JOptionPane.showMessageDialog(null,"Luggage Status cannot be 'ALL' and Passenger ID cannot be 0");
+                    }
+                    
+                    break;
+                case 24: 
+                    if(!mainframe.tableLuggage.getSelectionModel().isSelectionEmpty()){
+                        
+                        int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION ){
+                             lugMod.setLuggageID(Integer.parseInt(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 0).toString()));
+                             lugDAO.delete(lugMod.getLuggageID());
+                              mainframe.txtFieldLugID.setText("");
+                              comboxLugStatus.setSelectedIndex(0);
+                              comboxPassIdFk.setSelectedIndex(0);
+                              hideElements();
+                              setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");

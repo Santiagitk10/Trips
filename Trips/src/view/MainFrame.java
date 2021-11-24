@@ -95,13 +95,13 @@ public class MainFrame extends javax.swing.JFrame {
         labelTripPrice = new javax.swing.JLabel();
         labelTripID = new javax.swing.JLabel();
         btnSearchSelectTrip = new javax.swing.JButton();
-        textFieldTripsPrice = new javax.swing.JFormattedTextField();
         labelTripDate = new javax.swing.JLabel();
         labelEmpNumFkTrip = new javax.swing.JLabel();
         labelBusIDFkTrip = new javax.swing.JLabel();
         labelOriCityFkTrip = new javax.swing.JLabel();
         labelDesCityFkTrip = new javax.swing.JLabel();
         DateChooserTripDate = new com.toedter.calendar.JDateChooser();
+        textFieldTripsPrice = new javax.swing.JFormattedTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -730,6 +730,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         labelDesCityFkTrip.setText("Destiny City");
 
+        textFieldTripsPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
+
         javax.swing.GroupLayout TripPaneLayout = new javax.swing.GroupLayout(TripPane);
         TripPane.setLayout(TripPaneLayout);
         TripPaneLayout.setHorizontalGroup(
@@ -754,8 +756,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textFieldTripID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DateChooserTripDate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DateChooserTripDate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53)
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelOriCityFkTrip)
@@ -781,13 +783,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(DateChooserTripDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelTripDate))
-                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TripPaneLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(labelTripPrice))
-                            .addGroup(TripPaneLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTripPrice)
+                            .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addComponent(btnSearchSelectTrip))
                     .addGroup(TripPaneLayout.createSequentialGroup()
