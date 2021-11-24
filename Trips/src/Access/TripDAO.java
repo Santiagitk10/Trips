@@ -94,53 +94,47 @@ public class TripDAO {
 
         ArrayList<SuperModel> tripsList = new ArrayList();
         
-        //        ArrayList<String> selectedFilters = new ArrayList();
-        //Una posibilidad es recorrer el objeto y si el valor es diferente a -1 u "ALL" utilizo un ArrayList para guardar las concatenaciones de la 
-        //sentecia sql combinado con if statements y luego recorrer ese array y con if statements para el tipo de dato de la injección ir
-        //ingresandolos con un for que i sea 1,2,3, y los datos que hayan
-        
-        //Otra opción es no utilizar el data injection suponiendo que todo se convierte en cadenas al ponerlo entre ""+VALOR+ "" e 
-        //ir concatenando según los valores sean diferentes de -1 y ALL
-        
-
-        
         try{
+            
+            System.out.println(trip.getTripDate());
             
             conn = ConnectionDB.getConnection();
            
-             String sql = "select * from trip where trip_id like ?";
+             String sql = "select * from trip where origin_city_fk like ?";
+             
+             
         
             if(trip.getTripID() != -1){
                 sql += " and trip_id ="+trip.getTripID()+"";
             }
 
-            //Pendiente de ver que valor se obtiene de la fecha cuando se deja vacía para usarla en el condicional
-    //        if(trip.getTripDate() != "ALL"){
-    //            
-    //        }
+            if(trip.getTripDate() != null){
+                sql += " and trip_date ='"+trip.getTripDate()+"'";
+            }
 
             if(trip.getPrice() != -1){
                 sql += " and price ="+trip.getPrice()+"";
             }
 
-
-            if(!trip.getOriginCityFk().equals("ALL")){
-                sql += " and origin_city_fk ="+trip.getOriginCityFk()+"";
+            if(!trip.getDestinyCityFk().equals("Todas las Ciudades")){
+                sql += " and destiny_city_fk ='"+trip.getDestinyCityFk()+"'";
             }
 
-            if(!trip.getDestinyCityFk().equals("ALL")){
-                sql += " and destiny_city_fk ="+trip.getDestinyCityFk()+"";
-            }
-
-            if(trip.getEmployeeNumFk() != -1){
+            if(trip.getEmployeeNumFk() != 0){
                 sql += " and employee_num_fk ="+trip.getEmployeeNumFk()+"";
             }
 
-            if(trip.getBusIDFk() != -1){
+            if(trip.getBusIDFk() != 0){
                 sql += " and bus_id_fk ="+trip.getBusIDFk()+"";
             }
            
             PreparedStatement statement = conn.prepareStatement(sql);
+            if(trip.getOriginCityFk().equals("Todas las Ciudades")){
+                statement.setString(1, "%%");
+            } else {
+                statement.setString(1, "%"+trip.getOriginCityFk()+"%");
+            }
+            
             System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
@@ -178,6 +172,7 @@ public class TripDAO {
             statement.setString(4, trip.getDestinyCityFk());
             statement.setInt(5, trip.getEmployeeNumFk());
             statement.setInt(6, trip.getBusIDFk());
+            statement.setInt(7, trip.getTripID());
             
             
             int rowsUpdated = statement.executeUpdate();

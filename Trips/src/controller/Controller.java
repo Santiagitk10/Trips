@@ -210,7 +210,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             currEntity = 3;
-            
+            resetComboboxesLuggage();
             
         } else if(e.getSource() == mainframe.btnBusPanel){
             mainframe.dataDisplayPane.removeAll();
@@ -241,6 +241,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             currEntity = 6;
+            resetComboboxesTrips();
         }
         
         
@@ -606,7 +607,6 @@ public class Controller implements ActionListener{
        if(e.getSource() == mainframe.btnSearchSelectBus){
            
            if(op == 15 || op == 16){
-               System.out.println("dentro");
                if(!mainframe.tableBuses.getSelectionModel().isSelectionEmpty()){
                     mainframe.textFieldBusID.setText(mainframe.tableBuses.getModel().getValueAt(mainframe.tableBuses.getSelectedRow(), 0).toString());
                     comboxBusSeatCap.setSelectedItem(mainframe.tableBuses.getModel().getValueAt(mainframe.tableBuses.getSelectedRow(), 1));
@@ -841,24 +841,26 @@ public class Controller implements ActionListener{
                     break;
                 case 11:
                     
-                    if (mainframe.txtFieldLugID.getText().equals("")) {
+                    if (!mainframe.txtFieldLugID.getText().equals("")) {
+                        if(!comboxLugStatus.getSelectedItem().toString().equals("ALL") && !comboxPassIdFk.getSelectedItem().toString().equals("0")){
+                            lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
+                            lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
+                            lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
+                            lugDAO.update(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk());
+                            mainframe.txtFieldLugID.setText("");
+                            comboxLugStatus.setSelectedIndex(0);
+                            comboxPassIdFk.setSelectedIndex(0);
+                            hideElements();
+                            setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                            op = 0;
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Luggage Status cannot be 'ALL' and Passenger ID cannot be 0");
+                        }
+                    } else {
                         JOptionPane.showMessageDialog(null,"Indicate a Luggage ID to modify");
                     }
                     
-                    if(!comboxLugStatus.getSelectedItem().toString().equals("ALL") && !comboxPassIdFk.getSelectedItem().toString().equals("0")){
-                        lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
-                        lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
-                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
-                        lugDAO.update(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk());
-                        mainframe.txtFieldLugID.setText("");
-                        comboxLugStatus.setSelectedIndex(0);
-                        comboxPassIdFk.setSelectedIndex(0);
-                        hideElements();
-                        setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
-                    op = 0;
-                    } else {
-                        JOptionPane.showMessageDialog(null,"Luggage Status cannot be 'ALL' and Passenger ID cannot be 0");
-                    }
+                    
                     
                     break;
                 case 12: 
@@ -873,6 +875,7 @@ public class Controller implements ActionListener{
                               comboxPassIdFk.setSelectedIndex(0);
                               hideElements();
                               setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                              op = 0;
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
@@ -917,23 +920,27 @@ public class Controller implements ActionListener{
                     break;
                 case 15:
                     
-                    if (mainframe.textFieldBusID.getText().equals("")) {
+                    if (!mainframe.textFieldBusID.getText().equals("")) {
+                        if(!comboxBusSeatCap.getSelectedItem().toString().equals("ALL")){
+                            busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
+                            busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
+                            busDAO.update(busMod.getBusID(),busMod.getSeatCapacity());
+
+                            mainframe.textFieldBusID.setText("");
+                            comboxBusSeatCap.setSelectedIndex(0);
+                            hideElements();
+                            op = 0;
+                            setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Seat Capacity cannot be 'ALL'");
+                        }
+                        
+                        
+                    } else {
                         JOptionPane.showMessageDialog(null,"Indicate a Bus ID to modify");
                     }
                     
-                    if(!comboxBusSeatCap.getSelectedItem().toString().equals("ALL")){
-                        busMod.setBusID(Integer.parseInt(mainframe.textFieldBusID.getText()));
-                        busMod.setSeatCapacity(Integer.parseInt(comboxBusSeatCap.getSelectedItem().toString()));
-                        busDAO.update(busMod.getBusID(),busMod.getSeatCapacity());
- 
-                        mainframe.textFieldBusID.setText("");
-                        comboxBusSeatCap.setSelectedIndex(0);
-                        hideElements();
-                        op = 0;
-                        setTableResults(busDAO.getAllBuses(),busheaders, mainframe.tableBuses);
-                    } else {
-                        JOptionPane.showMessageDialog(null,"Seat Capacity cannot be 'ALL'");
-                    }
+                    
                     
                     break;
                 case 16: 
@@ -1018,11 +1025,10 @@ public class Controller implements ActionListener{
                 case 21:
         
                     if(!mainframe.textFieldTripsPrice.getText().equals("") && mainframe.DateChooserTripDate.getDate() != null && !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxEmpNumFk.getSelectedItem().toString().equals("0") && !comboxBusIDFk.getSelectedItem().toString().equals("0")){
-                        if(comboxOriginCityFk.getSelectedItem().toString() != comboxDestinyCityFk.getSelectedItem().toString()){
+                        if(!comboxOriginCityFk.getSelectedItem().toString().equals(comboxDestinyCityFk.getSelectedItem().toString())){
                             Date current = new Date();
                             if(mainframe.DateChooserTripDate.getDate().getTime()+60000 > current.getTime()){
                                 tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
-                                System.out.println(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
                                 tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
                                 tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
                                 tripMod.setDestinyCityFk(comboxDestinyCityFk.getSelectedItem().toString());
@@ -1054,61 +1060,100 @@ public class Controller implements ActionListener{
                    
                     break;
                 
-                case 22:
-                    lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
-                    if(mainframe.txtFieldLugID.getText().equals("")){
-                        lugMod.setLuggageID(-1);
+                case 22:  
+                    
+                    if(!mainframe.textFieldTripID.getText().equals("") || !mainframe.textFieldTripsPrice.getText().equals("") || mainframe.DateChooserTripDate.getDate() != null || !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") || !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") || !comboxEmpNumFk.getSelectedItem().toString().equals("0") || !comboxBusIDFk.getSelectedItem().toString().equals("0")){
+                        
+                        
+                        if(mainframe.textFieldTripID.getText().equals("")){
+                            tripMod.setTripID(-1);
+                        } else {
+                            tripMod.setTripID(Integer.parseInt(mainframe.textFieldTripID.getText()));
+                        }
+                        
+                    
+                   
+                        if(mainframe.DateChooserTripDate.getDate() == null){
+                            tripMod.setTripDate(null);
+                        } else {
+                            tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
+                        }
+
+                        if(mainframe.textFieldTripsPrice.getText().equals("")){
+                            tripMod.setPrice(-1);
+                        } else {
+                           tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
+                        }
+
+                        tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
+                        tripMod.setDestinyCityFk(comboxDestinyCityFk.getSelectedItem().toString());
+                        tripMod.setEmployeeNumFk(Integer.parseInt(comboxEmpNumFk.getSelectedItem().toString()));
+                        tripMod.setBusIDFk(Integer.parseInt(comboxBusIDFk.getSelectedItem().toString()));
+                        setTableResults(tripDAO.getTripsByFilter(tripMod), tripheaders, mainframe.tableTrips);
+                        
                     } else {
-                         lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
-                    }
-                
-                
-                    if(comboxPassIdFk.getSelectedItem().toString().equals("0")) {
-                       lugMod.setPassengerIDFk(-1);
-                    } else {
-                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
-                    }
-                    setTableResults(lugDAO.getLuggageByFilter(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk()), Luggageheaders, mainframe.tableLuggage);
-                    mainframe.txtFieldLugID.setText("");
-                    comboxLugStatus.setSelectedIndex(0);
-                    comboxPassIdFk.setSelectedIndex(0);
+                        setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
+                    }   
                     hideElements();
                     op = 0;
+                    
                     break;
                 case 23:
                     
-                    if (mainframe.txtFieldLugID.getText().equals("")) {
-                        JOptionPane.showMessageDialog(null,"Indicate a Luggage ID to modify");
-                    }
-                    
-                    if(!comboxLugStatus.getSelectedItem().toString().equals("ALL") && !comboxPassIdFk.getSelectedItem().toString().equals("0")){
-                        lugMod.setLuggageID(Integer.parseInt(mainframe.txtFieldLugID.getText()));
-                        lugMod.setLuggageStatus(comboxLugStatus.getSelectedItem().toString());
-                        lugMod.setPassengerIDFk(Long.parseLong(comboxPassIdFk.getSelectedItem().toString()));
-                        lugDAO.update(lugMod.getLuggageID(), lugMod.getLuggageStatus(), lugMod.getPassengerIDFk());
-                        mainframe.txtFieldLugID.setText("");
-                        comboxLugStatus.setSelectedIndex(0);
-                        comboxPassIdFk.setSelectedIndex(0);
-                        hideElements();
-                        setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
-                    op = 0;
+                    if(!mainframe.textFieldTripID.getText().equals("") && !mainframe.textFieldTripsPrice.getText().equals("") && mainframe.DateChooserTripDate.getDate() != null && !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxEmpNumFk.getSelectedItem().toString().equals("0") && !comboxBusIDFk.getSelectedItem().toString().equals("0")){
+                        if(!comboxOriginCityFk.getSelectedItem().toString().equals(comboxDestinyCityFk.getSelectedItem().toString())){
+                            Date current = new Date();
+                            if(mainframe.DateChooserTripDate.getDate().getTime()+60000 > current.getTime()){
+                                tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
+                                tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
+                                tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
+                                tripMod.setDestinyCityFk(comboxDestinyCityFk.getSelectedItem().toString());
+                                tripMod.setEmployeeNumFk(Integer.parseInt(comboxEmpNumFk.getSelectedItem().toString()));
+                                tripMod.setBusIDFk(Integer.parseInt(comboxBusIDFk.getSelectedItem().toString()));
+                                tripMod.setTripID(Integer.parseInt(mainframe.textFieldTripID.getText()));
+                                tripDAO.update(tripMod);
+                                mainframe.textFieldTripID.setText("");
+                                mainframe.DateChooserTripDate.setDate(null);
+                                mainframe.textFieldTripsPrice.setText("");
+                                comboxOriginCityFk.setSelectedIndex(0);
+                                comboxDestinyCityFk.setSelectedIndex(0);
+                                comboxEmpNumFk.setSelectedIndex(0);
+                                comboxBusIDFk.setSelectedIndex(0);
+                                hideElements();  
+                                op = 0;
+                                setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
+                              
+                            } else {
+                              JOptionPane.showMessageDialog(null,"A trip cannot be modified with a date in the past");
+                            }  
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Origin City and Destiny City cannot be the same");
+                        }
+                          
+                        
                     } else {
-                        JOptionPane.showMessageDialog(null,"Luggage Status cannot be 'ALL' and Passenger ID cannot be 0");
+                        JOptionPane.showMessageDialog(null,"To modify a Trip all fields must be populated\n"
+                                + "Make sure the date is entered with the correct format. Better use the date chooser");
                     }
                     
                     break;
                 case 24: 
-                    if(!mainframe.tableLuggage.getSelectionModel().isSelectionEmpty()){
+                    if(!mainframe.tableTrips.getSelectionModel().isSelectionEmpty()){
                         
                         int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if(response == JOptionPane.YES_OPTION ){
-                             lugMod.setLuggageID(Integer.parseInt(mainframe.tableLuggage.getModel().getValueAt(mainframe.tableLuggage.getSelectedRow(), 0).toString()));
-                             lugDAO.delete(lugMod.getLuggageID());
-                              mainframe.txtFieldLugID.setText("");
-                              comboxLugStatus.setSelectedIndex(0);
-                              comboxPassIdFk.setSelectedIndex(0);
-                              hideElements();
-                              setTableResults(lugDAO.getAllLuggage(),Luggageheaders, mainframe.tableLuggage);
+                             tripMod.setTripID(Integer.parseInt(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 0).toString()));
+                             tripDAO.delete(tripMod.getTripID());
+                             mainframe.textFieldTripID.setText("");
+                             mainframe.DateChooserTripDate.setDate(null);
+                             mainframe.textFieldTripsPrice.setText("");
+                             comboxOriginCityFk.setSelectedIndex(0);
+                             comboxDestinyCityFk.setSelectedIndex(0);
+                             comboxEmpNumFk.setSelectedIndex(0);
+                             comboxBusIDFk.setSelectedIndex(0);
+                             hideElements();
+                             op = 0;
+                             setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
@@ -1181,6 +1226,26 @@ public class Controller implements ActionListener{
             for(int i=0; i<models.size(); i++){
                 tableModel.addRow(models.get(i).toArray());
             }
+    }
+    
+    public void resetComboboxesTrips(){
+        
+        InitialDataComboBoxes initialData = new InitialDataComboBoxes();
+        
+        //Reset combobox en Trips para selección de employeeNumFk
+        this.comboxEmpNumFk.setModel(new DefaultComboBoxModel<>(initialData.getEmployees().toArray(new SuperModel[initialData.getEmployees().size()])));
+        //Reset combobox en Trips para selección de originCityFk
+        this.comboxOriginCityFk.setModel(new DefaultComboBoxModel<>(initialData.getCities().toArray(new SuperModel[initialData.getCities().size()])));
+        //Reset combobox en Trips para selección de destinyCityFk
+        this.comboxDestinyCityFk.setModel(new DefaultComboBoxModel<>(initialData.getCities().toArray(new SuperModel[initialData.getCities().size()])));
+        //Reset combobox en Trips para selección de busIDFK;
+        this.comboxBusIDFk.setModel(new DefaultComboBoxModel<>(initialData.getBuses().toArray(new SuperModel[initialData.getBuses().size()])));
+
+    }
+    
+    public void resetComboboxesLuggage(){
+        InitialDataComboBoxes initialData = new InitialDataComboBoxes();
+        this.comboxPassIdFk.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
     }
         
 }
