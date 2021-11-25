@@ -37,6 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnBusPanel = new javax.swing.JButton();
         btnCitPanel = new javax.swing.JButton();
         btnTripPanel = new javax.swing.JButton();
+        btnResPanel = new javax.swing.JButton();
         crudPane = new javax.swing.JPanel();
         btnCreate = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -102,6 +103,15 @@ public class MainFrame extends javax.swing.JFrame {
         labelDesCityFkTrip = new javax.swing.JLabel();
         DateChooserTripDate = new com.toedter.calendar.JDateChooser();
         textFieldTripsPrice = new javax.swing.JFormattedTextField();
+        ResPane = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tableReservations = new javax.swing.JTable();
+        textFieldResNum = new javax.swing.JTextField();
+        labelResNum = new javax.swing.JLabel();
+        btnSearchSelectRes = new javax.swing.JButton();
+        labelPassIDFkRes = new javax.swing.JLabel();
+        labelTripIDFkRes = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -154,6 +164,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnResPanel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnResPanel.setText("Reservations");
+        btnResPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResPanelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout entitySelectionPaneLayout = new javax.swing.GroupLayout(entitySelectionPane);
         entitySelectionPane.setLayout(entitySelectionPaneLayout);
         entitySelectionPaneLayout.setHorizontalGroup(
@@ -171,6 +189,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnResPanel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         entitySelectionPaneLayout.setVerticalGroup(
@@ -183,7 +203,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnResPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -806,6 +827,100 @@ public class MainFrame extends javax.swing.JFrame {
 
         dataDisplayPane.add(TripPane, "card2");
 
+        jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel11.setText("Reservations");
+
+        tableReservations.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Reservation Num", "Passenger ID", "Trip ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane9.setViewportView(tableReservations);
+
+        textFieldResNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldResNumActionPerformed(evt);
+            }
+        });
+
+        labelResNum.setText("Reservation Number");
+
+        btnSearchSelectRes.setText("Search/Select");
+        btnSearchSelectRes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchSelectResActionPerformed(evt);
+            }
+        });
+
+        labelPassIDFkRes.setText("Passenger ID");
+
+        labelTripIDFkRes.setText("Trip ID");
+
+        javax.swing.GroupLayout ResPaneLayout = new javax.swing.GroupLayout(ResPane);
+        ResPane.setLayout(ResPaneLayout);
+        ResPaneLayout.setHorizontalGroup(
+            ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ResPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addGap(224, 224, 224))
+            .addGroup(ResPaneLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ResPaneLayout.createSequentialGroup()
+                        .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(ResPaneLayout.createSequentialGroup()
+                                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ResPaneLayout.createSequentialGroup()
+                                        .addComponent(labelResNum)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labelPassIDFkRes)
+                                    .addComponent(labelTripIDFkRes))
+                                .addGap(134, 134, 134))
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 108, Short.MAX_VALUE))
+                    .addGroup(ResPaneLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSearchSelectRes)
+                        .addGap(95, 95, 95))))
+        );
+        ResPaneLayout.setVerticalGroup(
+            ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ResPaneLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelResNum)
+                    .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(labelPassIDFkRes)
+                .addGap(25, 25, 25)
+                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTripIDFkRes)
+                    .addComponent(btnSearchSelectRes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+        );
+
+        dataDisplayPane.add(ResPane, "card2");
+
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
         mainPaneLayout.setHorizontalGroup(
@@ -935,6 +1050,18 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTripPanelActionPerformed
 
+    private void textFieldResNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldResNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldResNumActionPerformed
+
+    private void btnSearchSelectResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchSelectResActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchSelectResActionPerformed
+
+    private void btnResPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResPanelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResPanelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -978,6 +1105,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JPanel EmpPane;
     public javax.swing.JPanel LugPane;
     public javax.swing.JPanel PasPane;
+    public javax.swing.JPanel ResPane;
     public javax.swing.JPanel TripPane;
     public javax.swing.JButton btnBusPanel;
     public javax.swing.JButton btnCitPanel;
@@ -989,12 +1117,14 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.ButtonGroup btnGroupCrudEmployee;
     public javax.swing.JButton btnLugPanel;
     public javax.swing.JButton btnPasPanel;
+    public javax.swing.JButton btnResPanel;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnSearchSelectBus;
     public javax.swing.JButton btnSearchSelectCit;
     public javax.swing.JButton btnSearchSelectEmp;
     public javax.swing.JButton btnSearchSelectLug;
     public javax.swing.JButton btnSearchSelectPas;
+    public javax.swing.JButton btnSearchSelectRes;
     public javax.swing.JButton btnSearchSelectTrip;
     public javax.swing.JButton btnTripPanel;
     public javax.swing.JButton btnUpdate;
@@ -1003,6 +1133,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel entitySelectionPane;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel10;
+    public javax.swing.JLabel jLabel11;
     public javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1014,6 +1145,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JScrollPane jScrollPane6;
     public javax.swing.JScrollPane jScrollPane7;
     public javax.swing.JScrollPane jScrollPane8;
+    public javax.swing.JScrollPane jScrollPane9;
     public javax.swing.JLabel labelBusID;
     public javax.swing.JLabel labelBusIDFkTrip;
     public javax.swing.JLabel labelBusSeatCap;
@@ -1028,8 +1160,11 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JLabel labelPasID;
     public javax.swing.JLabel labelPasIDFkLug;
     public javax.swing.JLabel labelPasName;
+    public javax.swing.JLabel labelPassIDFkRes;
+    public javax.swing.JLabel labelResNum;
     public javax.swing.JLabel labelTripDate;
     public javax.swing.JLabel labelTripID;
+    public javax.swing.JLabel labelTripIDFkRes;
     public javax.swing.JLabel labelTripPrice;
     public javax.swing.JPanel mainPane;
     public javax.swing.JTable tableBuses;
@@ -1037,11 +1172,13 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JTable tableEmployees;
     public javax.swing.JTable tableLuggage;
     public javax.swing.JTable tablePassengers;
+    public javax.swing.JTable tableReservations;
     public javax.swing.JTable tableTrips;
     public javax.swing.JTextField textFieldBusID;
     public javax.swing.JTextField textFieldCityName;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
+    public javax.swing.JTextField textFieldResNum;
     public javax.swing.JTextField textFieldTripID;
     public javax.swing.JFormattedTextField textFieldTripsPrice;
     public javax.swing.JTextField txtFieldLugID;

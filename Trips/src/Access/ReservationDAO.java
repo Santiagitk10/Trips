@@ -5,8 +5,8 @@
  */
 package Access;
 
+import Model.ReservationModel;
 import Model.SuperModel;
-import Model.TripModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,27 +20,24 @@ import utils.ConnectionDB;
  *
  * @author SANTIAGO SIERRA
  */
-public class TripDAO {
+public class ReservationDAO {
     private Connection conn = null;
     
     
-    public void insertTrip(TripModel trip) {
+    public void insertReservation(ReservationModel reservation) {
         
         try{
 
             conn = ConnectionDB.getConnection();
             
-            String sql = "insert into trip(trip_date, price, origin_city_fk, destiny_city_fk, employee_num_fk, bus_id_fk) values (?,?,?,?,?,?);";
+            String sql = "insert into reservation(passenger_id_fk, trip_id_fk) values (?,?);";
             
             PreparedStatement statement = conn.prepareStatement(sql);
             
             
-                statement.setDate(1, trip.getTripDate());
-                statement.setInt(2, trip.getPrice());
-                statement.setString(3, trip.getOriginCityFk());
-                statement.setString(4, trip.getDestinyCityFk());
-                statement.setInt(5, trip.getEmployeeNumFk());
-                statement.setInt(6, trip.getBusIDFk());
+                statement.setLong(1, reservation.getPassengerIDFk());
+                statement.setInt(2, reservation.getTripIDFk());
+                
             
             
             int rowsInserted = statement.executeUpdate();
@@ -60,20 +57,20 @@ public class TripDAO {
     }
     
     
-     public ArrayList<SuperModel> getAllTrips(){
-        ArrayList<SuperModel> tripsList = new ArrayList();
+     public ArrayList<SuperModel> getAllReservations(){
+        ArrayList<SuperModel> reservationsList = new ArrayList();
         
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "select * from trip;";
+            String sql = "select * from reservation;";
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
             
             while(result.next()){
-                SuperModel trip = new TripModel(result.getInt(1), result.getDate(2), result.getInt(3), result.getString(4), result.getString(5), result.getInt(6), result.getInt(7));
-                tripsList.add(trip);
+                SuperModel reservation = new ReservationModel(result.getInt(1), result.getLong(2), result.getInt(3));
+                reservationsList.add(reservation);
             }
             
         } catch(SQLException ex){
@@ -86,60 +83,44 @@ public class TripDAO {
             }
         }
         
-        return tripsList;
+        return reservationsList;
     }
     
     
-     public ArrayList<SuperModel> getTripsByFilter(TripModel trip){
+     public ArrayList<SuperModel> getReservationsByFilter(ReservationModel reservation){
 
-        ArrayList<SuperModel> tripsList = new ArrayList();
+        ArrayList<SuperModel> reservationsList = new ArrayList();
         
         try{
             
             
             conn = ConnectionDB.getConnection();
            
-             String sql = "select * from trip where origin_city_fk like ?";
+            String sql = "select * from reservation where reservation_num like ?";
              
              
-        
-            if(trip.getTripID() != -1){
-                sql += " and trip_id ="+trip.getTripID()+"";
+
+            if(reservation.getPassengerIDFk() != 0){
+                sql += " and passenger_id_fk ="+reservation.getPassengerIDFk()+"";
             }
 
-            if(trip.getTripDate() != null){
-                sql += " and trip_date ='"+trip.getTripDate()+"'";
-            }
-
-            if(trip.getPrice() != -1){
-                sql += " and price ="+trip.getPrice()+"";
-            }
-
-            if(!trip.getDestinyCityFk().equals("Todas las Ciudades")){
-                sql += " and destiny_city_fk ='"+trip.getDestinyCityFk()+"'";
-            }
-
-            if(trip.getEmployeeNumFk() != 0){
-                sql += " and employee_num_fk ="+trip.getEmployeeNumFk()+"";
-            }
-
-            if(trip.getBusIDFk() != 0){
-                sql += " and bus_id_fk ="+trip.getBusIDFk()+"";
+            if(reservation.getTripIDFk() != 0){
+                sql += " and trip_id_fk ="+reservation.getTripIDFk()+"";
             }
            
             PreparedStatement statement = conn.prepareStatement(sql);
-            if(trip.getOriginCityFk().equals("Todas las Ciudades")){
+            if(reservation.getReservationNum() == -1){
                 statement.setString(1, "%%");
             } else {
-                statement.setString(1, "%"+trip.getOriginCityFk()+"%");
+                statement.setString(1, "%"+reservation.getReservationNum()+"%");
             }
             
             System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){
-                SuperModel trp = new TripModel(result.getInt(1), result.getDate(2), result.getInt(3), result.getString(4), result.getString(5), result.getInt(6), result.getInt(7));
-                tripsList.add(trp);
+                SuperModel reserv = new ReservationModel(result.getInt(1), result.getLong(2), result.getInt(3));
+                reservationsList.add(reserv);
             }
             
         }
@@ -153,30 +134,27 @@ public class TripDAO {
                 JOptionPane.showMessageDialog(null, "Código: " + ex.getErrorCode() + "\nError : " + ex.getMessage());
             }
         }
-        return tripsList;
+        return reservationsList;
     }
      
      
-    public void update(TripModel trip){
+    public void update(ReservationModel reservation){
         
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "update trip set trip_date=?, price=?, origin_city_fk=?, destiny_city_fk=?, employee_num_fk=?, bus_id_fk=? where trip_id=?;";
+            String sql = "update reservation set passenger_id_fk=?, trip_id_fk=? where reservation_num=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setDate(1, trip.getTripDate());
-            statement.setInt(2, trip.getPrice());
-            statement.setString(3, trip.getOriginCityFk());
-            statement.setString(4, trip.getDestinyCityFk());
-            statement.setInt(5, trip.getEmployeeNumFk());
-            statement.setInt(6, trip.getBusIDFk());
-            statement.setInt(7, trip.getTripID());
+            statement.setLong(1, reservation.getPassengerIDFk());
+            statement.setInt(2, reservation.getTripIDFk());
+            statement.setInt(3, reservation.getReservationNum());
+            
             
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){
-                JOptionPane.showMessageDialog(null,"El registro " + trip.getTripID() + " fue modificado exitosamente");
+                JOptionPane.showMessageDialog(null,"El registro " + reservation.getReservationNum() + " fue modificado exitosamente");
             } else {
                 JOptionPane.showMessageDialog(null,"El registro no existe");
             }
@@ -193,14 +171,14 @@ public class TripDAO {
         
     }
     
-    public void delete(int tripId){
+    public void delete(int reservationNum){
         try{
 
             conn = ConnectionDB.getConnection();
            
-            String sql = "delete from trip where trip_id=?;";
+            String sql = "delete from reservation where reservation_num=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, tripId);
+            statement.setInt(1, reservationNum);
             
             int rowsUpdated = statement.executeUpdate();
             if(rowsUpdated > 0){

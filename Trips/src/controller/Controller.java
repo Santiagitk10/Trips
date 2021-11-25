@@ -10,12 +10,14 @@ import Access.CityDAO;
 import Access.EmployeeDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
+import Access.ReservationDAO;
 import Access.TripDAO;
 import Model.BusModel;
 import Model.CityModel;
 import Model.EmployeeModel;
 import Model.LuggageModel;
 import Model.PassengerModel;
+import Model.ReservationModel;
 import Model.SuperModel;
 import Model.TripModel;
 import java.awt.event.ActionEvent;
@@ -55,6 +57,8 @@ public class Controller implements ActionListener{
     private CityDAO cityDAO;
     private TripModel tripMod;
     private TripDAO tripDAO;
+    private ReservationModel resMod;
+    private ReservationDAO resDAO;
     private int op;
     private int currEntity;
     //Comboboxes en Luggage
@@ -67,11 +71,14 @@ public class Controller implements ActionListener{
     private JComboBox comboxOriginCityFk;
     private JComboBox comboxDestinyCityFk;
     private JComboBox comboxBusIDFk;
+    //Comboboxes in Reservations
+    private JComboBox comboxPassIdFkRes;
+    private JComboBox comboxTripIdFk;
     
     
     
     
-    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO, TripModel tripMod, TripDAO tripDAO ){
+    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO, TripModel tripMod, TripDAO tripDAO, ReservationModel resMod, ReservationDAO resDAO){
         this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
@@ -85,6 +92,8 @@ public class Controller implements ActionListener{
         this.cityDAO = cityDAO;
         this.tripMod = tripMod;
         this.tripDAO = tripDAO;
+        this.resMod = resMod;
+        this.resDAO = resDAO;
         this.op = 0;
         this.currEntity = 0;
         
@@ -104,6 +113,7 @@ public class Controller implements ActionListener{
         mainframe.btnBusPanel.addActionListener(this);
         mainframe.btnCitPanel.addActionListener(this);
         mainframe.btnTripPanel.addActionListener(this);
+        mainframe.btnResPanel.addActionListener(this);
         
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
@@ -172,6 +182,21 @@ public class Controller implements ActionListener{
         mainframe.TripPane.add(this.comboxBusIDFk);
         
         
+        //Combobox creation in Reservations for passengerIDFk selection
+        this.comboxPassIdFkRes = new JComboBox();
+        this.comboxPassIdFkRes.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
+        this.comboxPassIdFkRes.setSelectedIndex(0);
+        this.comboxPassIdFkRes.setBounds(342, 154, 60, 30);
+        mainframe.ResPane.add(this.comboxPassIdFkRes);
+        
+        //Combobox creation in Reservations for tripIDFk selection
+        this.comboxTripIdFk = new JComboBox();
+        this.comboxTripIdFk.setModel(new DefaultComboBoxModel<>(initialData.getTrips().toArray(new SuperModel[initialData.getTrips().size()])));
+        this.comboxTripIdFk.setSelectedIndex(0);
+        this.comboxTripIdFk.setBounds(342, 204, 60, 30);
+        mainframe.ResPane.add(this.comboxTripIdFk);
+        
+        
         hideElements();
     }
     
@@ -186,6 +211,7 @@ public class Controller implements ActionListener{
         String[] busheaders = {"Bus ID", "Seat Capacity"};
         String[] cityheaders = {"City Name"};
         String[] tripheaders = {"Trip ID", "Trip Date", "Price", "Origin City", "Destiny City", "Emp Number", "Bus ID"};
+        String[] reservationheaders = {"Reservation Number","Passenger ID","Trip ID"};
         
         
         if(e.getSource() == mainframe.btnEmpPanel){
@@ -247,7 +273,20 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 6;
             resetComboboxesTrips();
+        } else if(e.getSource() == mainframe.btnResPanel){
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+            mainframe.dataDisplayPane.add(mainframe.ResPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 7;
+            //MISSING METHOD TO IMPLEMENT
+//            resetComboboxesTrips();
         }
+        
+        
         
         
         
@@ -522,10 +561,52 @@ public class Controller implements ActionListener{
                     comboxBusIDFk.setSelectedIndex(0);
                 }
             break;
+            case 7: 
+                if(e.getSource() == mainframe.btnCreate){
+                    hideElements();
+                    mainframe.labelPassIDFkRes.setVisible(true);
+                    comboxPassIdFkRes.setVisible(true);
+                    mainframe.labelTripIDFkRes.setVisible(true);
+                    comboxTripIdFk.setVisible(true);
+                    op = 25;
+                } else if(e.getSource() == mainframe.btnSearch){
+                    hideElements();
+                    mainframe.labelResNum.setVisible(true);
+                    mainframe.textFieldResNum.setVisible(true);
+                    mainframe.labelPassIDFkRes.setVisible(true);
+                    comboxPassIdFkRes.setVisible(true);
+                    mainframe.labelTripIDFkRes.setVisible(true);
+                    comboxTripIdFk.setVisible(true); 
+                    op = 26;
+                } else if(e.getSource() == mainframe.btnUpdate){
+                    hideElements();
+                    mainframe.labelResNum.setVisible(true);
+                    mainframe.textFieldResNum.setVisible(true);
+                    mainframe.labelPassIDFkRes.setVisible(true);
+                    comboxPassIdFkRes.setVisible(true);
+                    mainframe.labelTripIDFkRes.setVisible(true);
+                    comboxTripIdFk.setVisible(true);
+                    mainframe.btnSearchSelectRes.setVisible(true); 
+                    op = 27;
+                } else if(e.getSource() == mainframe.btnDelete){
+                    hideElements();
+                    mainframe.labelResNum.setVisible(true);
+                    mainframe.textFieldResNum.setVisible(true);
+                    mainframe.labelPassIDFkRes.setVisible(true);
+                    comboxPassIdFkRes.setVisible(true);
+                    mainframe.labelTripIDFkRes.setVisible(true);
+                    comboxTripIdFk.setVisible(true);
+                    mainframe.btnSearchSelectRes.setVisible(true); 
+                    op = 28;
+
+                } else if (e.getSource() == mainframe.btnClearFields){
+                    mainframe.textFieldResNum.setText("");
+                    comboxPassIdFkRes.setSelectedIndex(0);
+                    comboxTripIdFk.setSelectedIndex(0);
+                }
+            break;
         }
-        
-        
-                    
+       
                     
         
         
@@ -1275,7 +1356,13 @@ public class Controller implements ActionListener{
         mainframe.btnSearchSelectTrip.setVisible(false);
         
         
-        
+        mainframe.labelResNum.setVisible(false);
+        mainframe.textFieldResNum.setVisible(false);
+        mainframe.labelPassIDFkRes.setVisible(false);
+        comboxPassIdFkRes.setVisible(false);
+        mainframe.labelTripIDFkRes.setVisible(false);
+        comboxTripIdFk.setVisible(false);
+        mainframe.btnSearchSelectRes.setVisible(false);
         
     }   
   
