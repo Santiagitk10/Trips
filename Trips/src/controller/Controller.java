@@ -21,8 +21,12 @@ import Model.TripModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.lang.Integer.parseInt;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import java.util.HashSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -109,6 +113,7 @@ public class Controller implements ActionListener{
         mainframe.btnSearchSelectLug.addActionListener(this);
         mainframe.btnSearchSelectBus.addActionListener(this);
         mainframe.btnSearchSelectCit.addActionListener(this);
+        mainframe.btnSearchSelectTrip.addActionListener(this);
         mainframe.btnDelete.addActionListener(this);
         mainframe.btnGo.addActionListener(this);
         mainframe.btnClearFields.addActionListener(this);
@@ -651,7 +656,64 @@ public class Controller implements ActionListener{
        }
        
        
-       
+       if(e.getSource() == mainframe.btnSearchSelectTrip){
+           if(op == 23 || op == 24){
+               if(!mainframe.tableTrips.getSelectionModel().isSelectionEmpty()){
+                   
+                   mainframe.textFieldTripID.setText(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 0).toString());
+                   
+                   //Parses the date in String form from the table to a Date for the DateChooser 
+                   try {
+                       mainframe.DateChooserTripDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 1).toString()));
+                   } catch (ParseException ex) {
+                       Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                   
+                   mainframe.textFieldTripsPrice.setText(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 2).toString());
+                   
+                   //Gets the selected value from the table, then gets the amount of items in the combobox and loops through them comparing them to the selected value,
+                   //when there is a match sets the selected index to the current iteration.
+                   setComboboxIndexFromTableSelection(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 3).toString(), comboxOriginCityFk);
+                   setComboboxIndexFromTableSelection(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 4).toString(), comboxDestinyCityFk);
+                   setComboboxIndexFromTableSelection(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 5).toString(), comboxEmpNumFk);
+                   setComboboxIndexFromTableSelection(mainframe.tableTrips.getModel().getValueAt(mainframe.tableTrips.getSelectedRow(), 6).toString(), comboxBusIDFk);
+                }
+           }
+           
+           if(!mainframe.textFieldTripID.getText().equals("") || !mainframe.textFieldTripsPrice.getText().equals("") || mainframe.DateChooserTripDate.getDate() != null || !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") || !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") || !comboxEmpNumFk.getSelectedItem().toString().equals("0") || !comboxBusIDFk.getSelectedItem().toString().equals("0")){
+                        
+                        
+                if(mainframe.textFieldTripID.getText().equals("")){
+                    tripMod.setTripID(-1);
+                } else {
+                    tripMod.setTripID(Integer.parseInt(mainframe.textFieldTripID.getText()));
+                }
+
+
+
+                if(mainframe.DateChooserTripDate.getDate() == null){
+                    tripMod.setTripDate(null);
+                } else {
+                    tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
+                }
+
+                if(mainframe.textFieldTripsPrice.getText().equals("")){
+                    tripMod.setPrice(-1);
+                } else {
+                   tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
+                }
+
+                tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
+                tripMod.setDestinyCityFk(comboxDestinyCityFk.getSelectedItem().toString());
+                tripMod.setEmployeeNumFk(Integer.parseInt(comboxEmpNumFk.getSelectedItem().toString()));
+                tripMod.setBusIDFk(Integer.parseInt(comboxBusIDFk.getSelectedItem().toString()));
+                setTableResults(tripDAO.getTripsByFilter(tripMod), tripheaders, mainframe.tableTrips);
+
+            } else {
+                setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
+            }
+           
+       }
        
        
        
@@ -1027,7 +1089,7 @@ public class Controller implements ActionListener{
                     if(!mainframe.textFieldTripsPrice.getText().equals("") && mainframe.DateChooserTripDate.getDate() != null && !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxEmpNumFk.getSelectedItem().toString().equals("0") && !comboxBusIDFk.getSelectedItem().toString().equals("0")){
                         if(!comboxOriginCityFk.getSelectedItem().toString().equals(comboxDestinyCityFk.getSelectedItem().toString())){
                             Date current = new Date();
-                            if(mainframe.DateChooserTripDate.getDate().getTime()+60000 > current.getTime()){
+                            if(mainframe.DateChooserTripDate.getDate().getTime()+86000000 > current.getTime()){
                                 tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
                                 tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
                                 tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
@@ -1103,7 +1165,7 @@ public class Controller implements ActionListener{
                     if(!mainframe.textFieldTripID.getText().equals("") && !mainframe.textFieldTripsPrice.getText().equals("") && mainframe.DateChooserTripDate.getDate() != null && !comboxOriginCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxDestinyCityFk.getSelectedItem().toString().equals("Todas las Ciudades") && !comboxEmpNumFk.getSelectedItem().toString().equals("0") && !comboxBusIDFk.getSelectedItem().toString().equals("0")){
                         if(!comboxOriginCityFk.getSelectedItem().toString().equals(comboxDestinyCityFk.getSelectedItem().toString())){
                             Date current = new Date();
-                            if(mainframe.DateChooserTripDate.getDate().getTime()+60000 > current.getTime()){
+                            if(mainframe.DateChooserTripDate.getDate().getTime()+86000000 > current.getTime()){
                                 tripMod.setTripDate(new java.sql.Date(mainframe.DateChooserTripDate.getDate().getTime()));
                                 tripMod.setPrice(Integer.parseInt(mainframe.textFieldTripsPrice.getText()));
                                 tripMod.setOriginCityFk(comboxOriginCityFk.getSelectedItem().toString());
@@ -1246,6 +1308,15 @@ public class Controller implements ActionListener{
     public void resetComboboxesLuggage(){
         InitialDataComboBoxes initialData = new InitialDataComboBoxes();
         this.comboxPassIdFk.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
+    }
+    
+    
+    public void setComboboxIndexFromTableSelection(String selectedData, JComboBox combobox){
+        for(int i = 0; i < combobox.getItemCount(); i++ ){
+            if(combobox.getItemAt(i).toString().equals(selectedData)){
+                combobox.setSelectedIndex(i);
+            }
+        }
     }
         
 }
