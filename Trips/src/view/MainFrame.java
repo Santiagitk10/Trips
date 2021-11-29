@@ -107,11 +107,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         tableReservations = new javax.swing.JTable();
-        textFieldResNum = new javax.swing.JTextField();
         labelResNum = new javax.swing.JLabel();
         btnSearchSelectRes = new javax.swing.JButton();
         labelPassIDFkRes = new javax.swing.JLabel();
         labelTripIDFkRes = new javax.swing.JLabel();
+        textFieldResNum = new javax.swing.JFormattedTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -851,12 +851,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane9.setViewportView(tableReservations);
 
-        textFieldResNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldResNumActionPerformed(evt);
-            }
-        });
-
         labelResNum.setText("Reservation Number");
 
         btnSearchSelectRes.setText("Search/Select");
@@ -870,34 +864,29 @@ public class MainFrame extends javax.swing.JFrame {
 
         labelTripIDFkRes.setText("Trip ID");
 
+        textFieldResNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##0"))));
+
         javax.swing.GroupLayout ResPaneLayout = new javax.swing.GroupLayout(ResPane);
         ResPane.setLayout(ResPaneLayout);
         ResPaneLayout.setHorizontalGroup(
             ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ResPaneLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(224, 224, 224))
             .addGroup(ResPaneLayout.createSequentialGroup()
                 .addGap(93, 93, 93)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 108, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ResPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ResPaneLayout.createSequentialGroup()
-                        .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(ResPaneLayout.createSequentialGroup()
-                                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(ResPaneLayout.createSequentialGroup()
-                                        .addComponent(labelResNum)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(labelPassIDFkRes)
-                                    .addComponent(labelTripIDFkRes))
-                                .addGap(134, 134, 134))
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 108, Short.MAX_VALUE))
-                    .addGroup(ResPaneLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSearchSelectRes)
-                        .addGap(95, 95, 95))))
+                    .addComponent(btnSearchSelectRes)
+                    .addComponent(labelPassIDFkRes)
+                    .addComponent(labelTripIDFkRes)
+                    .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(ResPaneLayout.createSequentialGroup()
+                            .addComponent(labelResNum)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel11)))
+                .addGap(224, 224, 224))
         );
         ResPaneLayout.setVerticalGroup(
             ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -905,17 +894,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
+                .addComponent(labelPassIDFkRes)
+                .addGap(18, 18, 18)
+                .addComponent(labelTripIDFkRes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelResNum)
                     .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(labelPassIDFkRes)
-                .addGap(25, 25, 25)
-                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTripIDFkRes)
-                    .addComponent(btnSearchSelectRes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(btnSearchSelectRes)
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
@@ -1050,10 +1039,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTripPanelActionPerformed
 
-    private void textFieldResNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldResNumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldResNumActionPerformed
-
     private void btnSearchSelectResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchSelectResActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchSelectResActionPerformed
@@ -1178,7 +1163,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JTextField textFieldCityName;
     public javax.swing.JTextField textFieldEmployeeName;
     public javax.swing.JTextField textFieldEmployeeNumber;
-    public javax.swing.JTextField textFieldResNum;
+    public javax.swing.JFormattedTextField textFieldResNum;
     public javax.swing.JTextField textFieldTripID;
     public javax.swing.JFormattedTextField textFieldTripsPrice;
     public javax.swing.JTextField txtFieldLugID;

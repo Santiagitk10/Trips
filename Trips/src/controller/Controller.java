@@ -124,6 +124,7 @@ public class Controller implements ActionListener{
         mainframe.btnSearchSelectBus.addActionListener(this);
         mainframe.btnSearchSelectCit.addActionListener(this);
         mainframe.btnSearchSelectTrip.addActionListener(this);
+        mainframe.btnSearchSelectRes.addActionListener(this);
         mainframe.btnDelete.addActionListener(this);
         mainframe.btnGo.addActionListener(this);
         mainframe.btnClearFields.addActionListener(this);
@@ -186,14 +187,14 @@ public class Controller implements ActionListener{
         this.comboxPassIdFkRes = new JComboBox();
         this.comboxPassIdFkRes.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
         this.comboxPassIdFkRes.setSelectedIndex(0);
-        this.comboxPassIdFkRes.setBounds(342, 154, 60, 30);
+        this.comboxPassIdFkRes.setBounds(361, 110, 100, 30);
         mainframe.ResPane.add(this.comboxPassIdFkRes);
         
         //Combobox creation in Reservations for tripIDFk selection
         this.comboxTripIdFk = new JComboBox();
         this.comboxTripIdFk.setModel(new DefaultComboBoxModel<>(initialData.getTrips().toArray(new SuperModel[initialData.getTrips().size()])));
         this.comboxTripIdFk.setSelectedIndex(0);
-        this.comboxTripIdFk.setBounds(342, 204, 60, 30);
+        this.comboxTripIdFk.setBounds(361, 150, 60, 30);
         mainframe.ResPane.add(this.comboxTripIdFk);
         
         
@@ -282,8 +283,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             currEntity = 7;
-            //MISSING METHOD TO IMPLEMENT
-//            resetComboboxesTrips();
+            resetComboboxesReservations();
         }
         
         
@@ -799,6 +799,40 @@ public class Controller implements ActionListener{
        
        
        
+       if(e.getSource() == mainframe.btnSearchSelectRes){
+           if(op == 27 || op == 28){
+               if(!mainframe.tableReservations.getSelectionModel().isSelectionEmpty()){
+                   
+                   mainframe.textFieldResNum.setText(mainframe.tableReservations.getModel().getValueAt(mainframe.tableReservations.getSelectedRow(), 0).toString());
+                   
+                   //Gets the selected value from the table, then gets the amount of items in the combobox and loops through them comparing them to the selected value,
+                   //when there is a match sets the selected index to the current iteration.
+                   setComboboxIndexFromTableSelection(mainframe.tableReservations.getModel().getValueAt(mainframe.tableReservations.getSelectedRow(), 1).toString(), comboxPassIdFkRes);
+                   setComboboxIndexFromTableSelection(mainframe.tableReservations.getModel().getValueAt(mainframe.tableReservations.getSelectedRow(), 2).toString(), comboxTripIdFk);
+                }
+           }
+           
+           
+           
+           if(!mainframe.textFieldResNum.getText().equals("") || !comboxPassIdFkRes.getSelectedItem().toString().equals("0") || !comboxTripIdFk.getSelectedItem().toString().equals("0")){      
+                if(mainframe.textFieldResNum.getText().equals("")){
+                    resMod.setReservationNum(-1);
+                } else {
+                    resMod.setReservationNum(Integer.parseInt(mainframe.textFieldResNum.getText()));
+                }
+
+                resMod.setPassengerIDFk(Long.parseLong(comboxPassIdFkRes.getSelectedItem().toString()));
+                resMod.setTripIDFk(Integer.parseInt(comboxTripIdFk.getSelectedItem().toString()));
+                
+                setTableResults(resDAO.getReservationsByFilter(resMod), reservationheaders, mainframe.tableReservations);
+                        
+            } else {
+                setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+            }
+           
+       }
+       
+       
        
        
        
@@ -1302,6 +1336,89 @@ public class Controller implements ActionListener{
                         JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
                     }
                     break;
+                //CRUD actions for Reservations
+                case 25:
+                    
+                    if(!comboxPassIdFkRes.getSelectedItem().toString().equals("0") && !comboxTripIdFk.getSelectedItem().toString().equals("0")){ 
+                        
+                        resMod.setPassengerIDFk(Long.parseLong(comboxPassIdFkRes.getSelectedItem().toString()));
+                        resMod.setTripIDFk(Integer.parseInt(comboxTripIdFk.getSelectedItem().toString()));
+                        resDAO.insertReservation(resMod);
+                        comboxPassIdFkRes.setSelectedIndex(0);
+                        comboxTripIdFk.setSelectedIndex(0);
+                        hideElements();  
+                        op = 0;
+                        setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+                    } else {
+                        JOptionPane.showMessageDialog(null,"To create a Reservation all fields must be selected");
+                    }
+                   
+                    break;
+                
+                case 26:  
+                    
+                    if(!mainframe.textFieldResNum.getText().equals("") || !comboxPassIdFkRes.getSelectedItem().toString().equals("0") || !comboxTripIdFk.getSelectedItem().toString().equals("0")){
+                        
+                        
+                        if(mainframe.textFieldResNum.getText().equals("")){
+                            resMod.setReservationNum(-1);
+                        } else {
+                            resMod.setReservationNum(Integer.parseInt(mainframe.textFieldResNum.getText()));
+                        }
+                        
+                        resMod.setPassengerIDFk(Long.parseLong(comboxPassIdFkRes.getSelectedItem().toString()));
+                        resMod.setTripIDFk(Integer.parseInt(comboxTripIdFk.getSelectedItem().toString()));
+                        
+               
+                        setTableResults(resDAO.getReservationsByFilter(resMod), reservationheaders, mainframe.tableReservations);
+                        
+                    } else {
+                        setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+                    }   
+                    hideElements();
+                    op = 0;
+                    
+                    break;
+                case 27:
+                    
+                    if(!mainframe.textFieldResNum.getText().equals("") && !comboxPassIdFkRes.getSelectedItem().toString().equals("0") && !comboxTripIdFk.getSelectedItem().toString().equals("0")){ 
+                        
+                        resMod.setReservationNum(Integer.parseInt(mainframe.textFieldResNum.getText()));
+                        resMod.setPassengerIDFk(Long.parseLong(comboxPassIdFkRes.getSelectedItem().toString()));
+                        resMod.setTripIDFk(Integer.parseInt(comboxTripIdFk.getSelectedItem().toString()));
+                        resDAO.update(resMod);
+                        comboxPassIdFkRes.setSelectedIndex(0);
+                        comboxTripIdFk.setSelectedIndex(0);
+                        mainframe.textFieldResNum.setText("");
+                        hideElements();  
+                        op = 0;
+                        setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+                    } else {
+                        JOptionPane.showMessageDialog(null,"To Modify a Reservation all fields must be selected and populated");
+                    }
+                   
+                    break;
+                    
+                case 28: 
+                    if(!mainframe.tableReservations.getSelectionModel().isSelectionEmpty()){
+                        
+                        int response = JOptionPane.showConfirmDialog(mainframe.btnGo, "Are you sure you want to delete the record?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION ){
+                            
+                            
+                             resMod.setReservationNum(Integer.parseInt(mainframe.tableReservations.getModel().getValueAt(mainframe.tableReservations.getSelectedRow(), 0).toString()));
+                             resDAO.delete(resMod.getReservationNum());
+                             comboxPassIdFkRes.setSelectedIndex(0);
+                             comboxTripIdFk.setSelectedIndex(0);
+                             mainframe.textFieldResNum.setText("");
+                             hideElements();
+                             op = 0;
+                             setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Select one register from the table to delete it");
+                    }
+                    break;
             }   
                 
                 
@@ -1395,6 +1512,15 @@ public class Controller implements ActionListener{
     public void resetComboboxesLuggage(){
         InitialDataComboBoxes initialData = new InitialDataComboBoxes();
         this.comboxPassIdFk.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
+    }
+    
+    public void resetComboboxesReservations(){
+        InitialDataComboBoxes initialData = new InitialDataComboBoxes();
+        
+        //Reset combobox en Reservation para selección de passengerIDFk
+        this.comboxPassIdFkRes.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
+        //Reset combobox en Reservation para selección de tripIDFk
+        this.comboxTripIdFk.setModel(new DefaultComboBoxModel<>(initialData.getTrips().toArray(new SuperModel[initialData.getTrips().size()])));
     }
     
     

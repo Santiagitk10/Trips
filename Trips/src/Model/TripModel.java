@@ -100,7 +100,12 @@ public class TripModel extends SuperModel{
         Object[] data = {tripID, tripDate, price, originCityFk, destinyCityFk, employeeNumFk, busIDFk};
         return data;
     }
-            
+    
+    
+    @Override
+    public String toString(){
+        return Integer.toString(this.tripID);
+    }
             
     
 }
