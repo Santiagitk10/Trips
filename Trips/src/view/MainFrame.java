@@ -112,6 +112,25 @@ public class MainFrame extends javax.swing.JFrame {
         labelPassIDFkRes = new javax.swing.JLabel();
         labelTripIDFkRes = new javax.swing.JLabel();
         textFieldResNum = new javax.swing.JFormattedTextField();
+        LookUpPane = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tableLookUp = new javax.swing.JTable();
+        labelTripPriceLookUp = new javax.swing.JLabel();
+        labelTripIDLookUp = new javax.swing.JLabel();
+        btnSearchLookUp = new javax.swing.JButton();
+        labelTripDateLookUp = new javax.swing.JLabel();
+        labelEmpNumLookUp = new javax.swing.JLabel();
+        labelBusIDLookUp = new javax.swing.JLabel();
+        labelOriCityLookUp = new javax.swing.JLabel();
+        labelDesCityLookUp = new javax.swing.JLabel();
+        labelLugIDLookUp = new javax.swing.JLabel();
+        labelLugStatusLookUp = new javax.swing.JLabel();
+        labelEmpNameLookUp = new javax.swing.JLabel();
+        labelPasIDLookUp = new javax.swing.JLabel();
+        labelPasNameLookUp = new javax.swing.JLabel();
+        labelSeatCapLookUp = new javax.swing.JLabel();
+        btnResetLookUp = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -248,7 +267,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76)
                 .addComponent(btnClearFields)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGo)
                 .addGap(49, 49, 49))
         );
@@ -256,14 +275,6 @@ public class MainFrame extends javax.swing.JFrame {
             crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, crudPaneLayout.createSequentialGroup()
                 .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(crudPaneLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(crudPaneLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(crudPaneLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -274,7 +285,14 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, crudPaneLayout.createSequentialGroup()
                                 .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(crudPaneLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -611,8 +629,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(243, 243, 243)
                         .addGroup(BusPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(btnSearchSelectBus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnSearchSelectBus))))
                 .addGap(196, 196, 196))
         );
         BusPaneLayout.setVerticalGroup(
@@ -926,6 +943,162 @@ public class MainFrame extends javax.swing.JFrame {
 
         dataDisplayPane.add(ResPane, "card2");
 
+        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel12.setText("Look Up");
+
+        tableLookUp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Trip ID", "Trip Date", "Origin City", "Destiny City", "Price", "Emp Number", "Emp Name", "Bus ID", "Lug ID", "Lug Status", "Seat Cap", "Pass ID", "Pass Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane10.setViewportView(tableLookUp);
+
+        labelTripPriceLookUp.setText("Price");
+
+        labelTripIDLookUp.setText("Trip ID");
+
+        btnSearchLookUp.setText("Search");
+        btnSearchLookUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchLookUpActionPerformed(evt);
+            }
+        });
+
+        labelTripDateLookUp.setText("Trip Date");
+
+        labelEmpNumLookUp.setText("Employee Number");
+
+        labelBusIDLookUp.setText("Bus ID");
+
+        labelOriCityLookUp.setText("Origin City");
+
+        labelDesCityLookUp.setText("Destiny City");
+
+        labelLugIDLookUp.setText("Luggage ID");
+
+        labelLugStatusLookUp.setText("Luggage Status");
+
+        labelEmpNameLookUp.setText("Employee Name");
+
+        labelPasIDLookUp.setText("Passenger ID");
+
+        labelPasNameLookUp.setText("Passenger Name");
+
+        labelSeatCapLookUp.setText("Seat Capacity");
+
+        btnResetLookUp.setText("Reset");
+        btnResetLookUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetLookUpActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout LookUpPaneLayout = new javax.swing.GroupLayout(LookUpPane);
+        LookUpPane.setLayout(LookUpPaneLayout);
+        LookUpPaneLayout.setHorizontalGroup(
+            LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LookUpPaneLayout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LookUpPaneLayout.createSequentialGroup()
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTripDateLookUp)
+                            .addComponent(labelTripIDLookUp)
+                            .addComponent(labelDesCityLookUp))
+                        .addGap(146, 146, 146)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEmpNameLookUp)
+                            .addComponent(labelEmpNumLookUp)
+                            .addComponent(labelTripPriceLookUp))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelLugIDLookUp)
+                            .addComponent(labelBusIDLookUp)
+                            .addComponent(labelLugStatusLookUp))
+                        .addGap(144, 144, 144)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPasIDLookUp)
+                            .addComponent(labelSeatCapLookUp)
+                            .addComponent(labelPasNameLookUp))
+                        .addGap(167, 167, 167))
+                    .addGroup(LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(labelOriCityLookUp)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(btnSearchLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnResetLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(384, 384, 384))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(425, 425, 425))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
+        );
+        LookUpPaneLayout.setVerticalGroup(
+            LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LookUpPaneLayout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addGap(26, 26, 26)
+                .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(labelBusIDLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(labelLugIDLookUp)
+                        .addGap(37, 37, 37)
+                        .addComponent(labelLugStatusLookUp))
+                    .addGroup(LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(labelSeatCapLookUp)
+                        .addGap(29, 29, 29)
+                        .addComponent(labelPasIDLookUp)
+                        .addGap(37, 37, 37)
+                        .addComponent(labelPasNameLookUp))
+                    .addGroup(LookUpPaneLayout.createSequentialGroup()
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTripIDLookUp)
+                            .addComponent(labelTripPriceLookUp))
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(LookUpPaneLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(labelEmpNumLookUp))
+                            .addGroup(LookUpPaneLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(labelTripDateLookUp)))
+                        .addGap(8, 8, 8)
+                        .addComponent(labelOriCityLookUp)
+                        .addGap(18, 18, 18)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelDesCityLookUp)
+                            .addComponent(labelEmpNameLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnResetLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        dataDisplayPane.add(LookUpPane, "card2");
+
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
         mainPaneLayout.setHorizontalGroup(
@@ -934,9 +1107,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dataDisplayPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(entitySelectionPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(crudPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(entitySelectionPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(crudPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPaneLayout.setVerticalGroup(
@@ -1060,6 +1232,14 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnResPanelActionPerformed
 
+    private void btnSearchLookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchLookUpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchLookUpActionPerformed
+
+    private void btnResetLookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetLookUpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetLookUpActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1101,6 +1281,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JPanel CitPane;
     public com.toedter.calendar.JDateChooser DateChooserTripDate;
     public javax.swing.JPanel EmpPane;
+    public javax.swing.JPanel LookUpPane;
     public javax.swing.JPanel LugPane;
     public javax.swing.JPanel PasPane;
     public javax.swing.JPanel ResPane;
@@ -1116,7 +1297,9 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnLugPanel;
     public javax.swing.JButton btnPasPanel;
     public javax.swing.JButton btnResPanel;
+    public javax.swing.JButton btnResetLookUp;
     public javax.swing.JButton btnSearch;
+    public javax.swing.JButton btnSearchLookUp;
     public javax.swing.JButton btnSearchSelectBus;
     public javax.swing.JButton btnSearchSelectCit;
     public javax.swing.JButton btnSearchSelectEmp;
@@ -1132,11 +1315,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel11;
+    public javax.swing.JLabel jLabel12;
     public javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     public javax.swing.JLabel jLabel8;
     public javax.swing.JLabel jLabel9;
+    public javax.swing.JScrollPane jScrollPane10;
     public javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1146,28 +1331,42 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JScrollPane jScrollPane9;
     public javax.swing.JLabel labelBusID;
     public javax.swing.JLabel labelBusIDFkTrip;
+    public javax.swing.JLabel labelBusIDLookUp;
     public javax.swing.JLabel labelBusSeatCap;
     public javax.swing.JLabel labelCitName;
     public javax.swing.JLabel labelDesCityFkTrip;
+    public javax.swing.JLabel labelDesCityLookUp;
     public javax.swing.JLabel labelEmpName;
+    private javax.swing.JLabel labelEmpNameLookUp;
     public javax.swing.JLabel labelEmpNumFkTrip;
+    public javax.swing.JLabel labelEmpNumLookUp;
     public javax.swing.JLabel labelEmpNumber;
     public javax.swing.JLabel labelLugID;
+    private javax.swing.JLabel labelLugIDLookUp;
     public javax.swing.JLabel labelLugStatus;
+    private javax.swing.JLabel labelLugStatusLookUp;
     public javax.swing.JLabel labelOriCityFkTrip;
+    public javax.swing.JLabel labelOriCityLookUp;
     public javax.swing.JLabel labelPasID;
     public javax.swing.JLabel labelPasIDFkLug;
+    private javax.swing.JLabel labelPasIDLookUp;
     public javax.swing.JLabel labelPasName;
+    private javax.swing.JLabel labelPasNameLookUp;
     public javax.swing.JLabel labelPassIDFkRes;
     public javax.swing.JLabel labelResNum;
+    private javax.swing.JLabel labelSeatCapLookUp;
     public javax.swing.JLabel labelTripDate;
+    public javax.swing.JLabel labelTripDateLookUp;
     public javax.swing.JLabel labelTripID;
     public javax.swing.JLabel labelTripIDFkRes;
+    public javax.swing.JLabel labelTripIDLookUp;
     public javax.swing.JLabel labelTripPrice;
+    public javax.swing.JLabel labelTripPriceLookUp;
     public javax.swing.JPanel mainPane;
     public javax.swing.JTable tableBuses;
     public javax.swing.JTable tableCities;
     public javax.swing.JTable tableEmployees;
+    public javax.swing.JTable tableLookUp;
     public javax.swing.JTable tableLuggage;
     public javax.swing.JTable tablePassengers;
     public javax.swing.JTable tableReservations;
