@@ -135,7 +135,7 @@ public class Controller implements ActionListener{
         //Creación combobox en Luggage para seleción de Status
         String[] lugStatusOptions = {"ALL", "OK", "LOST"};
         this.comboxLugStatus = new JComboBox(lugStatusOptions);
-        this.comboxLugStatus.setBounds(340, 143, 100, 30);
+        this.comboxLugStatus.setBounds(460, 125, 100, 30);
         mainframe.LugPane.add(this.comboxLugStatus);
         
         
@@ -143,13 +143,13 @@ public class Controller implements ActionListener{
         this.comboxPassIdFk = new JComboBox();        
         this.comboxPassIdFk.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
         this.comboxPassIdFk.setSelectedIndex(0);
-        this.comboxPassIdFk.setBounds(340, 200, 200, 30);
+        this.comboxPassIdFk.setBounds(460, 180, 200, 30);
         mainframe.LugPane.add(this.comboxPassIdFk);     
         
         //Creación combobox en Buses para selección capacidad
         Object[] busSeatCapOptions = {"ALL",30,40,45,90};
         this.comboxBusSeatCap = new JComboBox(busSeatCapOptions);
-        this.comboxBusSeatCap.setBounds(375, 140, 100, 30);
+        this.comboxBusSeatCap.setBounds(590, 130, 100, 30);
         mainframe.BusPane.add(this.comboxBusSeatCap);
         
         
@@ -157,21 +157,21 @@ public class Controller implements ActionListener{
         this.comboxEmpNumFk = new JComboBox();
         this.comboxEmpNumFk.setModel(new DefaultComboBoxModel<>(initialData.getEmployees().toArray(new SuperModel[initialData.getEmployees().size()])));
         this.comboxEmpNumFk.setSelectedIndex(0);
-        this.comboxEmpNumFk.setBounds(450, 140, 60, 30);
+        this.comboxEmpNumFk.setBounds(650, 140, 60, 30);
         mainframe.TripPane.add(this.comboxEmpNumFk);
         
         //Creación combobox en Trips para selección de originCityFk
         this.comboxOriginCityFk = new JComboBox();
         this.comboxOriginCityFk.setModel(new DefaultComboBoxModel<>(initialData.getCities().toArray(new SuperModel[initialData.getCities().size()])));
         this.comboxOriginCityFk.setSelectedIndex(0);
-        this.comboxOriginCityFk.setBounds(450, 65, 140, 30);
+        this.comboxOriginCityFk.setBounds(650, 65, 140, 30);
         mainframe.TripPane.add(this.comboxOriginCityFk);
         
         //Creación combobox en Trips para selección de destinyCityFk
         this.comboxDestinyCityFk = new JComboBox();
         this.comboxDestinyCityFk.setModel(new DefaultComboBoxModel<>(initialData.getCities().toArray(new SuperModel[initialData.getCities().size()])));
         this.comboxDestinyCityFk.setSelectedIndex(0);
-        this.comboxDestinyCityFk.setBounds(450, 102, 140, 30);
+        this.comboxDestinyCityFk.setBounds(650, 102, 140, 30);
         mainframe.TripPane.add(this.comboxDestinyCityFk);
         
         
@@ -179,7 +179,7 @@ public class Controller implements ActionListener{
         this.comboxBusIDFk = new JComboBox();
         this.comboxBusIDFk.setModel(new DefaultComboBoxModel<>(initialData.getBuses().toArray(new SuperModel[initialData.getBuses().size()])));
         this.comboxBusIDFk.setSelectedIndex(0);
-        this.comboxBusIDFk.setBounds(450, 174, 60, 30);
+        this.comboxBusIDFk.setBounds(650, 174, 60, 30);
         mainframe.TripPane.add(this.comboxBusIDFk);
         
         
@@ -187,14 +187,14 @@ public class Controller implements ActionListener{
         this.comboxPassIdFkRes = new JComboBox();
         this.comboxPassIdFkRes.setModel(new DefaultComboBoxModel<>(initialData.getPassengers().toArray(new SuperModel[initialData.getPassengers().size()])));
         this.comboxPassIdFkRes.setSelectedIndex(0);
-        this.comboxPassIdFkRes.setBounds(361, 110, 100, 30);
+        this.comboxPassIdFkRes.setBounds(534, 110, 100, 30);
         mainframe.ResPane.add(this.comboxPassIdFkRes);
         
         //Combobox creation in Reservations for tripIDFk selection
         this.comboxTripIdFk = new JComboBox();
         this.comboxTripIdFk.setModel(new DefaultComboBoxModel<>(initialData.getTrips().toArray(new SuperModel[initialData.getTrips().size()])));
         this.comboxTripIdFk.setSelectedIndex(0);
-        this.comboxTripIdFk.setBounds(361, 150, 60, 30);
+        this.comboxTripIdFk.setBounds(534, 150, 60, 30);
         mainframe.ResPane.add(this.comboxTripIdFk);
         
         
@@ -216,6 +216,7 @@ public class Controller implements ActionListener{
         
         
         if(e.getSource() == mainframe.btnEmpPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -225,6 +226,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 1;
         } else if(e.getSource() == mainframe.btnPasPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -234,6 +236,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 2;
         } else if(e.getSource() == mainframe.btnLugPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -245,6 +248,7 @@ public class Controller implements ActionListener{
             resetComboboxesLuggage();
             
         } else if(e.getSource() == mainframe.btnBusPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -255,6 +259,7 @@ public class Controller implements ActionListener{
             currEntity = 4;   
             
         } else if(e.getSource() == mainframe.btnCitPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -265,6 +270,7 @@ public class Controller implements ActionListener{
             currEntity = 5;
             
         } else if(e.getSource() == mainframe.btnTripPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -275,6 +281,7 @@ public class Controller implements ActionListener{
             currEntity = 6;
             resetComboboxesTrips();
         } else if(e.getSource() == mainframe.btnResPanel){
+            hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
@@ -1218,9 +1225,9 @@ public class Controller implements ActionListener{
                                 comboxDestinyCityFk.setSelectedIndex(0);
                                 comboxEmpNumFk.setSelectedIndex(0);
                                 comboxBusIDFk.setSelectedIndex(0);
+                                setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
                                 hideElements();  
                                 op = 0;
-                                setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
                               
                             } else {
                               JOptionPane.showMessageDialog(null,"A trip cannot be created with a date in the past");
@@ -1267,6 +1274,7 @@ public class Controller implements ActionListener{
                         tripMod.setEmployeeNumFk(Integer.parseInt(comboxEmpNumFk.getSelectedItem().toString()));
                         tripMod.setBusIDFk(Integer.parseInt(comboxBusIDFk.getSelectedItem().toString()));
                         setTableResults(tripDAO.getTripsByFilter(tripMod), tripheaders, mainframe.tableTrips);
+                       
                         
                     } else {
                         setTableResults(tripDAO.getAllTrips(), tripheaders, mainframe.tableTrips);
