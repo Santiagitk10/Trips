@@ -74,6 +74,12 @@ public class Controller implements ActionListener{
     //Comboboxes in Reservations
     private JComboBox comboxPassIdFkRes;
     private JComboBox comboxTripIdFk;
+    //Comboboxes in LookUp
+    private JComboBox comboxTripIDLookUp;
+    
+    
+    
+    
     
     
     
@@ -114,6 +120,7 @@ public class Controller implements ActionListener{
         mainframe.btnCitPanel.addActionListener(this);
         mainframe.btnTripPanel.addActionListener(this);
         mainframe.btnResPanel.addActionListener(this);
+        mainframe.btnLookUpPanel.addActionListener(this);
         
         mainframe.btnCreate.addActionListener(this);
         mainframe.btnSearch.addActionListener(this);
@@ -197,6 +204,16 @@ public class Controller implements ActionListener{
         this.comboxTripIdFk.setBounds(534, 150, 60, 30);
         mainframe.ResPane.add(this.comboxTripIdFk);
         
+        //ICombobox creation in LookUp for TripID
+        Integer[] trpIDs = new Integer[initialData.getDataList().size()]; 
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+        }
+        this.comboxTripIDLookUp = new JComboBox(trpIDs);
+        this.comboxTripIDLookUp.setSelectedIndex(0);
+        this.comboxTripIDLookUp.setBounds(167, 63, 60, 30);
+        mainframe.LookUpPane.add(this.comboxTripIDLookUp);
+        
         
         hideElements();
     }
@@ -216,6 +233,7 @@ public class Controller implements ActionListener{
         
         
         if(e.getSource() == mainframe.btnEmpPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -226,6 +244,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 1;
         } else if(e.getSource() == mainframe.btnPasPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -236,6 +255,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 2;
         } else if(e.getSource() == mainframe.btnLugPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -248,6 +268,7 @@ public class Controller implements ActionListener{
             resetComboboxesLuggage();
             
         } else if(e.getSource() == mainframe.btnBusPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -259,6 +280,7 @@ public class Controller implements ActionListener{
             currEntity = 4;   
             
         } else if(e.getSource() == mainframe.btnCitPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -270,6 +292,7 @@ public class Controller implements ActionListener{
             currEntity = 5;
             
         } else if(e.getSource() == mainframe.btnTripPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -281,6 +304,7 @@ public class Controller implements ActionListener{
             currEntity = 6;
             resetComboboxesTrips();
         } else if(e.getSource() == mainframe.btnResPanel){
+            mainframe.crudPane.setVisible(true);
             hideElements();
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
@@ -291,6 +315,18 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.repaint();
             currEntity = 7;
             resetComboboxesReservations();
+        } else if(e.getSource() == mainframe.btnLookUpPanel){
+            mainframe.crudPane.setVisible(false);
+            hideElements();
+            mainframe.dataDisplayPane.removeAll();
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+//            setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+            mainframe.dataDisplayPane.add(mainframe.LookUpPane);
+            mainframe.dataDisplayPane.revalidate();
+            mainframe.dataDisplayPane.repaint();
+            currEntity = 8;
+//            resetComboboxesReservations();
         }
         
         

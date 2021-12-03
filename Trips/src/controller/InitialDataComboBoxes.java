@@ -8,6 +8,7 @@ package controller;
 import Access.BusDAO;
 import Access.CityDAO;
 import Access.EmployeeDAO;
+import Access.LookUpDAO;
 import Access.PassengerDAO;
 import Access.TripDAO;
 import Model.BusModel;
@@ -29,7 +30,7 @@ public class InitialDataComboBoxes {
     private ArrayList<SuperModel> cities = null;
     private ArrayList<SuperModel> buses = null;
     private ArrayList<SuperModel> trips = null;
-    
+    private ArrayList<SuperModel> dataList = null;
     
     
     
@@ -53,6 +54,10 @@ public class InitialDataComboBoxes {
         TripDAO tripDAO = new TripDAO();
         this.trips = tripDAO.getAllTrips();
         this.trips.add(0, new TripModel(0,null,0,"","",0,0));
+        
+        LookUpDAO lookUpDAO = new LookUpDAO();
+        this.dataList = lookUpDAO.getAllData();
+        this.dataList.add(0,new TripModel(0, null, "All Cities", "All Cities", 0, 0, "All Employee Names", 0, 0, 0, "All", 0, "All Passenger Names"));
         
     } 
 
@@ -95,6 +100,10 @@ public class InitialDataComboBoxes {
 //    public void setTrips(ArrayList<SuperModel> trips) {
 //        this.trips = trips;
 //    }
+
+    public ArrayList<SuperModel> getDataList() {
+        return dataList;
+    }
     
     
     

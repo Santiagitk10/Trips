@@ -5,6 +5,9 @@
  */
 package view;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author SANTIAGO SIERRA
@@ -18,6 +21,15 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
     }
 
+    
+
+    
+
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnCitPanel = new javax.swing.JButton();
         btnTripPanel = new javax.swing.JButton();
         btnResPanel = new javax.swing.JButton();
+        btnLookUpPanel = new javax.swing.JButton();
         crudPane = new javax.swing.JPanel();
         btnCreate = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
@@ -131,6 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
         labelPasNameLookUp = new javax.swing.JLabel();
         labelSeatCapLookUp = new javax.swing.JLabel();
         btnResetLookUp = new javax.swing.JButton();
+        labelResNumLookUp = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -191,6 +205,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnLookUpPanel.setText("Look Up");
+        btnLookUpPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLookUpPanelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout entitySelectionPaneLayout = new javax.swing.GroupLayout(entitySelectionPane);
         entitySelectionPane.setLayout(entitySelectionPaneLayout);
         entitySelectionPaneLayout.setHorizontalGroup(
@@ -210,6 +231,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnResPanel)
+                .addGap(18, 18, 18)
+                .addComponent(btnLookUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         entitySelectionPaneLayout.setVerticalGroup(
@@ -223,7 +246,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnResPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnResPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLookUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -948,17 +972,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         tableLookUp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Trip ID", "Trip Date", "Origin City", "Destiny City", "Price", "Emp Number", "Emp Name", "Bus ID", "Lug ID", "Lug Status", "Seat Cap", "Pass ID", "Pass Name"
+                "Trip ID", "Trip Date", "Origin City", "Destiny City", "Price", "Emp Number", "Emp Name", "Res Num", "Bus ID", "Lug ID", "Lug Status", "Seat Cap", "Pass ID", "Pass Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, true, false, false, true, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1007,6 +1031,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        labelResNumLookUp.setText("Reservation Num");
+
         javax.swing.GroupLayout LookUpPaneLayout = new javax.swing.GroupLayout(LookUpPane);
         LookUpPane.setLayout(LookUpPaneLayout);
         LookUpPaneLayout.setHorizontalGroup(
@@ -1017,13 +1043,17 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(LookUpPaneLayout.createSequentialGroup()
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelTripDateLookUp)
-                            .addComponent(labelTripIDLookUp)
-                            .addComponent(labelDesCityLookUp))
-                        .addGap(146, 146, 146)
+                            .addComponent(labelDesCityLookUp)
+                            .addComponent(labelOriCityLookUp))
+                        .addGap(118, 118, 118))
+                    .addGroup(LookUpPaneLayout.createSequentialGroup()
+                        .addComponent(labelTripIDLookUp)
+                        .addGap(28, 28, 28)))
+                .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LookUpPaneLayout.createSequentialGroup()
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEmpNameLookUp)
-                            .addComponent(labelEmpNumLookUp)
-                            .addComponent(labelTripPriceLookUp))
+                            .addComponent(labelTripPriceLookUp)
+                            .addComponent(labelResNumLookUp))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelLugIDLookUp)
@@ -1036,7 +1066,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(labelPasNameLookUp))
                         .addGap(167, 167, 167))
                     .addGroup(LookUpPaneLayout.createSequentialGroup()
-                        .addComponent(labelOriCityLookUp)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEmpNumLookUp)
+                            .addComponent(labelEmpNameLookUp))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
                 .addContainerGap(32, Short.MAX_VALUE)
@@ -1057,7 +1089,7 @@ public class MainFrame extends javax.swing.JFrame {
             LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LookUpPaneLayout.createSequentialGroup()
                 .addComponent(jLabel12)
-                .addGap(26, 26, 26)
+                .addGap(17, 17, 17)
                 .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
                         .addComponent(labelBusIDLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1075,26 +1107,25 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTripIDLookUp)
                             .addComponent(labelTripPriceLookUp))
-                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(LookUpPaneLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(labelEmpNumLookUp))
-                            .addGroup(LookUpPaneLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(labelTripDateLookUp)))
-                        .addGap(8, 8, 8)
-                        .addComponent(labelOriCityLookUp)
+                        .addGap(19, 19, 19)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTripDateLookUp)
+                            .addComponent(labelEmpNumLookUp))
+                        .addGap(18, 18, 18)
+                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelOriCityLookUp)
+                            .addComponent(labelEmpNameLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelDesCityLookUp)
-                            .addComponent(labelEmpNameLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(labelResNumLookUp))))
                 .addGap(18, 18, 18)
                 .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnResetLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         dataDisplayPane.add(LookUpPane, "card2");
@@ -1240,6 +1271,10 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnResetLookUpActionPerformed
 
+    private void btnLookUpPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookUpPanelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLookUpPanelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1294,6 +1329,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnEmpPanel;
     public javax.swing.JButton btnGo;
     public javax.swing.ButtonGroup btnGroupCrudEmployee;
+    public javax.swing.JButton btnLookUpPanel;
     public javax.swing.JButton btnLugPanel;
     public javax.swing.JButton btnPasPanel;
     public javax.swing.JButton btnResPanel;
@@ -1309,7 +1345,7 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JButton btnSearchSelectTrip;
     public javax.swing.JButton btnTripPanel;
     public javax.swing.JButton btnUpdate;
-    private javax.swing.JPanel crudPane;
+    public javax.swing.JPanel crudPane;
     public javax.swing.JPanel dataDisplayPane;
     private javax.swing.JPanel entitySelectionPane;
     private javax.swing.JLabel jLabel1;
@@ -1354,6 +1390,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelPasNameLookUp;
     public javax.swing.JLabel labelPassIDFkRes;
     public javax.swing.JLabel labelResNum;
+    private javax.swing.JLabel labelResNumLookUp;
     private javax.swing.JLabel labelSeatCapLookUp;
     public javax.swing.JLabel labelTripDate;
     public javax.swing.JLabel labelTripDateLookUp;
@@ -1383,3 +1420,5 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JTextField txtFieldPassName;
     // End of variables declaration//GEN-END:variables
 }
+
+
