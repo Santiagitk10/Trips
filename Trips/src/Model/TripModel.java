@@ -125,12 +125,68 @@ public class TripModel extends SuperModel{
     public void setBusIDFk(int busIDFk) {
         this.busIDFk = busIDFk;
     }
+
+    public String getEmployeeNameLU() {
+        return employeeNameLU;
+    }
+
+    public void setEmployeeNameLU(String employeeNameLU) {
+        this.employeeNameLU = employeeNameLU;
+    }
+
+    public int getReservationNumLU() {
+        return reservationNumLU;
+    }
+
+    public void setReservationNumLU(int reservationNumLU) {
+        this.reservationNumLU = reservationNumLU;
+    }
+
+    public int getLuggageIDLU() {
+        return luggageIDLU;
+    }
+
+    public void setLuggageIDLU(int luggageIDLU) {
+        this.luggageIDLU = luggageIDLU;
+    }
+
+    public String getLuggageStatusLU() {
+        return luggageStatusLU;
+    }
+
+    public void setLuggageStatusLU(String luggageStatusLU) {
+        this.luggageStatusLU = luggageStatusLU;
+    }
+
+    public long getPassengerIDLU() {
+        return passengerIDLU;
+    }
+
+    public void setPassengerIDLU(long passengerIDLU) {
+        this.passengerIDLU = passengerIDLU;
+    }
+
+    public String getPassengerNameLU() {
+        return passengerNameLU;
+    }
+
+    public void setPassengerNameLU(String passengerNameLU) {
+        this.passengerNameLU = passengerNameLU;
+    }
+    
+    
     
     
     @Override
-    public Object[] toArray(){
-        Object[] data = {tripID, tripDate, price, originCityFk, destinyCityFk, employeeNumFk, busIDFk};
-        return data;
+    public Object[] toArray(int current){
+        if(current == 8){
+            Object[] data = {tripID, tripDate, originCityFk, destinyCityFk, price, employeeNumFk, employeeNameLU, reservationNumLU, busIDFk, luggageIDLU, luggageStatusLU, passengerIDLU, passengerNameLU};
+            return data;
+        } else {
+            Object[] data2 = {tripID, tripDate, price, originCityFk, destinyCityFk, employeeNumFk, busIDFk};
+            return data2;
+        }
+        
     }
     
     
@@ -141,3 +197,5 @@ public class TripModel extends SuperModel{
             
     
 }
+
+

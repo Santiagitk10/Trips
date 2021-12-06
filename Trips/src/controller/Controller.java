@@ -8,6 +8,7 @@ package controller;
 import Access.BusDAO;
 import Access.CityDAO;
 import Access.EmployeeDAO;
+import Access.LookUpDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
 import Access.ReservationDAO;
@@ -26,7 +27,9 @@ import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.function.IntSupplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //import java.util.HashSet;
@@ -59,6 +62,7 @@ public class Controller implements ActionListener{
     private TripDAO tripDAO;
     private ReservationModel resMod;
     private ReservationDAO resDAO;
+    private LookUpDAO lookUpDAO;
     private int op;
     private int currEntity;
     //Comboboxes en Luggage
@@ -76,6 +80,14 @@ public class Controller implements ActionListener{
     private JComboBox comboxTripIdFk;
     //Comboboxes in LookUp
     private JComboBox comboxTripIDLookUp;
+    private JComboBox comboxTripDateLookUp;
+    private JComboBox comboxOriginCityLookUp;
+    private JComboBox comboxDestinyCityLookUp;
+    private JComboBox comboxPriceLookUp;
+    private JComboBox comboxEmployeeNumLookUp;
+    private JComboBox comboxEmployeeNameLookUp;
+    private JComboBox comboxReservationNumLookUp;
+    private JComboBox comboxBusIdLookUp;
     
     
     
@@ -84,7 +96,7 @@ public class Controller implements ActionListener{
     
     
     
-    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO, TripModel tripMod, TripDAO tripDAO, ReservationModel resMod, ReservationDAO resDAO){
+    public Controller(MainFrame mainframe, EmployeeModel empMod, EmployeeDAO empDAO, PassengerModel pasMod, PassengerDAO pasDAO, LuggageModel lugMod, LuggageDAO lugDAO, BusModel busMod, BusDAO busDAO, CityModel cityMod, CityDAO cityDAO, TripModel tripMod, TripDAO tripDAO, ReservationModel resMod, ReservationDAO resDAO, LookUpDAO lookUpDAO){
         this.mainframe = mainframe;
         this.empMod = empMod;
         this.empDAO = empDAO;
@@ -100,6 +112,7 @@ public class Controller implements ActionListener{
         this.tripDAO = tripDAO;
         this.resMod = resMod;
         this.resDAO = resDAO;
+        this.lookUpDAO = lookUpDAO;
         this.op = 0;
         this.currEntity = 0;
         
@@ -203,16 +216,251 @@ public class Controller implements ActionListener{
         this.comboxTripIdFk.setSelectedIndex(0);
         this.comboxTripIdFk.setBounds(534, 150, 60, 30);
         mainframe.ResPane.add(this.comboxTripIdFk);
+     
         
-        //ICombobox creation in LookUp for TripID
+        //Combobox creation in LookUp for TripID
         Integer[] trpIDs = new Integer[initialData.getDataList().size()]; 
         for(int i = 0; i<initialData.getDataList().size();i++){
-            trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+            if(i==0){
+                trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+            } else if (i>0){
+                for(int j = 0; j<=i;j++){
+                    if(trpIDs[j] != null){
+                        if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+                            break;
+                        } else {
+                            if(j==i){
+                                trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                            }
+                        }
+                    } else {
+                        if(trpIDs[j-1] != ((TripModel)initialData.getDataList().get(i)).getTripID()){
+                            if(j<i){
+                                trpIDs[i-1] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                            } else {
+                                trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                            }
+                            
+                        }
+                    } 
+                }
+            }
         }
+        trpIDs = resizeSortIntegerArray(trpIDs);
         this.comboxTripIDLookUp = new JComboBox(trpIDs);
         this.comboxTripIDLookUp.setSelectedIndex(0);
-        this.comboxTripIDLookUp.setBounds(167, 63, 60, 30);
+        this.comboxTripIDLookUp.setBounds(167, 63, 60, 25);
         mainframe.LookUpPane.add(this.comboxTripIDLookUp);
+        
+        
+         
+        
+          
+        
+        
+        
+        
+        
+        //Combobox creation in LookUp for TripDate
+        Date[] tripDates = new Date[initialData.getDataList().size()];
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            tripDates[i] = ((TripModel)initialData.getDataList().get(i)).getTripDate();
+        }
+        this.comboxTripDateLookUp = new JComboBox(tripDates);
+        this.comboxTripDateLookUp.setSelectedIndex(0);
+        this.comboxTripDateLookUp.setBounds(167, 97, 90, 25);
+        mainframe.LookUpPane.add(this.comboxTripDateLookUp);
+        
+        
+        //Combobox creation in LookUp for OriginCity
+        String[] originCities = new String[initialData.getDataList().size()];
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            originCities[i] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+        }
+        this.comboxOriginCityLookUp = new JComboBox(originCities);
+        this.comboxOriginCityLookUp.setSelectedIndex(0);
+        this.comboxOriginCityLookUp.setBounds(167, 130, 90, 25);
+        mainframe.LookUpPane.add(this.comboxOriginCityLookUp);
+        
+        
+        //Combobox creation in LookUp for DestinyCity
+        String[] destinyCities = new String[initialData.getDataList().size()];
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            destinyCities[i] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+        }
+        this.comboxDestinyCityLookUp = new JComboBox(destinyCities);
+        this.comboxDestinyCityLookUp.setSelectedIndex(0);
+        this.comboxDestinyCityLookUp.setBounds(167, 163, 90, 25);
+        mainframe.LookUpPane.add(this.comboxDestinyCityLookUp);
+        
+        
+        //Combobox creation in LookUp for Price
+        Integer[] prices = new Integer[initialData.getDataList().size()]; 
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            if(i==0){
+                prices[i] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+            } else if (i>0){
+                for(int j = 0; j<=i;j++){
+                    if(prices[j] != null){
+                        if(prices[j] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+                            break;
+                        } else {
+                            if(j==i){
+                                prices[i] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                            }
+                        }
+                    } else {
+                        if(prices[j-1] != ((TripModel)initialData.getDataList().get(i)).getPrice()){
+                            if(j<i){
+                                prices[i-1] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                            } else {
+                                prices[i] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                            }
+                            
+                        }
+                    } 
+                }
+            }
+        }
+        prices = resizeSortIntegerArray(prices);
+        this.comboxPriceLookUp = new JComboBox(prices);
+        this.comboxPriceLookUp.setSelectedIndex(0);
+        this.comboxPriceLookUp.setBounds(387, 63, 90, 25);
+        mainframe.LookUpPane.add(this.comboxPriceLookUp);
+        
+        
+        
+        
+        
+        //Combobox creation in LookUp for EmpNum
+        Integer[] empNums = new Integer[initialData.getDataList().size()]; 
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            if(i==0){
+                empNums[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+            } else if (i>0){
+                for(int j = 0; j<=i;j++){
+                    if(empNums[j] != null){
+                        if(empNums[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                            break;
+                        } else {
+                            if(j==i){
+                                empNums[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                            }
+                        }
+                    } else {
+                        if(empNums[j-1] != ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                            if(j<i){
+                                empNums[i-1] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                            } else {
+                                empNums[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                            }
+                            
+                        }
+                    } 
+                }
+            }
+        }
+        empNums = resizeSortIntegerArray(empNums);
+        this.comboxEmployeeNumLookUp = new JComboBox(empNums);
+        this.comboxEmployeeNumLookUp.setSelectedIndex(0);
+        this.comboxEmployeeNumLookUp.setBounds(387, 98, 90, 25);
+        mainframe.LookUpPane.add(this.comboxEmployeeNumLookUp);
+        
+        
+        
+        //Combobox creation in LookUp for EmpName
+        String[] empNames = new String[initialData.getDataList().size()];
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            empNames[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+        }
+        this.comboxEmployeeNameLookUp = new JComboBox(empNames);
+        this.comboxEmployeeNameLookUp.setSelectedIndex(0);
+        this.comboxEmployeeNameLookUp.setBounds(387, 133, 90, 25);
+        mainframe.LookUpPane.add(this.comboxEmployeeNameLookUp);
+        
+        
+        //Combobox creation in LookUp for ResNum
+        Integer[] resNums = new Integer[initialData.getDataList().size()]; 
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            if(i==0){
+                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+            } else if (i>0){
+                for(int j = 0; j<=i;j++){
+                    if(resNums[j] != null){
+                        if(resNums[j] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+                            break;
+                        } else {
+                            if(j==i){
+                                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                            }
+                        }
+                    } else {
+                        if(resNums[j-1] != ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+                            if(j<i){
+                                resNums[i-1] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                            } else {
+                                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                            }
+                            
+                        }
+                    } 
+                }
+            }
+        }
+        resNums = resizeSortIntegerArray(resNums);
+        this.comboxReservationNumLookUp = new JComboBox(resNums);
+        this.comboxReservationNumLookUp.setSelectedIndex(0);
+        this.comboxReservationNumLookUp.setBounds(387, 164, 90, 25);
+        mainframe.LookUpPane.add(this.comboxReservationNumLookUp);
+        
+        
+        
+        
+        //Combobox creation in LookUp for BusID
+//        Integer[] BusIds = new Integer[initialData.getDataList().size()];
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+//        }
+//        this.comboxBusIdLookUp = new JComboBox(BusIds);
+//        this.comboxBusIdLookUp.setSelectedIndex(0);
+//        this.comboxBusIdLookUp.setBounds(597, 65, 60, 25);
+//        mainframe.LookUpPane.add(this.comboxBusIdLookUp);
+        
+        
+        Integer[] BusIds = new Integer[initialData.getDataList().size()]; 
+        for(int i = 0; i<initialData.getDataList().size();i++){
+            if(i==0){
+                BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+            } else if (i>0){
+                for(int j = 0; j<=i;j++){
+                    if(BusIds[j] != null){
+                        if(BusIds[j] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+                            break;
+                        } else {
+                            if(j==i){
+                                BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                            }
+                        }
+                    } else {
+                        if(BusIds[j-1] != ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+                            if(j<i){
+                                BusIds[i-1] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                            } else {
+                                BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                            }
+                            
+                        }
+                    } 
+                }
+            }
+            System.out.println(BusIds[i]);
+        }
+        BusIds = resizeSortIntegerArray(BusIds);
+        this.comboxBusIdLookUp = new JComboBox(BusIds);
+        this.comboxBusIdLookUp.setSelectedIndex(0);
+        this.comboxBusIdLookUp.setBounds(597, 65, 60, 25);
+        mainframe.LookUpPane.add(this.comboxBusIdLookUp);
+        
         
         
         hideElements();
@@ -230,6 +478,7 @@ public class Controller implements ActionListener{
         String[] cityheaders = {"City Name"};
         String[] tripheaders = {"Trip ID", "Trip Date", "Price", "Origin City", "Destiny City", "Emp Number", "Bus ID"};
         String[] reservationheaders = {"Reservation Number","Passenger ID","Trip ID"};
+        String[] lookupheaders = {"Trip ID","Trip Date","Orig City","Dest City","Price","Emp Num","Emp Name","Res Num","Bus ID","Lug ID","Lug Status","Pass ID","Pass Name"};
         
         
         if(e.getSource() == mainframe.btnEmpPanel){
@@ -321,11 +570,12 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.removeAll();
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-//            setTableResults(resDAO.getAllReservations(), reservationheaders, mainframe.tableReservations);
+            currEntity = 8;
+            setTableResults(lookUpDAO.getAllData(), lookupheaders, mainframe.tableLookUp);
             mainframe.dataDisplayPane.add(mainframe.LookUpPane);
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-            currEntity = 8;
+            
 //            resetComboboxesReservations();
         }
         
@@ -1534,7 +1784,7 @@ public class Controller implements ActionListener{
             tableModel.setColumnIdentifiers(headers);
             table.setModel(tableModel);
             for(int i=0; i<models.size(); i++){
-                tableModel.addRow(models.get(i).toArray());
+                tableModel.addRow(models.get(i).toArray(this.currEntity));
             }
     }
     
@@ -1575,6 +1825,23 @@ public class Controller implements ActionListener{
             }
         }
     }
-        
+    
+    
+    public Integer[] resizeSortIntegerArray(Integer[] arr){
+            int iterator = 0;
+            while(arr[iterator] != null){
+                iterator++;
+            }
+            Integer[] tempArray = new Integer[iterator];
+            System.arraycopy(arr, 0, tempArray, 0, iterator);
+            Arrays.sort(tempArray);
+
+            return tempArray;
+            
+    }
+    
+    
+    
+    
 }
    

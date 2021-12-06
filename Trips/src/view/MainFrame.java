@@ -972,17 +972,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         tableLookUp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Trip ID", "Trip Date", "Origin City", "Destiny City", "Price", "Emp Number", "Emp Name", "Res Num", "Bus ID", "Lug ID", "Lug Status", "Seat Cap", "Pass ID", "Pass Name"
+                "Trip ID", "Trip Date", "Origin City", "Destiny City", "Price", "Emp Number", "Emp Name", "Res Num", "Bus ID", "Lug ID", "Lug Status", "Pass ID", "Pass Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false, false, true, false, false, true
+                false, false, false, false, false, false, false, true, false, false, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1040,15 +1040,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(LookUpPaneLayout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LookUpPaneLayout.createSequentialGroup()
-                        .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelTripDateLookUp)
-                            .addComponent(labelDesCityLookUp)
-                            .addComponent(labelOriCityLookUp))
-                        .addGap(118, 118, 118))
-                    .addGroup(LookUpPaneLayout.createSequentialGroup()
-                        .addComponent(labelTripIDLookUp)
-                        .addGap(28, 28, 28)))
+                    .addComponent(labelTripDateLookUp)
+                    .addComponent(labelDesCityLookUp)
+                    .addComponent(labelOriCityLookUp)
+                    .addComponent(labelTripIDLookUp))
+                .addGap(118, 118, 118)
                 .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LookUpPaneLayout.createSequentialGroup()
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

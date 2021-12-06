@@ -53,7 +53,7 @@ public class LuggageModel extends SuperModel{
     
 
     @Override
-    public Object[] toArray(){
+    public Object[] toArray(int current){
         Object[] data = {luggageID, luggageStatus, passengerIDFk};
         return data;
     }

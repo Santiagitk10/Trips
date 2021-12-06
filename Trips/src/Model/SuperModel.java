@@ -10,7 +10,7 @@ package Model;
  * @author SANTIAGO SIERRA
  */
 public class SuperModel{
-    public Object[] toArray(){
+    public Object[] toArray(int current){
         Object[] data = {};
         return data;
     }

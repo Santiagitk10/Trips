@@ -8,6 +8,7 @@ package trips;
 import Access.BusDAO;
 import Access.CityDAO;
 import Access.EmployeeDAO;
+import Access.LookUpDAO;
 import Access.LuggageDAO;
 import Access.PassengerDAO;
 import Access.ReservationDAO;
@@ -48,10 +49,11 @@ public class Trips {
         TripDAO tripDAO = new TripDAO();
         ReservationModel resMod = new ReservationModel();
         ReservationDAO resDAO = new ReservationDAO();
+        LookUpDAO lookUpDAO = new LookUpDAO();
         
        
         
-        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO, busMod, busDAO, cityMod, cityDAO, tripMod, tripDAO, resMod, resDAO);
+        Controller cont = new Controller(mainframe, empMod, empDAO, pasMod, pasDAO, lugMod, lugDAO, busMod, busDAO, cityMod, cityDAO, tripMod, tripDAO, resMod, resDAO, lookUpDAO);
         cont.initialize();
         
         

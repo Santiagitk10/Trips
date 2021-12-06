@@ -42,7 +42,7 @@ public class PassengerModel extends SuperModel {
     }
 
     @Override
-    public Object[] toArray(){
+    public Object[] toArray(int current){
         Object[] data = {passengerId, passengerName};
         return data;
     }

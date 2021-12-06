@@ -57,7 +57,7 @@ public class ReservationModel extends SuperModel {
     
     
     @Override
-    public Object[] toArray(){
+    public Object[] toArray(int current){
         Object[] data = {reservationNum, passengerIDFk, tripIDFk};
         return data;
     }
