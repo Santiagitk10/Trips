@@ -216,34 +216,30 @@ public class Controller implements ActionListener{
         this.comboxTripIdFk.setSelectedIndex(0);
         this.comboxTripIdFk.setBounds(534, 150, 60, 30);
         mainframe.ResPane.add(this.comboxTripIdFk);
-     
+        
+
+        
+        
         
         //Combobox creation in LookUp for TripID
-        Integer[] trpIDs = new Integer[initialData.getDataList().size()]; 
+        Integer[] trpIDs = new Integer[initialData.getDataList().size()];   
         for(int i = 0; i<initialData.getDataList().size();i++){
             if(i==0){
-                trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                trpIDs[0] = ((TripModel)initialData.getDataList().get(i)).getTripID();
             } else if (i>0){
-                for(int j = 0; j<=i;j++){
-                    if(trpIDs[j] != null){
-                        if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
-                            break;
+                   for(int j = 0; j<=i;j++) {
+                        if(trpIDs[j] != null){
+                            if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+                                break;
+                            } 
                         } else {
-                            if(j==i){
-                                trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
-                            }
-                        }
-                    } else {
-                        if(trpIDs[j-1] != ((TripModel)initialData.getDataList().get(i)).getTripID()){
-                            if(j<i){
-                                trpIDs[i-1] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                            if(trpIDs[j-1] == null || trpIDs[j-1] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+                                trpIDs[j] = null;
                             } else {
-                                trpIDs[i] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                                trpIDs[j] = ((TripModel)initialData.getDataList().get(i)).getTripID();
                             }
-                            
                         }
-                    } 
-                }
+                   }    
             }
         }
         trpIDs = resizeSortIntegerArray(trpIDs);
@@ -251,11 +247,6 @@ public class Controller implements ActionListener{
         this.comboxTripIDLookUp.setSelectedIndex(0);
         this.comboxTripIDLookUp.setBounds(167, 63, 60, 25);
         mainframe.LookUpPane.add(this.comboxTripIDLookUp);
-        
-        
-         
-        
-          
         
         
         
@@ -272,56 +263,90 @@ public class Controller implements ActionListener{
         mainframe.LookUpPane.add(this.comboxTripDateLookUp);
         
         
+        
+        
         //Combobox creation in LookUp for OriginCity
-        String[] originCities = new String[initialData.getDataList().size()];
+        String[] originCities = new String[initialData.getDataList().size()];  
         for(int i = 0; i<initialData.getDataList().size();i++){
-            originCities[i] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+            if(i==0){
+                originCities[0] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+            } else if (i>0){
+                   for(int j = 0; j<=i;j++) {
+                        if(originCities[j] != null){
+                            if(originCities[j].equals(((TripModel)initialData.getDataList().get(i)).getOriginCityFk())){
+                                break;
+                            } 
+                        } else {
+                            if(originCities[j-1] == null || originCities[j-1].equals(((TripModel)initialData.getDataList().get(i)).getOriginCityFk())){
+                                originCities[j] = null;
+                            } else {
+                                originCities[j] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+                            }
+                        }
+                   }    
+            }
         }
+        originCities = resizeSortStringArray(originCities);
         this.comboxOriginCityLookUp = new JComboBox(originCities);
         this.comboxOriginCityLookUp.setSelectedIndex(0);
         this.comboxOriginCityLookUp.setBounds(167, 130, 90, 25);
         mainframe.LookUpPane.add(this.comboxOriginCityLookUp);
+     
+        
         
         
         //Combobox creation in LookUp for DestinyCity
-        String[] destinyCities = new String[initialData.getDataList().size()];
+        String[] destinyCities = new String[initialData.getDataList().size()];  
         for(int i = 0; i<initialData.getDataList().size();i++){
-            destinyCities[i] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+            if(i==0){
+                destinyCities[0] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+            } else if (i>0){
+                   for(int j = 0; j<=i;j++) {
+                        if(destinyCities[j] != null){
+                            if(destinyCities[j].equals(((TripModel)initialData.getDataList().get(i)).getDestinyCityFk())){
+                                break;
+                            } 
+                        } else {
+                            if(destinyCities[j-1] == null || destinyCities[j-1].equals(((TripModel)initialData.getDataList().get(i)).getDestinyCityFk())){
+                                destinyCities[j] = null;
+                            } else {
+                                destinyCities[j] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+                            }
+                        }
+                   }    
+            }
         }
+        destinyCities = resizeSortStringArray(destinyCities);
         this.comboxDestinyCityLookUp = new JComboBox(destinyCities);
         this.comboxDestinyCityLookUp.setSelectedIndex(0);
         this.comboxDestinyCityLookUp.setBounds(167, 163, 90, 25);
         mainframe.LookUpPane.add(this.comboxDestinyCityLookUp);
         
         
+        
+        
+        
         //Combobox creation in LookUp for Price
-        Integer[] prices = new Integer[initialData.getDataList().size()]; 
-        for(int i = 0; i<initialData.getDataList().size();i++){
-            if(i==0){
-                prices[i] = ((TripModel)initialData.getDataList().get(i)).getPrice();
-            } else if (i>0){
-                for(int j = 0; j<=i;j++){
-                    if(prices[j] != null){
-                        if(prices[j] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
-                            break;
-                        } else {
-                            if(j==i){
-                                prices[i] = ((TripModel)initialData.getDataList().get(i)).getPrice();
-                            }
-                        }
-                    } else {
-                        if(prices[j-1] != ((TripModel)initialData.getDataList().get(i)).getPrice()){
-                            if(j<i){
-                                prices[i-1] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+        Integer[] prices = new Integer[initialData.getDataList().size()];
+            for(int i = 0; i<initialData.getDataList().size();i++){
+                if(i==0){
+                    prices[0] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                } else if (i>0){
+                       for(int j = 0; j<=i;j++) {
+                            if(prices[j] != null){
+                                if(prices[j] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+                                    break;
+                                } 
                             } else {
-                                prices[i] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                                if(prices[j-1] == null || prices[j-1] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+                                    prices[j] = null;
+                                } else {
+                                    prices[j] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                                }
                             }
-                            
-                        }
-                    } 
+                       }    
                 }
             }
-        }
         prices = resizeSortIntegerArray(prices);
         this.comboxPriceLookUp = new JComboBox(prices);
         this.comboxPriceLookUp.setSelectedIndex(0);
@@ -331,33 +356,25 @@ public class Controller implements ActionListener{
         
         
         
-        
         //Combobox creation in LookUp for EmpNum
-        Integer[] empNums = new Integer[initialData.getDataList().size()]; 
+        Integer[] empNums = new Integer[initialData.getDataList().size()];   
         for(int i = 0; i<initialData.getDataList().size();i++){
             if(i==0){
-                empNums[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                empNums[0] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
             } else if (i>0){
-                for(int j = 0; j<=i;j++){
-                    if(empNums[j] != null){
-                        if(empNums[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
-                            break;
+                   for(int j = 0; j<=i;j++) {
+                        if(empNums[j] != null){
+                            if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                                break;
+                            } 
                         } else {
-                            if(j==i){
-                                empNums[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
-                            }
-                        }
-                    } else {
-                        if(empNums[j-1] != ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
-                            if(j<i){
-                                empNums[i-1] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                            if(empNums[j-1] == null || empNums[j-1] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                                empNums[j] = null;
                             } else {
-                                empNums[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                                empNums[j] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
                             }
-                            
                         }
-                    } 
-                }
+                   }    
             }
         }
         empNums = resizeSortIntegerArray(empNums);
@@ -368,43 +385,93 @@ public class Controller implements ActionListener{
         
         
         
+        
+        
+        
         //Combobox creation in LookUp for EmpName
-        String[] empNames = new String[initialData.getDataList().size()];
+        String[] empNames = new String[initialData.getDataList().size()];  
         for(int i = 0; i<initialData.getDataList().size();i++){
-            empNames[i] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+            if(i==0){
+                empNames[0] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+            } else if (i>0){
+                   for(int j = 0; j<=i;j++) {
+                        if(empNames[j] != null){
+                            if(empNames[j].equals(((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU())){
+                                break;
+                            } 
+                        } else {
+                            if(empNames[j-1] == null || empNames[j-1].equals(((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU())){
+                                empNames[j] = null;
+                            } else {
+                                empNames[j] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+                            }
+                        }
+                   }    
+            }
         }
+        empNames = resizeSortStringArray(empNames);
         this.comboxEmployeeNameLookUp = new JComboBox(empNames);
         this.comboxEmployeeNameLookUp.setSelectedIndex(0);
         this.comboxEmployeeNameLookUp.setBounds(387, 133, 90, 25);
         mainframe.LookUpPane.add(this.comboxEmployeeNameLookUp);
+
+
+
         
         
         //Combobox creation in LookUp for ResNum
-        Integer[] resNums = new Integer[initialData.getDataList().size()]; 
+//        Integer[] resNums = new Integer[initialData.getDataList().size()]; 
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+//            } else if (i>0){
+//                for(int j = 0; j<=i;j++){
+//                    if(resNums[j] != null){
+//                        if(resNums[j] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+//                            break;
+//                        } else {
+//                            if(j==i){
+//                                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+//                            }
+//                        }
+//                    } else {
+//                        if(resNums[j-1] != ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+//                            if(j<i){
+//                                resNums[i-1] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+//                            } else {
+//                                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+//                            }
+//                            
+//                        }
+//                    } 
+//                }
+//            }
+//        }
+////        resNums = resizeSortIntegerArray(resNums);
+//        this.comboxReservationNumLookUp = new JComboBox(resNums);
+//        this.comboxReservationNumLookUp.setSelectedIndex(0);
+//        this.comboxReservationNumLookUp.setBounds(387, 164, 90, 25);
+//        mainframe.LookUpPane.add(this.comboxReservationNumLookUp);
+        
+        
+        Integer[] resNums = new Integer[initialData.getDataList().size()];   
         for(int i = 0; i<initialData.getDataList().size();i++){
             if(i==0){
-                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                resNums[0] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
             } else if (i>0){
-                for(int j = 0; j<=i;j++){
-                    if(resNums[j] != null){
-                        if(resNums[j] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
-                            break;
+                   for(int j = 0; j<=i;j++) {
+                        if(resNums[j] != null){
+                            if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+                                break;
+                            } 
                         } else {
-                            if(j==i){
-                                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
-                            }
-                        }
-                    } else {
-                        if(resNums[j-1] != ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
-                            if(j<i){
-                                resNums[i-1] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                            if(resNums[j-1] == null || resNums[j-1] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+                                resNums[j] = null;
                             } else {
-                                resNums[i] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                                resNums[j] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
                             }
-                            
                         }
-                    } 
-                }
+                   }    
             }
         }
         resNums = resizeSortIntegerArray(resNums);
@@ -417,49 +484,34 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for BusID
-//        Integer[] BusIds = new Integer[initialData.getDataList().size()];
-//        for(int i = 0; i<initialData.getDataList().size();i++){
-//            BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
-//        }
-//        this.comboxBusIdLookUp = new JComboBox(BusIds);
-//        this.comboxBusIdLookUp.setSelectedIndex(0);
-//        this.comboxBusIdLookUp.setBounds(597, 65, 60, 25);
-//        mainframe.LookUpPane.add(this.comboxBusIdLookUp);
-        
-        
-        Integer[] BusIds = new Integer[initialData.getDataList().size()]; 
-        for(int i = 0; i<initialData.getDataList().size();i++){
-            if(i==0){
-                BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
-            } else if (i>0){
-                for(int j = 0; j<=i;j++){
-                    if(BusIds[j] != null){
-                        if(BusIds[j] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
-                            break;
-                        } else {
-                            if(j==i){
-                                BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
-                            }
-                        }
-                    } else {
-                        if(BusIds[j-1] != ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
-                            if(j<i){
-                                BusIds[i-1] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+        Integer[] BusIds = new Integer[initialData.getDataList().size()];
+            for(int i = 0; i<initialData.getDataList().size();i++){
+                if(i==0){
+                    BusIds[0] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                } else if (i>0){
+                       for(int j = 0; j<=i;j++) {
+                            if(BusIds[j] != null){
+                                if(BusIds[j] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+                                    break;
+                                } 
                             } else {
-                                BusIds[i] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                                if(BusIds[j-1] == null || BusIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+                                    BusIds[j] = null;
+                                } else {
+                                    BusIds[j] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                                }
                             }
-                            
-                        }
-                    } 
+                       }    
                 }
             }
-            System.out.println(BusIds[i]);
-        }
         BusIds = resizeSortIntegerArray(BusIds);
         this.comboxBusIdLookUp = new JComboBox(BusIds);
         this.comboxBusIdLookUp.setSelectedIndex(0);
         this.comboxBusIdLookUp.setBounds(597, 65, 60, 25);
         mainframe.LookUpPane.add(this.comboxBusIdLookUp);
+
+
+        
         
         
         
@@ -1838,6 +1890,31 @@ public class Controller implements ActionListener{
 
             return tempArray;
             
+    }
+    
+    public String[] resizeSortStringArray(String[] arr){
+            int iterator = 0;
+            while(arr[iterator] != null){
+                iterator++;
+            }
+            String[] tempArray = new String[iterator];
+            System.arraycopy(arr, 0, tempArray, 0, iterator);
+            
+            String tempString = null;
+            
+            for(int i = 0; i<tempArray.length;i++){
+                for(int j = 1; j<tempArray.length-i;i++){
+                    if(tempArray[j-1].compareToIgnoreCase(tempArray[j]) > 0){
+                        tempString =  tempArray[j-1];
+                        tempArray[j-1] = tempArray[j];
+                        tempArray[j] = tempString;
+                                
+                    }
+                }
+            }
+           
+            return tempArray;
+           
     }
     
     
