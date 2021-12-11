@@ -151,6 +151,8 @@ public class Controller implements ActionListener{
         mainframe.btnDelete.addActionListener(this);
         mainframe.btnGo.addActionListener(this);
         mainframe.btnClearFields.addActionListener(this);
+        mainframe.btnResetLookUp.addActionListener(this);
+        mainframe.btnSearchLookUp.addActionListener(this);
         
         
         InitialDataComboBoxes initialData = new InitialDataComboBoxes();
@@ -237,61 +239,43 @@ public class Controller implements ActionListener{
         this.comboxPassNumberLookUp = new JComboBox();
         
         
-        
-        
-        
-        
-        
-//        this.comboxTripIDLookUp.setSelectedIndex(0);
+        //Positioning of Comboboxes in LookUp
         this.comboxTripIDLookUp.setBounds(167, 63, 60, 25);
         mainframe.LookUpPane.add(this.comboxTripIDLookUp);
 
-//        this.comboxTripDateLookUp.setSelectedIndex(0);
         this.comboxTripDateLookUp.setBounds(167, 95, 95, 25);
         mainframe.LookUpPane.add(this.comboxTripDateLookUp);
         
-//        this.comboxOriginCityLookUp.setSelectedIndex(0);
         this.comboxOriginCityLookUp.setBounds(167, 130, 90, 25);
         mainframe.LookUpPane.add(this.comboxOriginCityLookUp);
         
-//        this.comboxDestinyCityLookUp.setSelectedIndex(0);
         this.comboxDestinyCityLookUp.setBounds(167, 163, 90, 25);
         mainframe.LookUpPane.add(this.comboxDestinyCityLookUp);
         
-//        this.comboxPriceLookUp.setSelectedIndex(0);
         this.comboxPriceLookUp.setBounds(387, 63, 90, 25);
         mainframe.LookUpPane.add(this.comboxPriceLookUp);
         
-//        this.comboxEmployeeNumLookUp.setSelectedIndex(0);
         this.comboxEmployeeNumLookUp.setBounds(387, 98, 90, 25);
         mainframe.LookUpPane.add(this.comboxEmployeeNumLookUp);
         
-//        this.comboxEmployeeNameLookUp.setSelectedIndex(0);
         this.comboxEmployeeNameLookUp.setBounds(387, 133, 90, 25);
         mainframe.LookUpPane.add(this.comboxEmployeeNameLookUp);
         
-//        this.comboxReservationNumLookUp.setSelectedIndex(0);
         this.comboxReservationNumLookUp.setBounds(387, 164, 90, 25);
         mainframe.LookUpPane.add(this.comboxReservationNumLookUp);
         
-//        this.comboxBusIdLookUp.setSelectedIndex(0);
         this.comboxBusIdLookUp.setBounds(597, 65, 60, 25);
         mainframe.LookUpPane.add(this.comboxBusIdLookUp);
         
-//        this.comboxLugIdLookUp.setSelectedIndex(0);
         this.comboxLugIdLookUp.setBounds(597, 110, 60, 25);
         mainframe.LookUpPane.add(this.comboxLugIdLookUp);
         
-        
-//        this.comboxLugStatusLookUp.setSelectedIndex(0);
         this.comboxLugStatusLookUp.setBounds(597, 162, 60, 25);
         mainframe.LookUpPane.add(this.comboxLugStatusLookUp);
         
-//        this.comboxPassNameLookUp.setSelectedIndex(0);
         this.comboxPassNameLookUp.setBounds(837, 162, 127, 25);
         mainframe.LookUpPane.add(this.comboxPassNameLookUp);
         
-//        this.comboxPassNumberLookUp.setSelectedIndex(0);
         this.comboxPassNumberLookUp.setBounds(837, 108, 107, 25);
         mainframe.LookUpPane.add(this.comboxPassNumberLookUp);
         
@@ -802,6 +786,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
             setComboboxesLookUp(this.comboxTripIDLookUp, this.comboxTripDateLookUp, this.comboxOriginCityLookUp, this.comboxDestinyCityLookUp, this.comboxPriceLookUp, this.comboxEmployeeNumLookUp, this.comboxEmployeeNameLookUp, this.comboxReservationNumLookUp, this.comboxBusIdLookUp, this.comboxLugIdLookUp, this.comboxLugStatusLookUp, this.comboxPassNameLookUp, this.comboxPassNumberLookUp);
+            resetCombosLookUp();
         }
         
         
@@ -1941,7 +1926,65 @@ public class Controller implements ActionListener{
             }   
                 
                 
-        }    
+        } 
+       
+        
+        if(e.getSource() == mainframe.btnResetLookUp){
+            resetCombosLookUp();
+        }
+        
+       
+        if(e.getSource() == mainframe.btnSearchLookUp){
+            tripMod.setTripID(Integer.parseInt(this.comboxTripIDLookUp.getSelectedItem().toString()));
+            if(this.comboxTripDateLookUp.getSelectedItem() == null){
+                tripMod.setTripDate(null);
+            } else {
+                SimpleDateFormat sdf = new  SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    tripMod.setTripDate(new java.sql.Date(sdf.parse(this.comboxTripDateLookUp.getSelectedItem().toString()).getTime()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+            
+            tripMod.setOriginCityFk(this.comboxOriginCityLookUp.getSelectedItem().toString());
+            System.out.println(tripMod.getOriginCityFk());
+            tripMod.setDestinyCityFk(this.comboxDestinyCityLookUp.getSelectedItem().toString());
+            tripMod.setPrice(Integer.parseInt(this.comboxPriceLookUp.getSelectedItem().toString()));
+            tripMod.setEmployeeNumFk(Integer.parseInt(this.comboxEmployeeNumLookUp.getSelectedItem().toString()));
+            tripMod.setEmployeeNameLU(this.comboxEmployeeNameLookUp.getSelectedItem().toString());
+            tripMod.setReservationNumLU(Integer.parseInt(this.comboxReservationNumLookUp.getSelectedItem().toString()));
+            tripMod.setBusIDFk(Integer.parseInt(this.comboxBusIdLookUp.getSelectedItem().toString()));
+            tripMod.setLuggageIDLU(Integer.parseInt(this.comboxLugIdLookUp.getSelectedItem().toString()));
+            tripMod.setLuggageStatusLU(this.comboxLugStatusLookUp.getSelectedItem().toString());
+            tripMod.setPassengerIDLU(Long.parseLong(this.comboxPassNumberLookUp.getSelectedItem().toString()));
+            tripMod.setPassengerNameLU(this.comboxPassNameLookUp.getSelectedItem().toString());
+            
+            this.setTableResults(lookUpDAO.getFilteredData(tripMod), lookupheaders, mainframe.tableLookUp);
+            
+             
+            
+        }
+       
+       
+       
+    }
+    
+    
+    public void resetCombosLookUp(){
+        this.comboxTripIDLookUp.setSelectedIndex(0);
+        this.comboxTripDateLookUp.setSelectedIndex(0);
+        this.comboxOriginCityLookUp.setSelectedItem("All Cities");
+        this.comboxDestinyCityLookUp.setSelectedItem("All Cities");
+        this.comboxPriceLookUp.setSelectedIndex(0);
+        this.comboxEmployeeNumLookUp.setSelectedIndex(0);
+        this.comboxEmployeeNameLookUp.setSelectedItem("All Employee Names");
+        this.comboxReservationNumLookUp.setSelectedIndex(0);
+        this.comboxBusIdLookUp.setSelectedIndex(0);
+        this.comboxLugIdLookUp.setSelectedIndex(0);
+        this.comboxLugStatusLookUp.setSelectedItem("All");
+        this.comboxPassNameLookUp.setSelectedItem("All Passenger Names");
+        this.comboxPassNumberLookUp.setSelectedIndex(0);
     }
     
     public void hideElements(){
@@ -2144,7 +2187,7 @@ public class Controller implements ActionListener{
                 }
             }
             trpIDs = resizeSortIntegerArray(trpIDs);
-            comboxTripIDLookUp.setModel(new DefaultComboBoxModel(trpIDs));
+            this.comboxTripIDLookUp.setModel(new DefaultComboBoxModel(trpIDs));
             
         
        
@@ -2266,7 +2309,7 @@ public class Controller implements ActionListener{
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(empNums[j] != null){
-                            if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                            if(empNums[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
                                 break;
                             } 
                         } else {
