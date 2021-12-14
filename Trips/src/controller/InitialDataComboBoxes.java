@@ -58,6 +58,7 @@ public class InitialDataComboBoxes {
         LookUpDAO lookUpDAO = new LookUpDAO();
         this.dataList = lookUpDAO.getAllData();
         this.dataList.add(0,new TripModel(0, new java.sql.Date(0), "All Cities", "All Cities", 0, 0, "All Employee Names", 0, 0, 0, "All", 0, "All Passenger Names"));
+       
         
     } 
 

@@ -23,6 +23,8 @@ import Model.SuperModel;
 import Model.TripModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -223,6 +225,11 @@ public class Controller implements ActionListener{
         mainframe.ResPane.add(this.comboxTripIdFk);
         
 
+        
+        
+        
+        
+        
         //Combobox creation in LookUp
         this.comboxTripIDLookUp = new JComboBox();
         this.comboxTripDateLookUp = new JComboBox();
@@ -237,6 +244,7 @@ public class Controller implements ActionListener{
         this.comboxLugStatusLookUp = new JComboBox();
         this.comboxPassNameLookUp = new JComboBox();
         this.comboxPassNumberLookUp = new JComboBox();
+       
         
         
         //Positioning of Comboboxes in LookUp
@@ -785,7 +793,7 @@ public class Controller implements ActionListener{
             mainframe.dataDisplayPane.add(mainframe.LookUpPane);
             mainframe.dataDisplayPane.revalidate();
             mainframe.dataDisplayPane.repaint();
-            setComboboxesLookUp(this.comboxTripIDLookUp, this.comboxTripDateLookUp, this.comboxOriginCityLookUp, this.comboxDestinyCityLookUp, this.comboxPriceLookUp, this.comboxEmployeeNumLookUp, this.comboxEmployeeNameLookUp, this.comboxReservationNumLookUp, this.comboxBusIdLookUp, this.comboxLugIdLookUp, this.comboxLugStatusLookUp, this.comboxPassNameLookUp, this.comboxPassNumberLookUp);
+            setComboboxesLookUp(new InitialDataComboBoxes().getDataList(),this.comboxTripIDLookUp, this.comboxTripDateLookUp, this.comboxOriginCityLookUp, this.comboxDestinyCityLookUp, this.comboxPriceLookUp, this.comboxEmployeeNumLookUp, this.comboxEmployeeNameLookUp, this.comboxReservationNumLookUp, this.comboxBusIdLookUp, this.comboxLugIdLookUp, this.comboxLugStatusLookUp, this.comboxPassNameLookUp, this.comboxPassNumberLookUp);
             resetCombosLookUp();
         }
         
@@ -1965,6 +1973,9 @@ public class Controller implements ActionListener{
              
             
         }
+        
+        
+        
        
        
        
@@ -2164,23 +2175,376 @@ public class Controller implements ActionListener{
            
     }
     
-    public void setComboboxesLookUp(JComboBox comboxTripIDLookUp, JComboBox comboxTripDateLookUp, JComboBox comboxOriginCityLookUp, JComboBox comboxDestinyCityLookUp, JComboBox comboxPriceLookUp, JComboBox comboxEmployeeNumLookUp, JComboBox comboxEmployeeNameLookUp, JComboBox comboxReservationNumLookUp, JComboBox comboxBusIdLookUp, JComboBox comboxLugIdLookUp, JComboBox comboxLugStatusLookUp, JComboBox comboxPassNameLookUp, JComboBox comboxPassNumberLookUp){
-            InitialDataComboBoxes initialData = new InitialDataComboBoxes();
-            Integer[] trpIDs = new Integer[initialData.getDataList().size()];   
-            for(int i = 0; i<initialData.getDataList().size();i++){
+//    public void setComboboxesLookUp(JComboBox comboxTripIDLookUp, JComboBox comboxTripDateLookUp, JComboBox comboxOriginCityLookUp, JComboBox comboxDestinyCityLookUp, JComboBox comboxPriceLookUp, JComboBox comboxEmployeeNumLookUp, JComboBox comboxEmployeeNameLookUp, JComboBox comboxReservationNumLookUp, JComboBox comboxBusIdLookUp, JComboBox comboxLugIdLookUp, JComboBox comboxLugStatusLookUp, JComboBox comboxPassNameLookUp, JComboBox comboxPassNumberLookUp){
+//            InitialDataComboBoxes initialData = new InitialDataComboBoxes();
+//            Integer[] trpIDs = new Integer[initialData.getDataList().size()];   
+//            for(int i = 0; i<initialData.getDataList().size();i++){
+//                if(i==0){
+//                    trpIDs[0] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+//                } else if (i>0){
+//                       for(int j = 0; j<=i;j++) {
+//                            if(trpIDs[j] != null){
+//                                if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+//                                    break;
+//                                } 
+//                            } else {
+//                                if(trpIDs[j-1] == null || trpIDs[j-1] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+//                                    trpIDs[j] = null;
+//                                } else {
+//                                    trpIDs[j] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+//                                }
+//                            }
+//                       }    
+//                }
+//            }
+//            trpIDs = resizeSortIntegerArray(trpIDs);
+//            this.comboxTripIDLookUp.setModel(new DefaultComboBoxModel(trpIDs));
+//            
+//        
+//       
+//        //Combobox creation in LookUp for TripDate
+//        Date[] trpDate = new Date[initialData.getDataList().size()];  
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                trpDate[0] = ((TripModel)initialData.getDataList().get(i)).getTripDate();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(trpDate[j] != null){
+//                            if(trpDate[j].compareTo(((TripModel)initialData.getDataList().get(i)).getTripDate()) == 0){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(trpDate[j-1] == null || trpDate[j-1].compareTo(((TripModel)initialData.getDataList().get(i)).getTripDate()) == 0){
+//                                trpDate[j] = null;
+//                            } else {
+//                                trpDate[j] = ((TripModel)initialData.getDataList().get(i)).getTripDate();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        trpDate = resizeSortDateArray(trpDate);
+//        trpDate[0] = null;
+//        this.comboxTripDateLookUp.setModel(new DefaultComboBoxModel(trpDate));
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for OriginCity
+//        String[] originCities = new String[initialData.getDataList().size()];  
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                originCities[0] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(originCities[j] != null){
+//                            if(originCities[j].equals(((TripModel)initialData.getDataList().get(i)).getOriginCityFk())){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(originCities[j-1] == null || originCities[j-1].equals(((TripModel)initialData.getDataList().get(i)).getOriginCityFk())){
+//                                originCities[j] = null;
+//                            } else {
+//                                originCities[j] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        originCities = resizeSortStringArray(originCities);
+//        this.comboxOriginCityLookUp.setModel(new DefaultComboBoxModel(originCities));
+//     
+//        
+//        
+//        
+//        //Combobox creation in LookUp for DestinyCity
+//        String[] destinyCities = new String[initialData.getDataList().size()];  
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                destinyCities[0] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(destinyCities[j] != null){
+//                            if(destinyCities[j].equals(((TripModel)initialData.getDataList().get(i)).getDestinyCityFk())){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(destinyCities[j-1] == null || destinyCities[j-1].equals(((TripModel)initialData.getDataList().get(i)).getDestinyCityFk())){
+//                                destinyCities[j] = null;
+//                            } else {
+//                                destinyCities[j] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        destinyCities = resizeSortStringArray(destinyCities);
+//        this.comboxDestinyCityLookUp.setModel(new DefaultComboBoxModel(destinyCities));
+//        
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for Price
+//        Integer[] prices = new Integer[initialData.getDataList().size()];
+//            for(int i = 0; i<initialData.getDataList().size();i++){
+//                if(i==0){
+//                    prices[0] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+//                } else if (i>0){
+//                       for(int j = 0; j<=i;j++) {
+//                            if(prices[j] != null){
+//                                if(prices[j] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+//                                    break;
+//                                } 
+//                            } else {
+//                                if(prices[j-1] == null || prices[j-1] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+//                                    prices[j] = null;
+//                                } else {
+//                                    prices[j] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+//                                }
+//                            }
+//                       }    
+//                }
+//            }
+//        prices = resizeSortIntegerArray(prices);
+//        this.comboxPriceLookUp.setModel(new DefaultComboBoxModel(prices));
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for EmpNum
+//        Integer[] empNums = new Integer[initialData.getDataList().size()];   
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                empNums[0] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(empNums[j] != null){
+//                            if(empNums[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(empNums[j-1] == null || empNums[j-1] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+//                                empNums[j] = null;
+//                            } else {
+//                                empNums[j] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        empNums = resizeSortIntegerArray(empNums);
+//        this.comboxEmployeeNumLookUp.setModel(new DefaultComboBoxModel(empNums));
+//        
+//        
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for EmpName
+//        String[] empNames = new String[initialData.getDataList().size()];  
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                empNames[0] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(empNames[j] != null){
+//                            if(empNames[j].equals(((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU())){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(empNames[j-1] == null || empNames[j-1].equals(((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU())){
+//                                empNames[j] = null;
+//                            } else {
+//                                empNames[j] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        empNames = resizeSortStringArray(empNames);
+//        this.comboxEmployeeNameLookUp.setModel(new DefaultComboBoxModel(empNames));
+//
+//
+//
+//        
+//        
+//        //Combobox creation in LookUp for ResNum 
+//        Integer[] resNums = new Integer[initialData.getDataList().size()]; 
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                resNums[0] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(resNums[j] != null){
+//                            if(resNums[j] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(resNums[j-1] == null || resNums[j-1] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+//                                resNums[j] = null;
+//                            } else {
+//                                resNums[j] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        resNums = resizeSortIntegerArray(resNums);
+//        this.comboxReservationNumLookUp.setModel(new DefaultComboBoxModel(resNums));
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for BusID
+//        Integer[] BusIds = new Integer[initialData.getDataList().size()];
+//            for(int i = 0; i<initialData.getDataList().size();i++){
+//                if(i==0){
+//                    BusIds[0] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+//                } else if (i>0){
+//                       for(int j = 0; j<=i;j++) {
+//                            if(BusIds[j] != null){
+//                                if(BusIds[j] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+//                                    break;
+//                                } 
+//                            } else {
+//                                if(BusIds[j-1] == null || BusIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+//                                    BusIds[j] = null;
+//                                } else {
+//                                    BusIds[j] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+//                                }
+//                            }
+//                       }    
+//                }
+//            }
+//        BusIds = resizeSortIntegerArray(BusIds);
+//        this.comboxBusIdLookUp.setModel(new DefaultComboBoxModel(BusIds));
+//
+//
+//        
+//        //Combobox creation in LookUp for luggageIDLU
+//        Integer[] lugIds = new Integer[initialData.getDataList().size()];
+//            for(int i = 0; i<initialData.getDataList().size();i++){
+//                if(i==0){
+//                    lugIds[0] = ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU();
+//                } else if (i>0){
+//                       for(int j = 0; j<=i;j++) {
+//                            if(lugIds[j] != null){
+//                                if(lugIds[j] == ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU()){
+//                                    break;
+//                                } 
+//                            } else {
+//                                if(lugIds[j-1] == null || lugIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU()){
+//                                    lugIds[j] = null;
+//                                } else {
+//                                    lugIds[j] = ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU();
+//                                }
+//                            }
+//                       }    
+//                }
+//            }
+//        lugIds = resizeSortIntegerArray(lugIds);
+//        this.comboxLugIdLookUp.setModel(new DefaultComboBoxModel(lugIds));
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for LugStatus
+//        String[] lugStatus = new String[initialData.getDataList().size()];  
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                lugStatus[0] = ((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(lugStatus[j] != null){
+//                            if(lugStatus[j].equals(((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU())){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(lugStatus[j-1] == null || lugStatus[j-1].equals(((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU())){
+//                                lugStatus[j] = null;
+//                            } else {
+//                                lugStatus[j] = ((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        lugStatus = resizeSortStringArray(lugStatus);
+//        this.comboxLugStatusLookUp.setModel(new DefaultComboBoxModel(lugStatus));
+//        
+//        
+//        //Combobox creation in LookUp for PassName
+//        String[] pasNames = new String[initialData.getDataList().size()];  
+//        for(int i = 0; i<initialData.getDataList().size();i++){
+//            if(i==0){
+//                pasNames[0] = ((TripModel)initialData.getDataList().get(i)).getPassengerNameLU();
+//            } else if (i>0){
+//                   for(int j = 0; j<=i;j++) {
+//                        if(pasNames[j] != null){
+//                            if(pasNames[j].equals(((TripModel)initialData.getDataList().get(i)).getPassengerNameLU())){
+//                                break;
+//                            } 
+//                        } else {
+//                            if(pasNames[j-1] == null || pasNames[j-1].equals(((TripModel)initialData.getDataList().get(i)).getPassengerNameLU())){
+//                                pasNames[j] = null;
+//                            } else {
+//                                pasNames[j] = ((TripModel)initialData.getDataList().get(i)).getPassengerNameLU();
+//                            }
+//                        }
+//                   }    
+//            }
+//        }
+//        pasNames = resizeSortStringArray(pasNames);
+//        this.comboxPassNameLookUp.setModel(new DefaultComboBoxModel(pasNames));
+//        
+//        
+//        
+//        
+//        //Combobox creation in LookUp for passengerIDLU
+//        Long[] passIds = new Long[initialData.getDataList().size()];
+//            for(int i = 0; i<initialData.getDataList().size();i++){
+//                if(i==0){
+//                    passIds[0] = ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU();
+//                } else if (i>0){
+//                       for(int j = 0; j<=i;j++) {
+//                            if(passIds[j] != null){
+//                                if(passIds[j] == ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU()){
+//                                    break;
+//                                } 
+//                            } else {
+//                                if(passIds[j-1] == null || passIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU()){
+//                                    passIds[j] = null;
+//                                } else {
+//                                    passIds[j] = ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU();
+//                                }
+//                            }
+//                       }    
+//                }
+//            }
+//        passIds = resizeSortLongArray(passIds);
+//        this.comboxPassNumberLookUp.setModel(new DefaultComboBoxModel(passIds));
+//            
+//            
+//        }
+    
+    public void setComboboxesLookUp(ArrayList<SuperModel> dataList,JComboBox comboxTripIDLookUp, JComboBox comboxTripDateLookUp, JComboBox comboxOriginCityLookUp, JComboBox comboxDestinyCityLookUp, JComboBox comboxPriceLookUp, JComboBox comboxEmployeeNumLookUp, JComboBox comboxEmployeeNameLookUp, JComboBox comboxReservationNumLookUp, JComboBox comboxBusIdLookUp, JComboBox comboxLugIdLookUp, JComboBox comboxLugStatusLookUp, JComboBox comboxPassNameLookUp, JComboBox comboxPassNumberLookUp){
+            
+            Integer[] trpIDs = new Integer[dataList.size()];   
+            for(int i = 0; i<dataList.size();i++){
                 if(i==0){
-                    trpIDs[0] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                    trpIDs[0] = ((TripModel)dataList.get(i)).getTripID();
                 } else if (i>0){
                        for(int j = 0; j<=i;j++) {
                             if(trpIDs[j] != null){
-                                if(trpIDs[j] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+                                if(trpIDs[j] == ((TripModel)dataList.get(i)).getTripID()){
                                     break;
                                 } 
                             } else {
-                                if(trpIDs[j-1] == null || trpIDs[j-1] == ((TripModel)initialData.getDataList().get(i)).getTripID()){
+                                if(trpIDs[j-1] == null || trpIDs[j-1] == ((TripModel)dataList.get(i)).getTripID()){
                                     trpIDs[j] = null;
                                 } else {
-                                    trpIDs[j] = ((TripModel)initialData.getDataList().get(i)).getTripID();
+                                    trpIDs[j] = ((TripModel)dataList.get(i)).getTripID();
                                 }
                             }
                        }    
@@ -2192,21 +2556,21 @@ public class Controller implements ActionListener{
         
        
         //Combobox creation in LookUp for TripDate
-        Date[] trpDate = new Date[initialData.getDataList().size()];  
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        Date[] trpDate = new Date[dataList.size()];  
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                trpDate[0] = ((TripModel)initialData.getDataList().get(i)).getTripDate();
+                trpDate[0] = ((TripModel)dataList.get(i)).getTripDate();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(trpDate[j] != null){
-                            if(trpDate[j].compareTo(((TripModel)initialData.getDataList().get(i)).getTripDate()) == 0){
+                            if(trpDate[j].compareTo(((TripModel)dataList.get(i)).getTripDate()) == 0){
                                 break;
                             } 
                         } else {
-                            if(trpDate[j-1] == null || trpDate[j-1].compareTo(((TripModel)initialData.getDataList().get(i)).getTripDate()) == 0){
+                            if(trpDate[j-1] == null || trpDate[j-1].compareTo(((TripModel)dataList.get(i)).getTripDate()) == 0){
                                 trpDate[j] = null;
                             } else {
-                                trpDate[j] = ((TripModel)initialData.getDataList().get(i)).getTripDate();
+                                trpDate[j] = ((TripModel)dataList.get(i)).getTripDate();
                             }
                         }
                    }    
@@ -2220,21 +2584,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for OriginCity
-        String[] originCities = new String[initialData.getDataList().size()];  
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        String[] originCities = new String[dataList.size()];  
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                originCities[0] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+                originCities[0] = ((TripModel)dataList.get(i)).getOriginCityFk();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(originCities[j] != null){
-                            if(originCities[j].equals(((TripModel)initialData.getDataList().get(i)).getOriginCityFk())){
+                            if(originCities[j].equals(((TripModel)dataList.get(i)).getOriginCityFk())){
                                 break;
                             } 
                         } else {
-                            if(originCities[j-1] == null || originCities[j-1].equals(((TripModel)initialData.getDataList().get(i)).getOriginCityFk())){
+                            if(originCities[j-1] == null || originCities[j-1].equals(((TripModel)dataList.get(i)).getOriginCityFk())){
                                 originCities[j] = null;
                             } else {
-                                originCities[j] = ((TripModel)initialData.getDataList().get(i)).getOriginCityFk();
+                                originCities[j] = ((TripModel)dataList.get(i)).getOriginCityFk();
                             }
                         }
                    }    
@@ -2247,21 +2611,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for DestinyCity
-        String[] destinyCities = new String[initialData.getDataList().size()];  
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        String[] destinyCities = new String[dataList.size()];  
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                destinyCities[0] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+                destinyCities[0] = ((TripModel)dataList.get(i)).getDestinyCityFk();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(destinyCities[j] != null){
-                            if(destinyCities[j].equals(((TripModel)initialData.getDataList().get(i)).getDestinyCityFk())){
+                            if(destinyCities[j].equals(((TripModel)dataList.get(i)).getDestinyCityFk())){
                                 break;
                             } 
                         } else {
-                            if(destinyCities[j-1] == null || destinyCities[j-1].equals(((TripModel)initialData.getDataList().get(i)).getDestinyCityFk())){
+                            if(destinyCities[j-1] == null || destinyCities[j-1].equals(((TripModel)dataList.get(i)).getDestinyCityFk())){
                                 destinyCities[j] = null;
                             } else {
-                                destinyCities[j] = ((TripModel)initialData.getDataList().get(i)).getDestinyCityFk();
+                                destinyCities[j] = ((TripModel)dataList.get(i)).getDestinyCityFk();
                             }
                         }
                    }    
@@ -2275,21 +2639,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for Price
-        Integer[] prices = new Integer[initialData.getDataList().size()];
-            for(int i = 0; i<initialData.getDataList().size();i++){
+        Integer[] prices = new Integer[dataList.size()];
+            for(int i = 0; i<dataList.size();i++){
                 if(i==0){
-                    prices[0] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                    prices[0] = ((TripModel)dataList.get(i)).getPrice();
                 } else if (i>0){
                        for(int j = 0; j<=i;j++) {
                             if(prices[j] != null){
-                                if(prices[j] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+                                if(prices[j] == ((TripModel)dataList.get(i)).getPrice()){
                                     break;
                                 } 
                             } else {
-                                if(prices[j-1] == null || prices[j-1] == ((TripModel)initialData.getDataList().get(i)).getPrice()){
+                                if(prices[j-1] == null || prices[j-1] == ((TripModel)dataList.get(i)).getPrice()){
                                     prices[j] = null;
                                 } else {
-                                    prices[j] = ((TripModel)initialData.getDataList().get(i)).getPrice();
+                                    prices[j] = ((TripModel)dataList.get(i)).getPrice();
                                 }
                             }
                        }    
@@ -2302,21 +2666,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for EmpNum
-        Integer[] empNums = new Integer[initialData.getDataList().size()];   
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        Integer[] empNums = new Integer[dataList.size()];   
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                empNums[0] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                empNums[0] = ((TripModel)dataList.get(i)).getEmployeeNumFk();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(empNums[j] != null){
-                            if(empNums[j] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                            if(empNums[j] == ((TripModel)dataList.get(i)).getEmployeeNumFk()){
                                 break;
                             } 
                         } else {
-                            if(empNums[j-1] == null || empNums[j-1] == ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk()){
+                            if(empNums[j-1] == null || empNums[j-1] == ((TripModel)dataList.get(i)).getEmployeeNumFk()){
                                 empNums[j] = null;
                             } else {
-                                empNums[j] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNumFk();
+                                empNums[j] = ((TripModel)dataList.get(i)).getEmployeeNumFk();
                             }
                         }
                    }    
@@ -2331,21 +2695,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for EmpName
-        String[] empNames = new String[initialData.getDataList().size()];  
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        String[] empNames = new String[dataList.size()];  
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                empNames[0] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+                empNames[0] = ((TripModel)dataList.get(i)).getEmployeeNameLU();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(empNames[j] != null){
-                            if(empNames[j].equals(((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU())){
+                            if(empNames[j].equals(((TripModel)dataList.get(i)).getEmployeeNameLU())){
                                 break;
                             } 
                         } else {
-                            if(empNames[j-1] == null || empNames[j-1].equals(((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU())){
+                            if(empNames[j-1] == null || empNames[j-1].equals(((TripModel)dataList.get(i)).getEmployeeNameLU())){
                                 empNames[j] = null;
                             } else {
-                                empNames[j] = ((TripModel)initialData.getDataList().get(i)).getEmployeeNameLU();
+                                empNames[j] = ((TripModel)dataList.get(i)).getEmployeeNameLU();
                             }
                         }
                    }    
@@ -2359,21 +2723,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for ResNum 
-        Integer[] resNums = new Integer[initialData.getDataList().size()]; 
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        Integer[] resNums = new Integer[dataList.size()]; 
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                resNums[0] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                resNums[0] = ((TripModel)dataList.get(i)).getReservationNumLU();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(resNums[j] != null){
-                            if(resNums[j] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+                            if(resNums[j] == ((TripModel)dataList.get(i)).getReservationNumLU()){
                                 break;
                             } 
                         } else {
-                            if(resNums[j-1] == null || resNums[j-1] == ((TripModel)initialData.getDataList().get(i)).getReservationNumLU()){
+                            if(resNums[j-1] == null || resNums[j-1] == ((TripModel)dataList.get(i)).getReservationNumLU()){
                                 resNums[j] = null;
                             } else {
-                                resNums[j] = ((TripModel)initialData.getDataList().get(i)).getReservationNumLU();
+                                resNums[j] = ((TripModel)dataList.get(i)).getReservationNumLU();
                             }
                         }
                    }    
@@ -2386,21 +2750,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for BusID
-        Integer[] BusIds = new Integer[initialData.getDataList().size()];
-            for(int i = 0; i<initialData.getDataList().size();i++){
+        Integer[] BusIds = new Integer[dataList.size()];
+            for(int i = 0; i<dataList.size();i++){
                 if(i==0){
-                    BusIds[0] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                    BusIds[0] = ((TripModel)dataList.get(i)).getBusIDFk();
                 } else if (i>0){
                        for(int j = 0; j<=i;j++) {
                             if(BusIds[j] != null){
-                                if(BusIds[j] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+                                if(BusIds[j] == ((TripModel)dataList.get(i)).getBusIDFk()){
                                     break;
                                 } 
                             } else {
-                                if(BusIds[j-1] == null || BusIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getBusIDFk()){
+                                if(BusIds[j-1] == null || BusIds[j-1] == ((TripModel)dataList.get(i)).getBusIDFk()){
                                     BusIds[j] = null;
                                 } else {
-                                    BusIds[j] = ((TripModel)initialData.getDataList().get(i)).getBusIDFk();
+                                    BusIds[j] = ((TripModel)dataList.get(i)).getBusIDFk();
                                 }
                             }
                        }    
@@ -2412,21 +2776,21 @@ public class Controller implements ActionListener{
 
         
         //Combobox creation in LookUp for luggageIDLU
-        Integer[] lugIds = new Integer[initialData.getDataList().size()];
-            for(int i = 0; i<initialData.getDataList().size();i++){
+        Integer[] lugIds = new Integer[dataList.size()];
+            for(int i = 0; i<dataList.size();i++){
                 if(i==0){
-                    lugIds[0] = ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU();
+                    lugIds[0] = ((TripModel)dataList.get(i)).getLuggageIDLU();
                 } else if (i>0){
                        for(int j = 0; j<=i;j++) {
                             if(lugIds[j] != null){
-                                if(lugIds[j] == ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU()){
+                                if(lugIds[j] == ((TripModel)dataList.get(i)).getLuggageIDLU()){
                                     break;
                                 } 
                             } else {
-                                if(lugIds[j-1] == null || lugIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU()){
+                                if(lugIds[j-1] == null || lugIds[j-1] == ((TripModel)dataList.get(i)).getLuggageIDLU()){
                                     lugIds[j] = null;
                                 } else {
-                                    lugIds[j] = ((TripModel)initialData.getDataList().get(i)).getLuggageIDLU();
+                                    lugIds[j] = ((TripModel)dataList.get(i)).getLuggageIDLU();
                                 }
                             }
                        }    
@@ -2439,21 +2803,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for LugStatus
-        String[] lugStatus = new String[initialData.getDataList().size()];  
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        String[] lugStatus = new String[dataList.size()];  
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                lugStatus[0] = ((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU();
+                lugStatus[0] = ((TripModel)dataList.get(i)).getLuggageStatusLU();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(lugStatus[j] != null){
-                            if(lugStatus[j].equals(((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU())){
+                            if(lugStatus[j].equals(((TripModel)dataList.get(i)).getLuggageStatusLU())){
                                 break;
                             } 
                         } else {
-                            if(lugStatus[j-1] == null || lugStatus[j-1].equals(((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU())){
+                            if(lugStatus[j-1] == null || lugStatus[j-1].equals(((TripModel)dataList.get(i)).getLuggageStatusLU())){
                                 lugStatus[j] = null;
                             } else {
-                                lugStatus[j] = ((TripModel)initialData.getDataList().get(i)).getLuggageStatusLU();
+                                lugStatus[j] = ((TripModel)dataList.get(i)).getLuggageStatusLU();
                             }
                         }
                    }    
@@ -2464,21 +2828,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for PassName
-        String[] pasNames = new String[initialData.getDataList().size()];  
-        for(int i = 0; i<initialData.getDataList().size();i++){
+        String[] pasNames = new String[dataList.size()];  
+        for(int i = 0; i<dataList.size();i++){
             if(i==0){
-                pasNames[0] = ((TripModel)initialData.getDataList().get(i)).getPassengerNameLU();
+                pasNames[0] = ((TripModel)dataList.get(i)).getPassengerNameLU();
             } else if (i>0){
                    for(int j = 0; j<=i;j++) {
                         if(pasNames[j] != null){
-                            if(pasNames[j].equals(((TripModel)initialData.getDataList().get(i)).getPassengerNameLU())){
+                            if(pasNames[j].equals(((TripModel)dataList.get(i)).getPassengerNameLU())){
                                 break;
                             } 
                         } else {
-                            if(pasNames[j-1] == null || pasNames[j-1].equals(((TripModel)initialData.getDataList().get(i)).getPassengerNameLU())){
+                            if(pasNames[j-1] == null || pasNames[j-1].equals(((TripModel)dataList.get(i)).getPassengerNameLU())){
                                 pasNames[j] = null;
                             } else {
-                                pasNames[j] = ((TripModel)initialData.getDataList().get(i)).getPassengerNameLU();
+                                pasNames[j] = ((TripModel)dataList.get(i)).getPassengerNameLU();
                             }
                         }
                    }    
@@ -2491,21 +2855,21 @@ public class Controller implements ActionListener{
         
         
         //Combobox creation in LookUp for passengerIDLU
-        Long[] passIds = new Long[initialData.getDataList().size()];
-            for(int i = 0; i<initialData.getDataList().size();i++){
+        Long[] passIds = new Long[dataList.size()];
+            for(int i = 0; i<dataList.size();i++){
                 if(i==0){
-                    passIds[0] = ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU();
+                    passIds[0] = ((TripModel)dataList.get(i)).getPassengerIDLU();
                 } else if (i>0){
                        for(int j = 0; j<=i;j++) {
                             if(passIds[j] != null){
-                                if(passIds[j] == ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU()){
+                                if(passIds[j] == ((TripModel)dataList.get(i)).getPassengerIDLU()){
                                     break;
                                 } 
                             } else {
-                                if(passIds[j-1] == null || passIds[j-1] == ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU()){
+                                if(passIds[j-1] == null || passIds[j-1] == ((TripModel)dataList.get(i)).getPassengerIDLU()){
                                     passIds[j] = null;
                                 } else {
-                                    passIds[j] = ((TripModel)initialData.getDataList().get(i)).getPassengerIDLU();
+                                    passIds[j] = ((TripModel)dataList.get(i)).getPassengerIDLU();
                                 }
                             }
                        }    
@@ -2515,7 +2879,122 @@ public class Controller implements ActionListener{
         this.comboxPassNumberLookUp.setModel(new DefaultComboBoxModel(passIds));
             
             
-        }
+    }
+    
+    
+    
+
+//    public JComboBox getComboxTripIDLookUp() {
+//        return comboxTripIDLookUp;
+//    }
+//
+//    public void setComboxTripIDLookUp(JComboBox comboxTripIDLookUp) {
+//        this.comboxTripIDLookUp = comboxTripIDLookUp;
+//    }
+//
+//    public JComboBox getComboxTripDateLookUp() {
+//        return comboxTripDateLookUp;
+//    }
+//
+//    public void setComboxTripDateLookUp(JComboBox comboxTripDateLookUp) {
+//        this.comboxTripDateLookUp = comboxTripDateLookUp;
+//    }
+//
+//    public JComboBox getComboxOriginCityLookUp() {
+//        return comboxOriginCityLookUp;
+//    }
+//
+//    public void setComboxOriginCityLookUp(JComboBox comboxOriginCityLookUp) {
+//        this.comboxOriginCityLookUp = comboxOriginCityLookUp;
+//    }
+//
+//    public JComboBox getComboxDestinyCityLookUp() {
+//        return comboxDestinyCityLookUp;
+//    }
+//
+//    public void setComboxDestinyCityLookUp(JComboBox comboxDestinyCityLookUp) {
+//        this.comboxDestinyCityLookUp = comboxDestinyCityLookUp;
+//    }
+//
+//    public JComboBox getComboxPriceLookUp() {
+//        return comboxPriceLookUp;
+//    }
+//
+//    public void setComboxPriceLookUp(JComboBox comboxPriceLookUp) {
+//        this.comboxPriceLookUp = comboxPriceLookUp;
+//    }
+//
+//    public JComboBox getComboxEmployeeNumLookUp() {
+//        return comboxEmployeeNumLookUp;
+//    }
+//
+//    public void setComboxEmployeeNumLookUp(JComboBox comboxEmployeeNumLookUp) {
+//        this.comboxEmployeeNumLookUp = comboxEmployeeNumLookUp;
+//    }
+//
+//    public JComboBox getComboxEmployeeNameLookUp() {
+//        return comboxEmployeeNameLookUp;
+//    }
+//
+//    public void setComboxEmployeeNameLookUp(JComboBox comboxEmployeeNameLookUp) {
+//        this.comboxEmployeeNameLookUp = comboxEmployeeNameLookUp;
+//    }
+//
+//    public JComboBox getComboxReservationNumLookUp() {
+//        return comboxReservationNumLookUp;
+//    }
+//
+//    public void setComboxReservationNumLookUp(JComboBox comboxReservationNumLookUp) {
+//        this.comboxReservationNumLookUp = comboxReservationNumLookUp;
+//    }
+//
+//    public JComboBox getComboxBusIdLookUp() {
+//        return comboxBusIdLookUp;
+//    }
+//
+//    public void setComboxBusIdLookUp(JComboBox comboxBusIdLookUp) {
+//        this.comboxBusIdLookUp = comboxBusIdLookUp;
+//    }
+//
+//    public JComboBox getComboxLugIdLookUp() {
+//        return comboxLugIdLookUp;
+//    }
+//
+//    public void setComboxLugIdLookUp(JComboBox comboxLugIdLookUp) {
+//        this.comboxLugIdLookUp = comboxLugIdLookUp;
+//    }
+//
+//    public JComboBox getComboxLugStatusLookUp() {
+//        return comboxLugStatusLookUp;
+//    }
+//
+//    public void setComboxLugStatusLookUp(JComboBox comboxLugStatusLookUp) {
+//        this.comboxLugStatusLookUp = comboxLugStatusLookUp;
+//    }
+//
+//    public JComboBox getComboxPassNameLookUp() {
+//        return comboxPassNameLookUp;
+//    }
+//
+//    public void setComboxPassNameLookUp(JComboBox comboxPassNameLookUp) {
+//        this.comboxPassNameLookUp = comboxPassNameLookUp;
+//    }
+//
+//    public JComboBox getComboxPassNumberLookUp() {
+//        return comboxPassNumberLookUp;
+//    }
+//
+//    public void setComboxPassNumberLookUp(JComboBox comboxPassNumberLookUp) {
+//        this.comboxPassNumberLookUp = comboxPassNumberLookUp;
+//    }
+//
+//    public TripModel getTripMod() {
+//        return tripMod;
+//    }
+//
+//    public MainFrame getMainframe() {
+//        return mainframe;
+//    }
     
     
     
