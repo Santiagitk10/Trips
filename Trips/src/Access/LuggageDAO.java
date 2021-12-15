@@ -136,7 +136,6 @@ public class LuggageDAO {
                    statement.setLong(2, passengerIDFk);
                    break;
             }
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){

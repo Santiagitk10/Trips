@@ -104,7 +104,6 @@ public class EmployeeDAO {
                    statement.setInt(2, employeeNum);
                    break;
             }
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){

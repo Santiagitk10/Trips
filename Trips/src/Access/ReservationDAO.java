@@ -115,7 +115,6 @@ public class ReservationDAO {
                 statement.setString(1, "%"+reservation.getReservationNum()+"%");
             }
             
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){

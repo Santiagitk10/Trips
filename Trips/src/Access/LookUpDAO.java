@@ -138,13 +138,11 @@ public class LookUpDAO {
             } else {
                 statement.setString(1, "%"+tripMod.getOriginCityFk()+"%");
             }
-                
-            System.out.println(statement.toString());   
+                  
             ResultSet result = statement.executeQuery();
             
        
             while(result.next()){
-                System.out.println("here");
                 SuperModel data = new TripModel(result.getInt(1), result.getDate(2), result.getString(3), result.getString(4), result.getInt(5), result.getInt(6), result.getString(7), result.getInt(8), result.getInt(9), result.getInt(10), result.getString(11), result.getLong(12), result.getString(13));
                 filteredList.add(data);
             }

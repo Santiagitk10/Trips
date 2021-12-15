@@ -154,7 +154,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         entitySelectionPane.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnEmpPanel.setText("Employees");
         btnEmpPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpPanelActionPerformed(evt);
@@ -162,35 +161,30 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnPasPanel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnPasPanel.setText("Passengers");
         btnPasPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasPanelActionPerformed(evt);
             }
         });
 
-        btnLugPanel.setText("Luggage");
         btnLugPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLugPanelActionPerformed(evt);
             }
         });
 
-        btnBusPanel.setText("Buses");
         btnBusPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBusPanelActionPerformed(evt);
             }
         });
 
-        btnCitPanel.setText("Cities");
         btnCitPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCitPanelActionPerformed(evt);
             }
         });
 
-        btnTripPanel.setText("Trips");
         btnTripPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTripPanelActionPerformed(evt);
@@ -198,14 +192,12 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnResPanel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnResPanel.setText("Reservations");
         btnResPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResPanelActionPerformed(evt);
             }
         });
 
-        btnLookUpPanel.setText("Look Up");
         btnLookUpPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLookUpPanelActionPerformed(evt);
@@ -217,23 +209,23 @@ public class MainFrame extends javax.swing.JFrame {
         entitySelectionPaneLayout.setHorizontalGroup(
             entitySelectionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(entitySelectionPaneLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnEmpPanel)
+                .addContainerGap()
+                .addComponent(btnEmpPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnPasPanel)
+                .addComponent(btnPasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLugPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTripPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnResPanel)
-                .addGap(18, 18, 18)
-                .addComponent(btnLookUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnResPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLookUpPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         entitySelectionPaneLayout.setVerticalGroup(
             entitySelectionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,50 +273,44 @@ public class MainFrame extends javax.swing.JFrame {
         crudPaneLayout.setHorizontalGroup(
             crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(crudPaneLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152)
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(btnClearFields)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGo)
-                .addGap(49, 49, 49))
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(btnClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         crudPaneLayout.setVerticalGroup(
             crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, crudPaneLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(crudPaneLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(crudPaneLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, crudPaneLayout.createSequentialGroup()
-                                .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(btnGo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(crudPaneLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(crudPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(btnClearFields, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         dataDisplayPane.setBackground(new java.awt.Color(255, 255, 255));
         dataDisplayPane.setLayout(new java.awt.CardLayout());
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel5.setText("Employees");
+        jLabel5.setText("EMPLOYEES");
 
         tableEmployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -375,43 +361,45 @@ public class MainFrame extends javax.swing.JFrame {
         EmpPaneLayout.setHorizontalGroup(
             EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EmpPaneLayout.createSequentialGroup()
+                .addGap(198, 198, 198)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 211, Short.MAX_VALUE))
+            .addGroup(EmpPaneLayout.createSequentialGroup()
+                .addGap(399, 399, 399)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EmpPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EmpPaneLayout.createSequentialGroup()
-                        .addGap(289, 289, 289)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EmpPaneLayout.createSequentialGroup()
                         .addGroup(EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelEmpNumber)
                             .addComponent(labelEmpName))
                         .addGap(42, 42, 42)
                         .addGroup(EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(EmpPaneLayout.createSequentialGroup()
-                                .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnSearchSelectEmp))))
-                    .addGroup(EmpPaneLayout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 208, Short.MAX_VALUE))
-            .addGroup(EmpPaneLayout.createSequentialGroup()
-                .addGap(399, 399, 399)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EmpPaneLayout.createSequentialGroup()
+                        .addComponent(btnSearchSelectEmp)
+                        .addGap(85, 85, 85)))
+                .addGap(349, 349, 349))
         );
         EmpPaneLayout.setVerticalGroup(
             EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EmpPaneLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel5)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEmpNumber)
                     .addComponent(textFieldEmployeeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(EmpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEmpName)
-                    .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchSelectEmp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                    .addComponent(textFieldEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(btnSearchSelectEmp)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -419,7 +407,7 @@ public class MainFrame extends javax.swing.JFrame {
         dataDisplayPane.add(EmpPane, "card2");
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel6.setText("Passengers");
+        jLabel6.setText("PASSENGERS");
 
         labelPasID.setText("Passenger ID");
 
@@ -464,53 +452,54 @@ public class MainFrame extends javax.swing.JFrame {
         PasPane.setLayout(PasPaneLayout);
         PasPaneLayout.setHorizontalGroup(
             PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PasPaneLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PasPaneLayout.createSequentialGroup()
-                        .addComponent(labelPasName)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearchSelectPas))
-                    .addGroup(PasPaneLayout.createSequentialGroup()
-                        .addComponent(labelPasID)
-                        .addGap(33, 33, 33)
-                        .addComponent(txtFieldPassID, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(314, 314, 314))
             .addGroup(PasPaneLayout.createSequentialGroup()
+                .addGap(218, 218, 218)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(218, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PasPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PasPaneLayout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PasPaneLayout.createSequentialGroup()
-                        .addGap(388, 388, 388)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(237, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PasPaneLayout.createSequentialGroup()
+                        .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PasPaneLayout.createSequentialGroup()
+                                    .addComponent(labelPasName)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(PasPaneLayout.createSequentialGroup()
+                                    .addComponent(labelPasID)
+                                    .addGap(33, 33, 33)
+                                    .addComponent(txtFieldPassID, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(366, 366, 366))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PasPaneLayout.createSequentialGroup()
+                        .addComponent(btnSearchSelectPas)
+                        .addGap(443, 443, 443))))
         );
         PasPaneLayout.setVerticalGroup(
             PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PasPaneLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel6)
-                .addGap(58, 58, 58)
+                .addGap(34, 34, 34)
                 .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasID)
                     .addComponent(txtFieldPassID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PasPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasName, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchSelectPas))
+                    .addComponent(txtFieldPassName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(btnSearchSelectPas)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         dataDisplayPane.add(PasPane, "card2");
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel7.setText("Luggage");
+        jLabel7.setText("LUGGAGE");
 
         labelLugID.setText("Luggage ID");
 
@@ -551,42 +540,47 @@ public class MainFrame extends javax.swing.JFrame {
         LugPane.setLayout(LugPaneLayout);
         LugPaneLayout.setHorizontalGroup(
             LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LugPaneLayout.createSequentialGroup()
-                .addContainerGap(237, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LugPaneLayout.createSequentialGroup()
+                .addContainerGap(222, Short.MAX_VALUE)
                 .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LugPaneLayout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(196, 196, 196))
+                        .addGap(214, 214, 214))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LugPaneLayout.createSequentialGroup()
+                        .addComponent(btnSearchSelectLug)
+                        .addGap(445, 445, 445))))
+            .addGroup(LugPaneLayout.createSequentialGroup()
+                .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LugPaneLayout.createSequentialGroup()
+                        .addGap(411, 411, 411)
+                        .addComponent(jLabel7))
+                    .addGroup(LugPaneLayout.createSequentialGroup()
+                        .addGap(364, 364, 364)
                         .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPasIDFkLug)
                             .addComponent(labelLugStatus)
                             .addGroup(LugPaneLayout.createSequentialGroup()
                                 .addComponent(labelLugID)
-                                .addGap(92, 92, 92)
-                                .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(btnSearchSelectLug)))
-                        .addGap(252, 252, 252))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LugPaneLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(415, 415, 415))))
+                                .addGap(66, 66, 66)
+                                .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         LugPaneLayout.setVerticalGroup(
             LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LugPaneLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(labelLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(labelPasIDFkLug)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addGroup(LugPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelLugID)
-                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchSelectLug))
-                .addGap(26, 26, 26)
+                    .addComponent(txtFieldLugID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(labelLugStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(labelPasIDFkLug)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btnSearchSelectLug)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -594,7 +588,7 @@ public class MainFrame extends javax.swing.JFrame {
         dataDisplayPane.add(LugPane, "card2");
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel8.setText("Buses");
+        jLabel8.setText("BUSES");
 
         tableBuses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -638,45 +632,48 @@ public class MainFrame extends javax.swing.JFrame {
         BusPane.setLayout(BusPaneLayout);
         BusPaneLayout.setHorizontalGroup(
             BusPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BusPaneLayout.createSequentialGroup()
+                .addGap(325, 325, 325)
+                .addComponent(labelBusSeatCap)
+                .addGap(154, 154, 154)
+                .addComponent(labelBusID)
+                .addGap(34, 34, 34)
+                .addComponent(textFieldBusID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BusPaneLayout.createSequentialGroup()
-                .addContainerGap(210, Short.MAX_VALUE)
+                .addContainerGap(213, Short.MAX_VALUE)
                 .addGroup(BusPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(BusPaneLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(labelBusID)
-                        .addGap(26, 26, 26)
-                        .addComponent(textFieldBusID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(labelBusSeatCap))
-                    .addGroup(BusPaneLayout.createSequentialGroup()
-                        .addGap(243, 243, 243)
-                        .addGroup(BusPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(btnSearchSelectBus))))
-                .addGap(196, 196, 196))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BusPaneLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(196, 196, 196))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BusPaneLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(426, 426, 426))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BusPaneLayout.createSequentialGroup()
+                        .addComponent(btnSearchSelectBus)
+                        .addGap(429, 429, 429))))
         );
         BusPaneLayout.setVerticalGroup(
             BusPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BusPaneLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addGroup(BusPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelBusID)
                     .addComponent(textFieldBusID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelBusSeatCap))
-                .addGap(28, 28, 28)
+                .addGap(49, 49, 49)
                 .addComponent(btnSearchSelectBus)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
 
         dataDisplayPane.add(BusPane, "card2");
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel9.setText("Cities");
+        jLabel9.setText("CITIES");
 
         tableCities.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -721,41 +718,41 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(CitPaneLayout.createSequentialGroup()
                 .addGroup(CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CitPaneLayout.createSequentialGroup()
-                        .addGap(428, 428, 428)
-                        .addComponent(jLabel9))
+                        .addGap(401, 401, 401)
+                        .addComponent(labelCitName)
+                        .addGap(18, 18, 18)
+                        .addComponent(textFieldCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(CitPaneLayout.createSequentialGroup()
-                        .addGap(432, 432, 432)
+                        .addGap(438, 438, 438)
                         .addComponent(btnSearchSelectCit))
                     .addGroup(CitPaneLayout.createSequentialGroup()
-                        .addGap(386, 386, 386)
-                        .addGroup(CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(CitPaneLayout.createSequentialGroup()
-                                .addComponent(labelCitName)
-                                .addGap(18, 18, 18)
-                                .addComponent(textFieldCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(406, Short.MAX_VALUE))
+                        .addGap(372, 372, 372)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CitPaneLayout.createSequentialGroup()
+                        .addGap(428, 428, 428)
+                        .addComponent(jLabel9)))
+                .addContainerGap(381, Short.MAX_VALUE))
         );
         CitPaneLayout.setVerticalGroup(
             CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CitPaneLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel9)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(CitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCitName)
                     .addComponent(textFieldCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
                 .addComponent(btnSearchSelectCit)
-                .addGap(26, 26, 26)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(22, 22, 22))
         );
 
         dataDisplayPane.add(CitPane, "card2");
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel10.setText("Trips");
+        jLabel10.setText("TRIPS");
 
         tableTrips.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -814,7 +811,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(TripPaneLayout.createSequentialGroup()
                 .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TripPaneLayout.createSequentialGroup()
-                        .addGap(266, 266, 266)
+                        .addGap(230, 230, 230)
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelTripID)
                             .addComponent(labelTripPrice)
@@ -824,31 +821,29 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(textFieldTripID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(DateChooserTripDate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
+                        .addGap(153, 153, 153)
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelOriCityFkTrip)
                             .addComponent(labelDesCityFkTrip)
                             .addComponent(labelBusIDFkTrip)
                             .addComponent(labelEmpNumFkTrip)))
                     .addGroup(TripPaneLayout.createSequentialGroup()
-                        .addGap(291, 291, 291)
-                        .addComponent(btnSearchSelectTrip)))
+                        .addGap(430, 430, 430)
+                        .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSearchSelectTrip))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TripPaneLayout.createSequentialGroup()
-                .addGap(0, 216, Short.MAX_VALUE)
-                .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TripPaneLayout.createSequentialGroup()
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TripPaneLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(429, 429, 429))))
+                .addGap(0, 143, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153))
         );
         TripPaneLayout.setVerticalGroup(
             TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TripPaneLayout.createSequentialGroup()
-                .addComponent(jLabel10)
-                .addGap(25, 25, 25)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TripPaneLayout.createSequentialGroup()
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -861,9 +856,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTripPrice)
-                            .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addComponent(btnSearchSelectTrip))
+                            .addComponent(textFieldTripsPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(TripPaneLayout.createSequentialGroup()
                         .addGroup(TripPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelOriCityFkTrip)
@@ -874,15 +867,17 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(labelEmpNumFkTrip)
                         .addGap(18, 18, 18)
                         .addComponent(labelBusIDFkTrip)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(btnSearchSelectTrip)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         dataDisplayPane.add(TripPane, "card2");
 
         jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel11.setText("Reservations");
+        jLabel11.setText("RESERVATIONS");
 
         tableReservations.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -919,31 +914,38 @@ public class MainFrame extends javax.swing.JFrame {
         labelTripIDFkRes.setText("Trip ID");
 
         textFieldResNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##0"))));
+        textFieldResNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldResNumActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ResPaneLayout = new javax.swing.GroupLayout(ResPane);
         ResPane.setLayout(ResPaneLayout);
         ResPaneLayout.setHorizontalGroup(
             ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResPaneLayout.createSequentialGroup()
+                .addGap(379, 379, 379)
+                .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelPassIDFkRes)
+                    .addComponent(labelTripIDFkRes)
+                    .addGroup(ResPaneLayout.createSequentialGroup()
+                        .addComponent(labelResNum)
+                        .addGap(34, 34, 34)
+                        .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ResPaneLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(btnSearchSelectRes)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(ResPaneLayout.createSequentialGroup()
                 .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ResPaneLayout.createSequentialGroup()
-                        .addGap(379, 379, 379)
-                        .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPassIDFkRes)
-                            .addComponent(labelTripIDFkRes)
-                            .addGroup(ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(ResPaneLayout.createSequentialGroup()
-                                    .addComponent(labelResNum)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textFieldResNum, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(ResPaneLayout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(btnSearchSelectRes))))
+                        .addGap(344, 344, 344)
+                        .addComponent(jLabel11))
                     .addGroup(ResPaneLayout.createSequentialGroup()
-                        .addGap(266, 266, 266)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 282, Short.MAX_VALUE))
+                        .addGap(241, 241, 241)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
         ResPaneLayout.setVerticalGroup(
             ResPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -968,7 +970,7 @@ public class MainFrame extends javax.swing.JFrame {
         dataDisplayPane.add(ResPane, "card2");
 
         jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
-        jLabel12.setText("Look Up");
+        jLabel12.setText("LOOK UP");
 
         tableLookUp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1070,16 +1072,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
-                        .addComponent(btnSearchLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnResetLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(384, 384, 384))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(425, 425, 425))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LookUpPaneLayout.createSequentialGroup()
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))))
+            .addGroup(LookUpPaneLayout.createSequentialGroup()
+                .addGap(366, 366, 366)
+                .addComponent(btnSearchLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(btnResetLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         LookUpPaneLayout.setVerticalGroup(
             LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1115,12 +1118,12 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelDesCityLookUp)
                             .addComponent(labelResNumLookUp))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(LookUpPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnResetLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchLookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -1270,6 +1273,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnLookUpPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLookUpPanelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLookUpPanelActionPerformed
+
+    private void textFieldResNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldResNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldResNumActionPerformed
 
     /**
      * @param args the command line arguments

@@ -115,7 +115,7 @@ public class TripDAO {
                 sql += " and price ="+trip.getPrice()+"";
             }
 
-            if(!trip.getDestinyCityFk().equals("Todas las Ciudades")){
+            if(!trip.getDestinyCityFk().equals("All Cities")){
                 sql += " and destiny_city_fk ='"+trip.getDestinyCityFk()+"'";
             }
 
@@ -128,13 +128,12 @@ public class TripDAO {
             }
            
             PreparedStatement statement = conn.prepareStatement(sql);
-            if(trip.getOriginCityFk().equals("Todas las Ciudades")){
+            if(trip.getOriginCityFk().equals("All Cities")){
                 statement.setString(1, "%%");
             } else {
                 statement.setString(1, "%"+trip.getOriginCityFk()+"%");
             }
             
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){

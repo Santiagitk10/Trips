@@ -118,7 +118,6 @@ public class BusDAO {
                    statement.setInt(1, SeatCapacity);
                    break;
             }
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){

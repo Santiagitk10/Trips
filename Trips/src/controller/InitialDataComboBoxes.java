@@ -45,7 +45,7 @@ public class InitialDataComboBoxes {
         
         CityDAO cityDAO = new CityDAO();
         this.cities = cityDAO.getAllCities();
-        this.cities.add(0,new CityModel("Todas las Ciudades"));
+        this.cities.add(0,new CityModel("All Cities"));
         
         BusDAO busDAO = new BusDAO();
         this.buses = busDAO.getAllBuses();
@@ -66,48 +66,35 @@ public class InitialDataComboBoxes {
         return passengers;
     }
 
-//    public void setPassengers(ArrayList<SuperModel> passengers) {
-//        this.passengers = passengers;
-//    }
+
 
     public ArrayList<SuperModel> getEmployees() {
         return employees;
     }
 
-//    public void setEmployees(ArrayList<SuperModel> employees) {
-//        this.employees = employees;
-//    }
+
 
     public ArrayList<SuperModel> getCities() {
         return cities;
     }
 
-//    public void setCities(ArrayList<SuperModel> cities) {
-//        this.cities = cities;
-//    }
+
 
     public ArrayList<SuperModel> getBuses() {
         return buses;
     }
 
-//    public void setBuses(ArrayList<SuperModel> buses) {
-//        this.buses = buses;
-//    }
+
 
     public ArrayList<SuperModel> getTrips() {
         return trips;
     }
 
-//    public void setTrips(ArrayList<SuperModel> trips) {
-//        this.trips = trips;
-//    }
+
 
     public ArrayList<SuperModel> getDataList() {
         return dataList;
     }
-    
-    
-    
     
     
 }

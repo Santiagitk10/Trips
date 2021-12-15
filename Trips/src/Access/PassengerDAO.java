@@ -37,7 +37,6 @@ public class PassengerDAO {
             statement.setLong(1,passenger.getPassengerId());
             statement.setString(2,passenger.getPassengerName());
             
-            System.out.println(statement.toString());
             
             int rowsInserted = statement.executeUpdate();
             if(rowsInserted > 0){
@@ -109,7 +108,6 @@ public class PassengerDAO {
                    statement.setLong(2, passengerId);
                    break;
             }
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){

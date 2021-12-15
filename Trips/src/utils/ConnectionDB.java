@@ -59,6 +59,3 @@ public class ConnectionDB {
 }
 
 
-
-//throws IOException, ParseException
-//throws IOException, ParseException

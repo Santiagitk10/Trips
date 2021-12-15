@@ -94,7 +94,6 @@ public class CityDAO {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, "%"+cityName+"%"); 
             
-            System.out.println(statement.toString());
             ResultSet result = statement.executeQuery();
             
             while(result.next()){
